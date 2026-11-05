@@ -21,8 +21,10 @@ def generate_master_payload() -> Dict[str, Any]:
     """
     fallback = get_complete_fallback_dataset()
     teams = fallback["teams"]
+    competitions = fallback.get("competitions", [])
     hall_of_fame = fallback["hall_of_fame"]
     all_shots = fallback["all_shots"]
+    hexbins = fallback.get("hexbins", {})
     
     # 1. Markov Models for each team
     markov_models = {}
@@ -128,16 +130,18 @@ def generate_master_payload() -> Dict[str, Any]:
         "metadata": {
             "title": "Basquete BR — Atlas Tático",
             "subtitle": "Scouting Tático Independente • Modelagem Estocástica de Markov, Four Factors e Eficiência Espacial",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "season": "2026–2027",
-            "disclaimer": "Projeto independente de ciência de dados esportivos. Dados abertos consolidados de súmulas oficiais CBB e LNB/NBB.",
-            "updated_at": "2026-11-05T10:00:00Z"
+            "disclaimer": "Projeto independente de ciência de dados esportivos. Dados abertos consolidados de súmulas oficiais CBB (CBI / Brasileirão) e LNB/NBB.",
+            "updated_at": "2026-11-05T12:00:00Z"
         },
+        "competitions": competitions,
         "teams": teams,
         "cohort": cohort,
         "players": all_players,
         "markov_models": markov_models,
         "all_shots": all_shots,
+        "hexbins": hexbins,
         "matches": sample_matches,
         "hall_of_fame": hall_of_fame,
         "metric_catalog": METRIC_CATALOG,
