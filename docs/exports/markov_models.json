@@ -1,0 +1,2864 @@
+{
+  "baseline": {
+    "team_name": "Padrão Liga (CBB)",
+    "overall_possession_epv": 1.17,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.17,
+      "S1_Perimeter_BallMove": 1.136,
+      "S2_Paint_Drive": 1.244,
+      "S3_Post_Up": 1.238,
+      "S4_Shot_3PT": 1.295,
+      "S5_Shot_MidRange": 1.055,
+      "S6_Shot_Paint": 1.486,
+      "S7_Off_Rebound": 1.277
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.71,
+      "S1_Perimeter_BallMove": 3.32,
+      "S2_Paint_Drive": 2.48,
+      "S3_Post_Up": 2.45,
+      "S4_Shot_3PT": 1.44,
+      "S5_Shot_MidRange": 1.49,
+      "S6_Shot_Paint": 1.3,
+      "S7_Off_Rebound": 2.47
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3478,
+        "A2_Made_3PT": 0.0983,
+        "A3_Made_FT": 0.1164,
+        "A4_Turnover": 0.1566,
+        "A5_Def_Rebound": 0.2808
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.3119,
+        "A2_Made_3PT": 0.1155,
+        "A3_Made_FT": 0.1077,
+        "A4_Turnover": 0.172,
+        "A5_Def_Rebound": 0.2929
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4164,
+        "A2_Made_3PT": 0.0353,
+        "A3_Made_FT": 0.198,
+        "A4_Turnover": 0.1487,
+        "A5_Def_Rebound": 0.2016
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4728,
+        "A2_Made_3PT": 0.0296,
+        "A3_Made_FT": 0.1322,
+        "A4_Turnover": 0.1184,
+        "A5_Def_Rebound": 0.2471
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0766,
+        "A2_Made_3PT": 0.3758,
+        "A3_Made_FT": 0.0093,
+        "A4_Turnover": 0.0204,
+        "A5_Def_Rebound": 0.5179
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4851,
+        "A2_Made_3PT": 0.0231,
+        "A3_Made_FT": 0.0103,
+        "A4_Turnover": 0.0226,
+        "A5_Def_Rebound": 0.4588
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.6711,
+        "A2_Made_3PT": 0.0139,
+        "A3_Made_FT": 0.0662,
+        "A4_Turnover": 0.0136,
+        "A5_Def_Rebound": 0.2353
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.4257,
+        "A2_Made_3PT": 0.1154,
+        "A3_Made_FT": 0.0517,
+        "A4_Turnover": 0.1132,
+        "A5_Def_Rebound": 0.294
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.52
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.02
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.28
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.3
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.24
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.48
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.14
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.1
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.355
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.465
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.62
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.2
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.24 pts esperados, superior a um arremesso direto de meia distância contestado (1.06 pts).",
+        "delta": 0.188
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.28 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.107
+      }
+    ]
+  },
+  "Flamengo": {
+    "team_name": "Flamengo",
+    "overall_possession_epv": 1.143,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.143,
+      "S1_Perimeter_BallMove": 1.116,
+      "S2_Paint_Drive": 1.204,
+      "S3_Post_Up": 1.189,
+      "S4_Shot_3PT": 1.294,
+      "S5_Shot_MidRange": 1.045,
+      "S6_Shot_Paint": 1.398,
+      "S7_Off_Rebound": 1.227
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.77,
+      "S1_Perimeter_BallMove": 3.37,
+      "S2_Paint_Drive": 2.54,
+      "S3_Post_Up": 2.5,
+      "S4_Shot_3PT": 1.47,
+      "S5_Shot_MidRange": 1.51,
+      "S6_Shot_Paint": 1.38,
+      "S7_Off_Rebound": 2.53
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3288,
+        "A2_Made_3PT": 0.1012,
+        "A3_Made_FT": 0.1184,
+        "A4_Turnover": 0.1517,
+        "A5_Def_Rebound": 0.2999
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.2961,
+        "A2_Made_3PT": 0.1184,
+        "A3_Made_FT": 0.1097,
+        "A4_Turnover": 0.1661,
+        "A5_Def_Rebound": 0.3098
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.3902,
+        "A2_Made_3PT": 0.0382,
+        "A3_Made_FT": 0.2006,
+        "A4_Turnover": 0.1438,
+        "A5_Def_Rebound": 0.2272
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4436,
+        "A2_Made_3PT": 0.0321,
+        "A3_Made_FT": 0.1335,
+        "A4_Turnover": 0.1193,
+        "A5_Def_Rebound": 0.2715
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0726,
+        "A2_Made_3PT": 0.3781,
+        "A3_Made_FT": 0.0097,
+        "A4_Turnover": 0.0211,
+        "A5_Def_Rebound": 0.5185
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4789,
+        "A2_Made_3PT": 0.0237,
+        "A3_Made_FT": 0.0106,
+        "A4_Turnover": 0.0229,
+        "A5_Def_Rebound": 0.4638
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.62,
+        "A2_Made_3PT": 0.0179,
+        "A3_Made_FT": 0.068,
+        "A4_Turnover": 0.0173,
+        "A5_Def_Rebound": 0.2769
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.3947,
+        "A2_Made_3PT": 0.1185,
+        "A3_Made_FT": 0.053,
+        "A4_Turnover": 0.1147,
+        "A5_Def_Rebound": 0.3191
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.184
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.356
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.46
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.151
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.56
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.229
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.2 pts esperados, superior a um arremesso direto de meia distância contestado (1.05 pts).",
+        "delta": 0.159
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.23 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.083
+      }
+    ]
+  },
+  "Sesi Franca": {
+    "team_name": "Sesi Franca",
+    "overall_possession_epv": 1.171,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.171,
+      "S1_Perimeter_BallMove": 1.143,
+      "S2_Paint_Drive": 1.23,
+      "S3_Post_Up": 1.215,
+      "S4_Shot_3PT": 1.338,
+      "S5_Shot_MidRange": 1.053,
+      "S6_Shot_Paint": 1.438,
+      "S7_Off_Rebound": 1.263
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.76,
+      "S1_Perimeter_BallMove": 3.36,
+      "S2_Paint_Drive": 2.53,
+      "S3_Post_Up": 2.49,
+      "S4_Shot_3PT": 1.45,
+      "S5_Shot_MidRange": 1.5,
+      "S6_Shot_Paint": 1.36,
+      "S7_Off_Rebound": 2.51
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3375,
+        "A2_Made_3PT": 0.1046,
+        "A3_Made_FT": 0.1181,
+        "A4_Turnover": 0.1512,
+        "A5_Def_Rebound": 0.2886
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.3035,
+        "A2_Made_3PT": 0.1225,
+        "A3_Made_FT": 0.1095,
+        "A4_Turnover": 0.1655,
+        "A5_Def_Rebound": 0.299
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4022,
+        "A2_Made_3PT": 0.039,
+        "A3_Made_FT": 0.2003,
+        "A4_Turnover": 0.1432,
+        "A5_Def_Rebound": 0.2152
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4557,
+        "A2_Made_3PT": 0.0328,
+        "A3_Made_FT": 0.1332,
+        "A4_Turnover": 0.1187,
+        "A5_Def_Rebound": 0.2596
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0733,
+        "A2_Made_3PT": 0.3924,
+        "A3_Made_FT": 0.0095,
+        "A4_Turnover": 0.0205,
+        "A5_Def_Rebound": 0.5044
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4815,
+        "A2_Made_3PT": 0.0245,
+        "A3_Made_FT": 0.0105,
+        "A4_Turnover": 0.0228,
+        "A5_Def_Rebound": 0.4607
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.641,
+        "A2_Made_3PT": 0.0175,
+        "A3_Made_FT": 0.0675,
+        "A4_Turnover": 0.0163,
+        "A5_Def_Rebound": 0.2577
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.4073,
+        "A2_Made_3PT": 0.1224,
+        "A3_Made_FT": 0.0526,
+        "A4_Turnover": 0.114,
+        "A5_Def_Rebound": 0.3037
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.37
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.45
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.143
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.583
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.214
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.23 pts esperados, superior a um arremesso direto de meia distância contestado (1.05 pts).",
+        "delta": 0.177
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.26 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.092
+      }
+    ]
+  },
+  "Minas Tênis Clube": {
+    "team_name": "Minas Tênis Clube",
+    "overall_possession_epv": 1.055,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.055,
+      "S1_Perimeter_BallMove": 1.029,
+      "S2_Paint_Drive": 1.118,
+      "S3_Post_Up": 1.105,
+      "S4_Shot_3PT": 1.153,
+      "S5_Shot_MidRange": 1.022,
+      "S6_Shot_Paint": 1.267,
+      "S7_Off_Rebound": 1.109
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.81,
+      "S1_Perimeter_BallMove": 3.41,
+      "S2_Paint_Drive": 2.58,
+      "S3_Post_Up": 2.54,
+      "S4_Shot_3PT": 1.51,
+      "S5_Shot_MidRange": 1.52,
+      "S6_Shot_Paint": 1.45,
+      "S7_Off_Rebound": 2.58
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3005,
+        "A2_Made_3PT": 0.0901,
+        "A3_Made_FT": 0.1192,
+        "A4_Turnover": 0.1535,
+        "A5_Def_Rebound": 0.3367
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.2718,
+        "A2_Made_3PT": 0.1051,
+        "A3_Made_FT": 0.1105,
+        "A4_Turnover": 0.1677,
+        "A5_Def_Rebound": 0.345
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.3513,
+        "A2_Made_3PT": 0.0352,
+        "A3_Made_FT": 0.2015,
+        "A4_Turnover": 0.1458,
+        "A5_Def_Rebound": 0.2663
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4043,
+        "A2_Made_3PT": 0.0299,
+        "A3_Made_FT": 0.1344,
+        "A4_Turnover": 0.1213,
+        "A5_Def_Rebound": 0.3102
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0696,
+        "A2_Made_3PT": 0.3325,
+        "A3_Made_FT": 0.0106,
+        "A4_Turnover": 0.023,
+        "A5_Def_Rebound": 0.5642
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4707,
+        "A2_Made_3PT": 0.0212,
+        "A3_Made_FT": 0.0108,
+        "A4_Turnover": 0.0234,
+        "A5_Def_Rebound": 0.4738
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.5522,
+        "A2_Made_3PT": 0.0185,
+        "A3_Made_FT": 0.0695,
+        "A4_Turnover": 0.0205,
+        "A5_Def_Rebound": 0.3394
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.3537,
+        "A2_Made_3PT": 0.1059,
+        "A3_Made_FT": 0.0541,
+        "A4_Turnover": 0.1171,
+        "A5_Def_Rebound": 0.3691
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.197
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.312
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.492
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.175
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.49
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.275
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.12 pts esperados, superior a um arremesso direto de meia distância contestado (1.02 pts).",
+        "delta": 0.097
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.11 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.054
+      }
+    ]
+  },
+  "São Paulo FC": {
+    "team_name": "São Paulo FC",
+    "overall_possession_epv": 1.382,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.382,
+      "S1_Perimeter_BallMove": 1.355,
+      "S2_Paint_Drive": 1.422,
+      "S3_Post_Up": 1.402,
+      "S4_Shot_3PT": 1.72,
+      "S5_Shot_MidRange": 1.108,
+      "S6_Shot_Paint": 1.724,
+      "S7_Off_Rebound": 1.541
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.66,
+      "S1_Perimeter_BallMove": 3.27,
+      "S2_Paint_Drive": 2.43,
+      "S3_Post_Up": 2.39,
+      "S4_Shot_3PT": 1.34,
+      "S5_Shot_MidRange": 1.48,
+      "S6_Shot_Paint": 1.2,
+      "S7_Off_Rebound": 2.39
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3987,
+        "A2_Made_3PT": 0.1352,
+        "A3_Made_FT": 0.1163,
+        "A4_Turnover": 0.1471,
+        "A5_Def_Rebound": 0.2028
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.3552,
+        "A2_Made_3PT": 0.1597,
+        "A3_Made_FT": 0.1077,
+        "A4_Turnover": 0.1616,
+        "A5_Def_Rebound": 0.2158
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4886,
+        "A2_Made_3PT": 0.0463,
+        "A3_Made_FT": 0.1983,
+        "A4_Turnover": 0.1388,
+        "A5_Def_Rebound": 0.1279
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.543,
+        "A2_Made_3PT": 0.0379,
+        "A3_Made_FT": 0.1312,
+        "A4_Turnover": 0.1144,
+        "A5_Def_Rebound": 0.1735
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0709,
+        "A2_Made_3PT": 0.5225,
+        "A3_Made_FT": 0.0072,
+        "A4_Turnover": 0.0155,
+        "A5_Def_Rebound": 0.384
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4992,
+        "A2_Made_3PT": 0.0314,
+        "A3_Made_FT": 0.01,
+        "A4_Turnover": 0.0217,
+        "A5_Def_Rebound": 0.4376
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.7925,
+        "A2_Made_3PT": 0.0135,
+        "A3_Made_FT": 0.0643,
+        "A4_Turnover": 0.0093,
+        "A5_Def_Rebound": 0.1204
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.4962,
+        "A2_Made_3PT": 0.1572,
+        "A3_Made_FT": 0.0501,
+        "A4_Turnover": 0.1084,
+        "A5_Def_Rebound": 0.1881
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.143
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.5
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.357
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.086
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.75
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.104
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.42 pts esperados, superior a um arremesso direto de meia distância contestado (1.11 pts).",
+        "delta": 0.313
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.54 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.159
+      }
+    ]
+  },
+  "Bauru Basket": {
+    "team_name": "Bauru Basket",
+    "overall_possession_epv": 1.246,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.246,
+      "S1_Perimeter_BallMove": 1.217,
+      "S2_Paint_Drive": 1.302,
+      "S3_Post_Up": 1.285,
+      "S4_Shot_3PT": 1.46,
+      "S5_Shot_MidRange": 1.073,
+      "S6_Shot_Paint": 1.549,
+      "S7_Off_Rebound": 1.363
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.72,
+      "S1_Perimeter_BallMove": 3.33,
+      "S2_Paint_Drive": 2.49,
+      "S3_Post_Up": 2.45,
+      "S4_Shot_3PT": 1.42,
+      "S5_Shot_MidRange": 1.49,
+      "S6_Shot_Paint": 1.3,
+      "S7_Off_Rebound": 2.47
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3615,
+        "A2_Made_3PT": 0.114,
+        "A3_Made_FT": 0.1175,
+        "A4_Turnover": 0.1497,
+        "A5_Def_Rebound": 0.2573
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.324,
+        "A2_Made_3PT": 0.134,
+        "A3_Made_FT": 0.1088,
+        "A4_Turnover": 0.1641,
+        "A5_Def_Rebound": 0.2691
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4355,
+        "A2_Made_3PT": 0.0412,
+        "A3_Made_FT": 0.1996,
+        "A4_Turnover": 0.1415,
+        "A5_Def_Rebound": 0.1821
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4893,
+        "A2_Made_3PT": 0.0343,
+        "A3_Made_FT": 0.1324,
+        "A4_Turnover": 0.1171,
+        "A5_Def_Rebound": 0.2269
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0745,
+        "A2_Made_3PT": 0.4326,
+        "A3_Made_FT": 0.0087,
+        "A4_Turnover": 0.0189,
+        "A5_Def_Rebound": 0.4653
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4884,
+        "A2_Made_3PT": 0.0266,
+        "A3_Made_FT": 0.0103,
+        "A4_Turnover": 0.0224,
+        "A5_Def_Rebound": 0.4523
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.6991,
+        "A2_Made_3PT": 0.0162,
+        "A3_Made_FT": 0.0663,
+        "A4_Turnover": 0.0136,
+        "A5_Def_Rebound": 0.2048
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.442,
+        "A2_Made_3PT": 0.1331,
+        "A3_Made_FT": 0.0517,
+        "A4_Turnover": 0.1119,
+        "A5_Def_Rebound": 0.2613
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.169
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.41
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.421
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.122
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.645
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.173
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.3 pts esperados, superior a um arremesso direto de meia distância contestado (1.07 pts).",
+        "delta": 0.23
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.36 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.117
+      }
+    ]
+  },
+  "Paulistano": {
+    "team_name": "Paulistano",
+    "overall_possession_epv": 1.224,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.224,
+      "S1_Perimeter_BallMove": 1.196,
+      "S2_Paint_Drive": 1.281,
+      "S3_Post_Up": 1.265,
+      "S4_Shot_3PT": 1.424,
+      "S5_Shot_MidRange": 1.067,
+      "S6_Shot_Paint": 1.517,
+      "S7_Off_Rebound": 1.334
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.73,
+      "S1_Perimeter_BallMove": 3.33,
+      "S2_Paint_Drive": 2.5,
+      "S3_Post_Up": 2.46,
+      "S4_Shot_3PT": 1.43,
+      "S5_Shot_MidRange": 1.5,
+      "S6_Shot_Paint": 1.32,
+      "S7_Off_Rebound": 2.48
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3545,
+        "A2_Made_3PT": 0.1113,
+        "A3_Made_FT": 0.1177,
+        "A4_Turnover": 0.1501,
+        "A5_Def_Rebound": 0.2664
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.318,
+        "A2_Made_3PT": 0.1306,
+        "A3_Made_FT": 0.109,
+        "A4_Turnover": 0.1645,
+        "A5_Def_Rebound": 0.2778
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4258,
+        "A2_Made_3PT": 0.0406,
+        "A3_Made_FT": 0.1998,
+        "A4_Turnover": 0.142,
+        "A5_Def_Rebound": 0.1918
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4795,
+        "A2_Made_3PT": 0.0339,
+        "A3_Made_FT": 0.1326,
+        "A4_Turnover": 0.1176,
+        "A5_Def_Rebound": 0.2364
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0742,
+        "A2_Made_3PT": 0.4207,
+        "A3_Made_FT": 0.0089,
+        "A4_Turnover": 0.0193,
+        "A5_Def_Rebound": 0.4768
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4864,
+        "A2_Made_3PT": 0.026,
+        "A3_Made_FT": 0.0104,
+        "A4_Turnover": 0.0225,
+        "A5_Def_Rebound": 0.4547
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.6821,
+        "A2_Made_3PT": 0.0166,
+        "A3_Made_FT": 0.0666,
+        "A4_Turnover": 0.0144,
+        "A5_Def_Rebound": 0.2203
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.4319,
+        "A2_Made_3PT": 0.13,
+        "A3_Made_FT": 0.052,
+        "A4_Turnover": 0.1125,
+        "A5_Def_Rebound": 0.2737
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.172
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.398
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.43
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.128
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.627
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.185
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.28 pts esperados, superior a um arremesso direto de meia distância contestado (1.07 pts).",
+        "delta": 0.214
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.33 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.11
+      }
+    ]
+  },
+  "Unifacisa": {
+    "team_name": "Unifacisa",
+    "overall_possession_epv": 1.175,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.175,
+      "S1_Perimeter_BallMove": 1.148,
+      "S2_Paint_Drive": 1.234,
+      "S3_Post_Up": 1.219,
+      "S4_Shot_3PT": 1.345,
+      "S5_Shot_MidRange": 1.054,
+      "S6_Shot_Paint": 1.445,
+      "S7_Off_Rebound": 1.269
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.75,
+      "S1_Perimeter_BallMove": 3.36,
+      "S2_Paint_Drive": 2.53,
+      "S3_Post_Up": 2.49,
+      "S4_Shot_3PT": 1.45,
+      "S5_Shot_MidRange": 1.5,
+      "S6_Shot_Paint": 1.36,
+      "S7_Off_Rebound": 2.51
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.339,
+        "A2_Made_3PT": 0.1051,
+        "A3_Made_FT": 0.1181,
+        "A4_Turnover": 0.1511,
+        "A5_Def_Rebound": 0.2867
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.3048,
+        "A2_Made_3PT": 0.1232,
+        "A3_Made_FT": 0.1094,
+        "A4_Turnover": 0.1655,
+        "A5_Def_Rebound": 0.2972
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.4042,
+        "A2_Made_3PT": 0.0392,
+        "A3_Made_FT": 0.2003,
+        "A4_Turnover": 0.1431,
+        "A5_Def_Rebound": 0.2132
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4577,
+        "A2_Made_3PT": 0.0329,
+        "A3_Made_FT": 0.1331,
+        "A4_Turnover": 0.1186,
+        "A5_Def_Rebound": 0.2577
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0734,
+        "A2_Made_3PT": 0.3947,
+        "A3_Made_FT": 0.0094,
+        "A4_Turnover": 0.0204,
+        "A5_Def_Rebound": 0.5021
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4819,
+        "A2_Made_3PT": 0.0246,
+        "A3_Made_FT": 0.0105,
+        "A4_Turnover": 0.0228,
+        "A5_Def_Rebound": 0.4602
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.6444,
+        "A2_Made_3PT": 0.0175,
+        "A3_Made_FT": 0.0675,
+        "A4_Turnover": 0.0161,
+        "A5_Def_Rebound": 0.2546
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.4093,
+        "A2_Made_3PT": 0.1231,
+        "A3_Made_FT": 0.0526,
+        "A4_Turnover": 0.1138,
+        "A5_Def_Rebound": 0.3012
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.179
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.373
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.448
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.142
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.586
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.212
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.23 pts esperados, superior a um arremesso direto de meia distância contestado (1.05 pts).",
+        "delta": 0.181
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.27 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.094
+      }
+    ]
+  },
+  "Vasco da Gama": {
+    "team_name": "Vasco da Gama",
+    "overall_possession_epv": 1.143,
+    "state_epv": {
+      "S0_Trans_Inflow": 1.143,
+      "S1_Perimeter_BallMove": 1.116,
+      "S2_Paint_Drive": 1.204,
+      "S3_Post_Up": 1.189,
+      "S4_Shot_3PT": 1.294,
+      "S5_Shot_MidRange": 1.045,
+      "S6_Shot_Paint": 1.398,
+      "S7_Off_Rebound": 1.227
+    },
+    "steps_to_absorption": {
+      "S0_Trans_Inflow": 3.77,
+      "S1_Perimeter_BallMove": 3.37,
+      "S2_Paint_Drive": 2.54,
+      "S3_Post_Up": 2.5,
+      "S4_Shot_3PT": 1.47,
+      "S5_Shot_MidRange": 1.51,
+      "S6_Shot_Paint": 1.38,
+      "S7_Off_Rebound": 2.53
+    },
+    "absorption_probabilities": {
+      "S0_Trans_Inflow": {
+        "A1_Made_2PT": 0.3288,
+        "A2_Made_3PT": 0.1012,
+        "A3_Made_FT": 0.1184,
+        "A4_Turnover": 0.1517,
+        "A5_Def_Rebound": 0.2999
+      },
+      "S1_Perimeter_BallMove": {
+        "A1_Made_2PT": 0.2961,
+        "A2_Made_3PT": 0.1184,
+        "A3_Made_FT": 0.1097,
+        "A4_Turnover": 0.1661,
+        "A5_Def_Rebound": 0.3098
+      },
+      "S2_Paint_Drive": {
+        "A1_Made_2PT": 0.3902,
+        "A2_Made_3PT": 0.0382,
+        "A3_Made_FT": 0.2006,
+        "A4_Turnover": 0.1438,
+        "A5_Def_Rebound": 0.2272
+      },
+      "S3_Post_Up": {
+        "A1_Made_2PT": 0.4436,
+        "A2_Made_3PT": 0.0321,
+        "A3_Made_FT": 0.1335,
+        "A4_Turnover": 0.1193,
+        "A5_Def_Rebound": 0.2715
+      },
+      "S4_Shot_3PT": {
+        "A1_Made_2PT": 0.0726,
+        "A2_Made_3PT": 0.3781,
+        "A3_Made_FT": 0.0097,
+        "A4_Turnover": 0.0211,
+        "A5_Def_Rebound": 0.5185
+      },
+      "S5_Shot_MidRange": {
+        "A1_Made_2PT": 0.4789,
+        "A2_Made_3PT": 0.0237,
+        "A3_Made_FT": 0.0106,
+        "A4_Turnover": 0.0229,
+        "A5_Def_Rebound": 0.4638
+      },
+      "S6_Shot_Paint": {
+        "A1_Made_2PT": 0.62,
+        "A2_Made_3PT": 0.0179,
+        "A3_Made_FT": 0.068,
+        "A4_Turnover": 0.0173,
+        "A5_Def_Rebound": 0.2769
+      },
+      "S7_Off_Rebound": {
+        "A1_Made_2PT": 0.3947,
+        "A2_Made_3PT": 0.1185,
+        "A3_Made_FT": 0.053,
+        "A4_Turnover": 0.1147,
+        "A5_Def_Rebound": 0.3191
+      }
+    },
+    "transitions": [
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.521
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.22
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.1
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.07
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.03
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S0_Trans_Inflow",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.019
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.281
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S2_Paint_Drive",
+        "type": "transient",
+        "probability": 0.301
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S3_Post_Up",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.181
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.06
+      },
+      {
+        "from": "S1_Perimeter_BallMove",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.057
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.241
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.04
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.483
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.141
+      },
+      {
+        "from": "S2_Paint_Drive",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.094
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.16
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S5_Shot_MidRange",
+        "type": "transient",
+        "probability": 0.18
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.5
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S3_Post_Up",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.184
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A2_Made_3PT",
+        "type": "absorbing",
+        "probability": 0.356
+      },
+      {
+        "from": "S4_Shot_3PT",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.46
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.2
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S5_Shot_MidRange",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.4
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "S7_Off_Rebound",
+        "type": "transient",
+        "probability": 0.151
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A1_Made_2PT",
+        "type": "absorbing",
+        "probability": 0.56
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A3_Made_FT",
+        "type": "absorbing",
+        "probability": 0.06
+      },
+      {
+        "from": "S6_Shot_Paint",
+        "to": "A5_Def_Rebound",
+        "type": "absorbing",
+        "probability": 0.229
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S1_Perimeter_BallMove",
+        "type": "transient",
+        "probability": 0.12
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S4_Shot_3PT",
+        "type": "transient",
+        "probability": 0.25
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "S6_Shot_Paint",
+        "type": "transient",
+        "probability": 0.55
+      },
+      {
+        "from": "S7_Off_Rebound",
+        "to": "A4_Turnover",
+        "type": "absorbing",
+        "probability": 0.08
+      }
+    ],
+    "tactical_insights": [
+      {
+        "title": "Valor da Infiltração (Paint Drive vs Mid-Range)",
+        "insight": "Iniciar uma ação de infiltração (S2) gera 1.2 pts esperados, superior a um arremesso direto de meia distância contestado (1.05 pts).",
+        "delta": 0.159
+      },
+      {
+        "title": "Impacto de Segunda Chance (Rebote Ofensivo)",
+        "insight": "Recuperar a posse no ataque (S7) reinicia a cadeia com valor esperado de 1.23 pts por posse, alta taxa de conversão em finalizações próximas.",
+        "delta": 0.083
+      }
+    ]
+  }
+}

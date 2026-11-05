@@ -1,0 +1,42 @@
+name: Daily CBB Sync & Pages Deploy
+
+on:
+  schedule:
+    # 03:00 BRT (06:00 UTC) every day
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  sync_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run CBB Sync and Build
+        run: |
+          python -m cbb sync
+
+      - name: Commit and Push Updated Data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html docs/
+          git commit -m "Auto sync: CBB & NBB stats update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
