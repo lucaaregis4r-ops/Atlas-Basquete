@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS matches (
 CREATE TABLE IF NOT EXISTS team_boxscores (
     match_id VARCHAR NOT NULL,
     team_name VARCHAR NOT NULL,
+    season VARCHAR DEFAULT '2026-2027',
     is_home BOOLEAN NOT NULL,
     pts INTEGER,
     fgm INTEGER,
@@ -45,7 +46,7 @@ CREATE TABLE IF NOT EXISTS team_boxscores (
     tov_pct DOUBLE,
     orb_pct DOUBLE,
     ftr DOUBLE,
-    PRIMARY KEY (match_id, team_name)
+    PRIMARY KEY (match_id, team_name, season)
 );
 
 CREATE TABLE IF NOT EXISTS player_boxscores (
@@ -53,6 +54,7 @@ CREATE TABLE IF NOT EXISTS player_boxscores (
     match_id VARCHAR NOT NULL,
     player_name VARCHAR NOT NULL,
     team_name VARCHAR NOT NULL,
+    season VARCHAR DEFAULT '2026-2027',
     number VARCHAR,
     position VARCHAR,
     min_played DOUBLE,
@@ -108,6 +110,7 @@ CREATE TABLE IF NOT EXISTS shot_events (
     match_id VARCHAR NOT NULL,
     team_name VARCHAR NOT NULL,
     player_name VARCHAR NOT NULL,
+    season VARCHAR DEFAULT '2026-2027',
     period INTEGER,
     clock_seconds INTEGER,
     x_m DOUBLE,

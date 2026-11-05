@@ -96,6 +96,70 @@
       margin-right: 5px;
     }
 
+    /* Season Filter Bar */
+    .season-bar {
+      background: #0b1120;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 8px 24px;
+    }
+    .season-bar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .season-label-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .season-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .season-pill {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-mono);
+    }
+    .season-pill:hover {
+      border-color: #38bdf8;
+      color: #fff;
+    }
+    .season-pill.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+    .season-desc-note {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-left: auto;
+      font-style: italic;
+    }
+    @media (max-width: 900px) {
+      .season-desc-note { display: none; }
+    }
+
     /* Competition Filter Bar */
     .comp-bar {
       background: #090c12;
@@ -553,6 +617,82 @@
       line-height: 1.55;
     }
 
+    /* Season Comparison Styles */
+    .season-comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .season-comp-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .season-comp-card:hover {
+      border-color: #38bdf8;
+    }
+    .season-comp-card.active-season {
+      border-color: #38bdf8;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+    }
+    .season-comp-card.champ-season {
+      border-color: #eab308;
+      box-shadow: 0 0 16px rgba(234, 179, 8, 0.2);
+    }
+    .season-badge-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+    .season-year-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+    }
+    .season-trophy-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.35);
+    }
+    .season-comp-narrative {
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.65;
+    }
+    .season-comp-narrative strong {
+      color: #38bdf8;
+    }
+    .delta-pill-pos {
+      color: #10b981;
+      font-weight: 700;
+    }
+    .delta-pill-neg {
+      color: #ef4444;
+      font-weight: 700;
+    }
+    .delta-pill-neutral {
+      color: #94a3b8;
+    }
+
     /* Tooltip */
     #court-tooltip {
       position: absolute;
@@ -681,6 +821,25 @@
     </div>
   </header>
 
+  <!-- Season Selector Bar -->
+  <div class="season-bar">
+    <div class="season-bar-inner">
+      <div class="season-label-group">
+        <span class="season-icon">📅</span>
+        <span class="season-label-text">Temporada:</span>
+      </div>
+      <div class="season-pills" id="season-pills">
+        <button class="season-pill active" onclick="setSeason('2026-2027')">⚡ 2026–2027 (Atual)</button>
+        <button class="season-pill" onclick="setSeason('2025-2026')">2025–2026 (Transição)</button>
+        <button class="season-pill" onclick="setSeason('2024-2025')">🏆 2024–2025 (Tricampeonato Franca)</button>
+        <button class="season-pill" onclick="setSeason('ALL')">🌐 Todas as Temporadas</button>
+      </div>
+      <div class="season-desc-note" id="season-current-desc">
+        Temporada vigente: renovação tática, consolidação da base da LDB e alto ritmo.
+      </div>
+    </div>
+  </div>
+
   <!-- Competition Filter Bar -->
   <div class="comp-bar">
     <div class="comp-bar-inner" id="competition-pills">
@@ -700,6 +859,7 @@
       <button class="nav-btn active" onclick="switchTab('visao-geral')">Visão Geral & Four Factors</button>
       <button class="nav-btn" onclick="switchTab('quadra')">Quadra & Shot Charts (mplbasketball)</button>
       <button class="nav-btn" onclick="switchTab('equipes')">Equipes & Estatísticas Aprofundadas</button>
+      <button class="nav-btn" onclick="switchTab('season-history')">📈 Evolução por Temporada</button>
       <button class="nav-btn" onclick="switchTab('markov')">Cadeias de Markov (EPV)</button>
       <button class="nav-btn" onclick="switchTab('confrontos')">Confrontos H2H</button>
       <button class="nav-btn" onclick="switchTab('partidas')">Partidas & Win Probability</button>
@@ -1085,6 +1245,67 @@
       </div>
     </div>
 
+    <!-- TAB: EVOLUÇÃO POR TEMPORADA (SEASON COMPARISONS) -->
+    <div id="tab-season-history" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Evolução Longitudinal entre Temporadas (2024–25 vs 2025–26 vs 2026–27)</h2>
+          <p class="section-desc">Análise de transformação das equipes ano a ano: alterações de elenco, transferências para o exterior, transição geracional da LDB e impacto direto nos Quatro Fatores de Dean Oliver.</p>
+        </div>
+      </div>
+
+      <div class="filter-group" style="margin-bottom: 20px;">
+        <label for="season-comp-selector" style="font-weight: 700; color: #38bdf8; margin-right: 10px;">Selecione a Franquia para Comparação Histórica:</label>
+        <select id="season-comp-selector" class="filter-select" onchange="renderSeasonComparison(this.value)">
+          <option value="Sesi Franca">Sesi Franca (Tricampeonato 24/25 → Transição 25/26 → Atual 26/27)</option>
+          <option value="Flamengo">Flamengo (Pós-Jaú/Olivinha → Backcourt Rápido → Atual)</option>
+        </select>
+      </div>
+
+      <!-- Narrative Banner -->
+      <div class="season-comp-narrative" id="season-comp-narrative"></div>
+
+      <!-- 3-Column Season Cards -->
+      <div class="season-comp-grid" id="season-comp-cards"></div>
+
+      <!-- Deltas & Evolution Table -->
+      <div class="panel" style="margin-bottom: 24px;">
+        <div class="panel-header">
+          <span>Matriz de Variação de Indicadores Táticos (Ano a Ano)</span>
+          <span style="font-size:11px; color:var(--text-muted);">Comparação dos Quatro Fatores e Ritmo de Posse</span>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="season-deltas-table">
+            <thead>
+              <tr>
+                <th>Temporada</th>
+                <th>Treinador</th>
+                <th>Recorde</th>
+                <th class="tabular">Pace (40m)</th>
+                <th class="tabular">ORtg</th>
+                <th class="tabular">DRtg</th>
+                <th class="tabular">Net Rtg</th>
+                <th class="tabular">eFG%</th>
+                <th class="tabular">TOV%</th>
+                <th class="tabular">ORB%</th>
+                <th class="tabular">FTR</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Shot Diet Multi-Season Comparison -->
+      <div class="panel">
+        <div class="panel-header">
+          <span>Evolução da Dieta Espacial de Arremessos (Shot Diet) • Migração entre Garrafão e Perímetro</span>
+          <span style="font-size:11px; color:var(--text-muted);">Proporção de arremessos no Aro, Meia Distância e 3 Pontos</span>
+        </div>
+        <div id="season-diet-bars-container" style="display: flex; flex-direction: column; gap: 14px; margin-top: 10px;"></div>
+      </div>
+    </div>
+
     <!-- TAB 4: CADEIAS DE MARKOV -->
     <div id="tab-markov" class="tab-content">
       <div class="section-header">
@@ -1266,6 +1487,7 @@ __ATLAS_DATA_JSON__
   <!-- CLIENT-SIDE APPLICATION LOGIC -->
   <script>
     let ATLAS = null;
+    let selectedSeason = "2026-2027"; // Default: Temporada Atual
     let selectedCompetition = "ALL";
     let currentTeams = [];
     let currentPlayers = [];
@@ -1277,20 +1499,26 @@ __ATLAS_DATA_JSON__
       try {
         const raw = document.getElementById("atlas-data").textContent;
         ATLAS = JSON.parse(raw);
-        filterByCompetition();
+        filterTeamsAndPlayers();
         initApp();
       } catch (err) {
         console.error("Failed to parse embedded ATLAS payload:", err);
       }
     });
 
-    function setCompetition(compId) {
-      selectedCompetition = compId;
-      document.querySelectorAll(".comp-pill").forEach(el => el.classList.remove("active"));
-      const activeBtn = Array.from(document.querySelectorAll(".comp-pill")).find(b => b.getAttribute("onclick").includes(compId));
+    function setSeason(seasonId) {
+      selectedSeason = seasonId;
+      document.querySelectorAll(".season-pill").forEach(el => el.classList.remove("active"));
+      const activeBtn = Array.from(document.querySelectorAll(".season-pill")).find(b => b.getAttribute("onclick").includes(seasonId));
       if (activeBtn) activeBtn.classList.add("active");
 
-      filterByCompetition();
+      const seasonObj = (ATLAS.seasons || []).find(s => s.id === seasonId);
+      const descEl = document.getElementById("season-current-desc");
+      if (descEl) {
+        descEl.textContent = seasonObj ? seasonObj.description : (seasonId === "ALL" ? "Consolidado longitudinal histórico completo de todas as temporadas cadastradas." : "");
+      }
+
+      filterTeamsAndPlayers();
       renderOverviewTab();
       populateTeamSelectors();
       renderTeamDossier(currentTeams[0]?.name);
@@ -1298,17 +1526,43 @@ __ATLAS_DATA_JSON__
       renderPlayersTable();
     }
 
-    function filterByCompetition() {
-      if (selectedCompetition === "ALL") {
-        currentTeams = [...ATLAS.teams];
-        currentPlayers = [...ATLAS.players];
-        document.getElementById("comp-title-label").textContent = "Todas as Competições (Geral CBB)";
-      } else {
-        currentTeams = ATLAS.teams.filter(t => t.competition_id === selectedCompetition);
-        currentPlayers = ATLAS.players.filter(p => p.competition_id === selectedCompetition);
-        const compObj = ATLAS.competitions.find(c => c.id === selectedCompetition);
-        document.getElementById("comp-title-label").textContent = compObj ? compObj.name : selectedCompetition;
+    function setCompetition(compId) {
+      selectedCompetition = compId;
+      document.querySelectorAll(".comp-pill").forEach(el => el.classList.remove("active"));
+      const activeBtn = Array.from(document.querySelectorAll(".comp-pill")).find(b => b.getAttribute("onclick").includes(compId));
+      if (activeBtn) activeBtn.classList.add("active");
+
+      filterTeamsAndPlayers();
+      renderOverviewTab();
+      populateTeamSelectors();
+      renderTeamDossier(currentTeams[0]?.name);
+      renderCourtView();
+      renderPlayersTable();
+    }
+
+    function filterTeamsAndPlayers() {
+      let teams = [...ATLAS.teams];
+      let players = [...ATLAS.players];
+
+      // 1. Filter by Season
+      if (selectedSeason !== "ALL") {
+        teams = teams.filter(t => t.season_id === selectedSeason || (t.season && t.season.includes(selectedSeason.substring(0, 4))));
+        players = players.filter(p => p.season_id === selectedSeason || (p.season && p.season.includes(selectedSeason.substring(0, 4))));
       }
+
+      // 2. Filter by Competition
+      if (selectedCompetition !== "ALL") {
+        teams = teams.filter(t => t.competition_id === selectedCompetition || t.base_competition_id === selectedCompetition);
+        players = players.filter(p => p.competition_id === selectedCompetition || p.base_competition_id === selectedCompetition);
+        const compObj = ATLAS.competitions.find(c => c.id === selectedCompetition || c.base_id === selectedCompetition);
+        document.getElementById("comp-title-label").textContent = compObj ? compObj.name : selectedCompetition;
+      } else {
+        const sLabel = selectedSeason === "ALL" ? "Todas as Temporadas" : selectedSeason;
+        document.getElementById("comp-title-label").textContent = `Todas as Competições • ${sLabel}`;
+      }
+
+      currentTeams = teams;
+      currentPlayers = players;
     }
 
     function switchTab(tabId) {
@@ -1323,6 +1577,8 @@ __ATLAS_DATA_JSON__
 
       if (tabId === 'quadra') {
         renderCourtView();
+      } else if (tabId === 'season-history') {
+        renderSeasonComparison(document.getElementById("season-comp-selector")?.value || "Sesi Franca");
       }
     }
 
@@ -1700,6 +1956,128 @@ __ATLAS_DATA_JSON__
       `;
     }
 
+    function renderSeasonComparison(teamName) {
+      const compData = (ATLAS.season_comparisons || {})[teamName];
+      if (!compData) return;
+
+      const titleEl = document.getElementById("season-comp-team-title");
+      if (titleEl) titleEl.textContent = compData.team_name;
+
+      // 1. Narrative Dossier
+      const narrEl = document.getElementById("season-comp-narrative");
+      if (narrEl) {
+        narrEl.innerHTML = `<strong>Dossiê Longitudinal:</strong> ${compData.narrative}`;
+      }
+
+      // 2. Three Column Cards
+      const cardsEl = document.getElementById("season-comp-cards");
+      if (cardsEl) {
+        cardsEl.innerHTML = compData.seasons.map(s => {
+          const isCurrent = s.season === "2026–2027";
+          const isChamp = s.trophy && s.trophy.includes("Campeão");
+          const cardClass = isCurrent ? "season-comp-card active-season" : (isChamp ? "season-comp-card champ-season" : "season-comp-card");
+          return `
+            <div class="${cardClass}">
+              <div class="season-badge-header">
+                <div>
+                  <div class="season-year-title">${s.season}</div>
+                  <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">${s.coach} • ${s.record}</div>
+                </div>
+                ${s.trophy ? `<span class="season-trophy-badge">${s.trophy}</span>` : ''}
+              </div>
+
+              <div class="grid-2" style="gap:8px; margin: 4px 0;">
+                <div style="background:var(--bg-canvas); padding:8px; border-radius:4px; border:1px solid var(--border-subtle);">
+                  <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Net Rating</div>
+                  <div class="tabular strong" style="font-size:16px; color:${s.net_rating>=0?'var(--hot)':'var(--cold)'}">${s.net_rating>0?'+':''}${s.net_rating}</div>
+                </div>
+                <div style="background:var(--bg-canvas); padding:8px; border-radius:4px; border:1px solid var(--border-subtle);">
+                  <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Ritmo (Pace 40m)</div>
+                  <div class="tabular strong" style="font-size:16px; color:var(--text-main);">${s.pace}</div>
+                </div>
+              </div>
+
+              <div style="font-size:12px; line-height:1.6; color:var(--text-muted);">
+                <div><strong>Ataque/Defesa:</strong> ORtg ${s.ortg} | DRtg ${s.drtg}</div>
+                <div><strong>eFG%:</strong> ${(s.efg_pct*100).toFixed(1)}% | <strong>FTR:</strong> ${s.ftr.toFixed(3)} | <strong>TOV%:</strong> ${(s.tov_pct*100).toFixed(1)}%</div>
+              </div>
+
+              <div style="border-top:1px solid var(--border-subtle); padding-top:8px;">
+                <div style="font-size:11px; font-weight:700; color:#38bdf8; margin-bottom:4px; text-transform:uppercase;">Principais Protagonistas:</div>
+                <div style="font-size:12px; color:var(--text-main); line-height:1.45;">${s.pivotal_players}</div>
+              </div>
+
+              ${s.key_departures && s.key_departures.length ? `
+                <div style="font-size:11px; color:#ef4444; border-top:1px dashed rgba(239, 68, 68, 0.25); padding-top:6px;">
+                  <strong>Saídas Marcantes:</strong> ${s.key_departures.join(", ")}
+                </div>
+              ` : ''}
+              ${s.key_arrivals && s.key_arrivals.length ? `
+                <div style="font-size:11px; color:#10b981; border-top:1px dashed rgba(16, 185, 129, 0.25); padding-top:6px;">
+                  <strong>Reforços / Subidas:</strong> ${s.key_arrivals.join(", ")}
+                </div>
+              ` : ''}
+
+              <div style="background:rgba(255,255,255,0.02); padding:8px; border-radius:4px; font-size:11px; color:var(--text-dim); line-height:1.4; border-left:2px solid #38bdf8;">
+                <em>"${s.tactical_summary}"</em>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // 3. Deltas Table
+      const deltasTbody = document.querySelector("#season-deltas-table tbody");
+      if (deltasTbody) {
+        deltasTbody.innerHTML = compData.seasons.map((s, idx) => {
+          const prev = idx > 0 ? compData.seasons[idx - 1] : null;
+          const deltaNet = prev ? (s.net_rating - prev.net_rating).toFixed(1) : "-";
+          const deltaPace = prev ? (s.pace - prev.pace).toFixed(1) : "-";
+          const deltaEfg = prev ? ((s.efg_pct - prev.efg_pct)*100).toFixed(1) : "-";
+          const deltaFtr = prev ? (s.ftr - prev.ftr).toFixed(3) : "-";
+
+          return `
+            <tr>
+              <td class="strong">${s.season} ${s.season === '2026–2027' ? '<span class="metric-chip chip-pos">Atual</span>' : ''}</td>
+              <td>${s.coach}</td>
+              <td class="tabular">${s.record}</td>
+              <td class="tabular">${s.pace} ${prev ? `<span style="font-size:10px; color:${deltaPace>=0?'#10b981':'#3b82f6'};">(${deltaPace>0?'+':''}${deltaPace})</span>` : ''}</td>
+              <td class="tabular">${s.ortg}</td>
+              <td class="tabular">${s.drtg}</td>
+              <td class="tabular strong" style="color:${s.net_rating>=0?'var(--hot)':'var(--cold)'}">${s.net_rating>0?'+':''}${s.net_rating} ${prev ? `<span style="font-size:10px;">(${deltaNet>0?'+':''}${deltaNet})</span>` : ''}</td>
+              <td class="tabular">${(s.efg_pct*100).toFixed(1)}% ${prev ? `<span style="font-size:10px;">(${deltaEfg>0?'+':''}${deltaEfg}%)</span>` : ''}</td>
+              <td class="tabular">${(s.tov_pct*100).toFixed(1)}%</td>
+              <td class="tabular">${(s.orb_pct*100).toFixed(1)}%</td>
+              <td class="tabular">${s.ftr.toFixed(3)} ${prev ? `<span style="font-size:10px; color:${deltaFtr<0?'#ef4444':'#10b981'};">(${deltaFtr>0?'+':''}${deltaFtr})</span>` : ''}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      // 4. Multi-Season Shot Diet Bars
+      const dietContainer = document.getElementById("season-diet-bars-container");
+      if (dietContainer) {
+        dietContainer.innerHTML = compData.seasons.map(s => {
+          const rimPct = Math.round((s.rim_freq || 0.35) * 100);
+          const midPct = Math.round((s.mid_freq || 0.22) * 100);
+          const threePct = 100 - rimPct - midPct;
+          return `
+            <div style="background:var(--bg-canvas); padding:12px; border-radius:6px; border:1px solid var(--border-subtle);">
+              <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:6px;">
+                <span>${teamName} • ${s.season}</span>
+                <span class="tabular" style="color:var(--text-muted); font-size:11px;">Aro: ${rimPct}% | Meia Distância: ${midPct}% | Perímetro 3P: ${threePct}%</span>
+              </div>
+              <div style="height:14px; display:flex; border-radius:3px; overflow:hidden;">
+                <div style="width:${rimPct}%; background:#10b981;" title="Aro: ${rimPct}%"></div>
+                <div style="width:${midPct}%; background:#f59e0b;" title="Meia Distância: ${midPct}%"></div>
+                <div style="width:${threePct}%; background:#3b82f6;" title="Perímetro (3P): ${threePct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+    }
+
     function initApp() {
       renderOverviewTab();
       populateTeamSelectors();
@@ -1710,6 +2088,7 @@ __ATLAS_DATA_JSON__
       renderMatchesTab();
       renderPlayersTable();
       renderHallOfFame();
+      renderSeasonComparison("Sesi Franca");
     }
 
     function renderOverviewTab() {
@@ -1752,7 +2131,10 @@ __ATLAS_DATA_JSON__
         return `
           <tr>
             <td class="strong">${t.name} <span style="font-size:11px; color:var(--text-dim);">(${t.city})</span></td>
-            <td><span class="metric-chip chip-pos" style="background:#1e293b; color:#94a3b8;">${t.competition_name || 'CBB'}</span></td>
+            <td>
+              <span class="metric-chip chip-pos" style="background:#1e293b; color:#94a3b8;">${t.competition_name || 'CBB'}</span>
+              <span class="metric-chip chip-pos" style="background:#0f172a; color:#38bdf8; margin-left:4px;">${t.season || '2026–2027'}</span>
+            </td>
             <td class="tabular">${ff.pace}</td>
             <td class="tabular">${ff.ortg}</td>
             <td class="tabular">${ff.drtg}</td>
@@ -1770,9 +2152,9 @@ __ATLAS_DATA_JSON__
     function populateTeamSelectors() {
       const sel = document.getElementById("team-selector");
       const courtSel = document.getElementById("court-team-selector");
-      sel.innerHTML = currentTeams.map(t => `<option value="${t.name}">${t.name} (${t.competition_name || 'CBB'})</option>`).join("");
+      sel.innerHTML = currentTeams.map(t => `<option value="${t.name}">${t.name} (${t.season || '26/27'} • ${t.competition_name || 'CBB'})</option>`).join("");
       courtSel.innerHTML = `<option value="ALL">Todas as Equipes (Média Amostra)</option>` + 
-        currentTeams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
+        currentTeams.map(t => `<option value="${t.name}">${t.name} (${t.season || '26/27'})</option>`).join("");
     }
 
     function renderTeamDossier(teamName) {
@@ -1961,8 +2343,16 @@ __ATLAS_DATA_JSON__
 
       // Get shots based on selection
       let shots = [];
+      const teamObj = selectedTeam !== "ALL" 
+        ? (currentTeams.find(t => t.name === selectedTeam) || ATLAS.teams.find(t => t.name === selectedTeam)) 
+        : currentTeams[0] || ATLAS.teams[0];
+      const teamSeason = teamObj ? teamObj.season : selectedSeason;
+      const seasonKey = `${selectedTeam}__${teamSeason}`;
+
       if (selectedTeam === "ALL") {
         Object.values(ATLAS.all_shots).forEach(sList => shots.push(...sList));
+      } else if (ATLAS.all_shots[seasonKey]) {
+        shots = [...ATLAS.all_shots[seasonKey]];
       } else if (ATLAS.all_shots[selectedTeam]) {
         shots = [...ATLAS.all_shots[selectedTeam]];
       }
@@ -1975,8 +2365,7 @@ __ATLAS_DATA_JSON__
         shots = shots.filter(s => s.zone.includes("Mid-Range"));
       }
 
-      const teamObj = selectedTeam !== "ALL" ? ATLAS.teams.find(t => t.name === selectedTeam) : ATLAS.teams[0];
-      const zoneData = teamObj ? teamObj.zone_efficiency : ATLAS.teams[0].zone_efficiency;
+      const zoneData = teamObj ? teamObj.zone_efficiency : (currentTeams[0] || ATLAS.teams[0]).zone_efficiency;
 
       // Render On-Court Badges if enabled
       if (badgesG && showCourtBadges) {
@@ -1989,8 +2378,12 @@ __ATLAS_DATA_JSON__
       // Render Mode: Hexbin / Scatter / Zones
       if (courtMode === "hexbin") {
         let hexbins = [];
-        if (selectedTeam !== "ALL" && ATLAS.hexbins[selectedTeam]) {
-          hexbins = ATLAS.hexbins[selectedTeam];
+        if (selectedTeam !== "ALL") {
+          if (ATLAS.hexbins[seasonKey]) {
+            hexbins = ATLAS.hexbins[seasonKey];
+          } else if (ATLAS.hexbins[selectedTeam]) {
+            hexbins = ATLAS.hexbins[selectedTeam];
+          }
         } else {
           const allHex = [];
           Object.values(ATLAS.hexbins).forEach(hList => allHex.push(...hList));
@@ -2319,7 +2712,10 @@ __ATLAS_DATA_JSON__
         return `
           <tr>
             <td class="strong">${p.name}</td>
-            <td>${p.team}</td>
+            <td>
+              ${p.team}
+              <span class="metric-chip chip-pos" style="background:#0f172a; color:#38bdf8; font-size:10px; margin-left:4px;">${p.season || '26/27'}</span>
+            </td>
             <td><span class="metric-chip chip-pos" style="background:#1e293b; color:#94a3b8;">${p.competition_name || 'CBB'}</span></td>
             <td>${p.pos}</td>
             <td class="tabular">${p.mp}</td>
@@ -2340,11 +2736,21 @@ __ATLAS_DATA_JSON__
       const q = document.getElementById("player-search").value.toLowerCase();
       const pos = document.getElementById("player-pos-filter").value;
 
-      let baseList = selectedCompetition === "ALL" ? ATLAS.players : ATLAS.players.filter(p => p.competition_id === selectedCompetition);
+      let baseList = [...ATLAS.players];
+      if (selectedSeason !== "ALL") {
+        baseList = baseList.filter(p => p.season_id === selectedSeason || (p.season && p.season.includes(selectedSeason.substring(0, 4))));
+      }
+      if (selectedCompetition !== "ALL") {
+        baseList = baseList.filter(p => p.competition_id === selectedCompetition || p.base_competition_id === selectedCompetition);
+      }
+
       currentPlayers = baseList.filter(p => {
         const matchesQuery = p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q);
         const matchesPos = (pos === "ALL") || (p.pos === pos);
         return matchesQuery && matchesPos;
+      });
+      renderPlayersTable();
+    }
       });
       renderPlayersTable();
     }

@@ -1,6 +1,7 @@
 """
-Comprehensive Multi-Competition Dataset for Brazilian Basketball.
+Comprehensive Multi-Competition & Multi-Season Dataset for Brazilian Basketball.
 Covers:
+- Temporadas: 2026–2027 (Atual), 2025–2026 (Transição), 2024–2025 (Histórico/Tricampeonato Franca)
 - NBB Caixa & Copa Super 8 (Elite Adulta)
 - CBI Sub-19 Masculino & Feminino (Campeonato Brasileiro Interclubes)
 - CBI Sub-17 Masculino & Feminino (Campeonato Brasileiro Interclubes)
@@ -17,10 +18,40 @@ from cbb.analysis.player_advanced import compute_player_advanced_metrics
 from cbb.analysis.shot_efficiency import classify_shot_zone, compute_zone_efficiency
 from cbb.court.generator import compute_hexbin_analytics
 
+AVAILABLE_SEASONS: List[Dict[str, Any]] = [
+    {
+        "id": "2026-2027",
+        "name": "2026–2027",
+        "label": "2026–2027 (Atual)",
+        "year_short": "26/27",
+        "is_current": True,
+        "description": "Temporada vigente: renovação tática, consolidação de jovens talentos da LDB e transição rápida."
+    },
+    {
+        "id": "2025-2026",
+        "name": "2025–2026",
+        "label": "2025–2026",
+        "year_short": "25/26",
+        "is_current": False,
+        "description": "Temporada de transição: ascensão de Nathan Mariano e Paulo Zu, transferência de Márcio Santos para a Liga ACB (Espanha) e aceleração de arremessos precoces."
+    },
+    {
+        "id": "2024-2025",
+        "name": "2024–2025",
+        "label": "2024–2025",
+        "year_short": "24/25",
+        "is_current": False,
+        "description": "Temporada histórica: Sesi Franca tricampeão com domínio físico no garrafão (Márcio Santos + Lucas Dias MVP) e jogo cadenciado de meia quadra."
+    }
+]
+
 COMPETITIONS_DATA: List[Dict[str, Any]] = [
-    # ---------------- 1. NBB CAIXA & COPA SUPER 8 ----------------
+    # ---------------- 1. NBB CAIXA & COPA SUPER 8 (2026–2027) ----------------
     {
         "id": "nbb",
+        "base_id": "nbb",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
         "name": "NBB Caixa 2026–2027",
         "category": "Elite Profissional Masculina",
         "organizer": "LNB / CBB",
@@ -111,10 +142,13 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         ]
     },
 
-    # ---------------- 2. CBI SUB-19 (CAMPEONATO BRASILEIRO INTERCLUBES) ----------------
+    # ---------------- 2. CBI SUB-19 (CAMPEONATO BRASILEIRO INTERCLUBES 2026) ----------------
     {
         "id": "cbi-sub19",
-        "name": "CBI Sub-19 Masculino & Feminino",
+        "base_id": "cbi-sub19",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
+        "name": "CBI Sub-19 2026 (Safra 2007/08)",
         "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
         "organizer": "CBB & CBC",
         "teams": [
@@ -210,10 +244,13 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         ]
     },
 
-    # ---------------- 3. CBI SUB-17 (CAMPEONATO BRASILEIRO INTERCLUBES) ----------------
+    # ---------------- 3. CBI SUB-17 (CAMPEONATO BRASILEIRO INTERCLUBES 2026) ----------------
     {
         "id": "cbi-sub17",
-        "name": "CBI Sub-17 Masculino & Feminino",
+        "base_id": "cbi-sub17",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
+        "name": "CBI Sub-17 2026 (Safra 2009/10)",
         "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
         "organizer": "CBB & CBC",
         "teams": [
@@ -307,10 +344,13 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         ]
     },
 
-    # ---------------- 4. CBI SUPER 15 (SUB-15) ----------------
+    # ---------------- 4. CBI SUPER 15 (SUB-15 2026) ----------------
     {
         "id": "cbi-sub15",
-        "name": "CBI Super 15 (Sub-15) CBB/CBC",
+        "base_id": "cbi-sub15",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
+        "name": "CBI Super 15 (Sub-15) 2026 CBB/CBC",
         "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
         "organizer": "CBB & CBC",
         "teams": [
@@ -351,10 +391,13 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         ]
     },
 
-    # ---------------- 5. LDB SUB-22 (LIGA DE DESENVOLVIMENTO) ----------------
+    # ---------------- 5. LDB SUB-22 (LIGA DE DESENVOLVIMENTO 2026) ----------------
     {
         "id": "ldb-sub22",
-        "name": "LDB Sub-22 (Liga de Desenvolvimento)",
+        "base_id": "ldb-sub22",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
+        "name": "LDB Sub-22 (Edição 2026)",
         "category": "Principal Liga de Formação Profissional do Brasil",
         "organizer": "LNB & CBB",
         "teams": [
@@ -413,9 +456,12 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         ]
     },
 
-    # ---------------- 6. BRASILEIRÃO CBB ADULTO ----------------
+    # ---------------- 6. BRASILEIRÃO CBB ADULTO 2026 ----------------
     {
         "id": "brasileirao-cbb",
+        "base_id": "brasileirao-cbb",
+        "season": "2026–2027",
+        "season_id": "2026-2027",
         "name": "Brasileirão CBB Adulto 2026",
         "category": "Campeonato Brasileiro de Clubes Adulto (CBB)",
         "organizer": "Confederação Brasileira de Basketball (CBB)",
@@ -507,6 +553,184 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
                 ]
             }
         ]
+    },
+
+    # =========================================================================
+    # ---------------- 7. TEMPORADA ANTERIOR: 2025–2026 -----------------------
+    # =========================================================================
+    {
+        "id": "nbb-2025",
+        "base_id": "nbb",
+        "season": "2025–2026",
+        "season_id": "2025-2026",
+        "name": "NBB Caixa 2025–2026 (Transição de Elencos)",
+        "category": "Elite Profissional Masculina",
+        "organizer": "LNB / CBB",
+        "teams": [
+            {
+                "name": "Sesi Franca (2025–26)",
+                "base_name": "Sesi Franca",
+                "short_name": "FRA-25",
+                "city": "Franca, SP",
+                "coach": "Helinho Garcia",
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "ortg_base": 114.2, "drtg_base": 100.8, "pace_base": 74.8,
+                "color": "#1a4731", "accent": "#d4af37",
+                "clutch": {"win_pct": 0.714, "pts": 8.1, "efg_pct": 0.535, "ft_pct": 0.820, "tov_rate": 0.105},
+                "shot_clock": {"early_0_6s": {"freq": 0.22, "efg": 0.585}, "middle_7_18s": {"freq": 0.63, "efg": 0.540}, "late_19_24s": {"freq": 0.15, "efg": 0.430}},
+                "splits": {"catch_shoot_3p": 0.405, "pullup_3p": 0.360, "open_fg": 0.565, "contested_fg": 0.440, "rim_fg": 0.640, "short_mid_fg": 0.420, "long_mid_fg": 0.395, "corner3_fg": 0.415, "above3_fg": 0.370},
+                "playmaking": {"ast_tov_ratio": 1.82, "potential_ast": 33.5, "secondary_ast": 7.4},
+                "defense": {"rim_def_fg": 0.525, "stl_pct": 8.0, "blk_pct": 4.5, "pf_per_40": 17.5, "fd_per_40": 19.2},
+                "roster": [
+                    {"name": "Lucas Dias", "num": "9", "pos": "Ala-Pivô", "pts": 18.9, "reb": 7.5, "ast": 3.4, "fg3_pct": 0.402, "fg2_pct": 0.552, "ft_pct": 0.850, "mp": 31.0},
+                    {"name": "Georginho de Paula", "num": "32", "pos": "Armador", "pts": 17.2, "reb": 7.8, "ast": 7.1, "fg3_pct": 0.365, "fg2_pct": 0.528, "ft_pct": 0.770, "mp": 32.5},
+                    {"name": "David Jackson", "num": "7", "pos": "Ala-Armador", "pts": 12.8, "reb": 3.2, "ast": 2.9, "fg3_pct": 0.420, "fg2_pct": 0.525, "ft_pct": 0.900, "mp": 23.5},
+                    {"name": "Nathan Mariano", "num": "11", "pos": "Ala-Pivô", "pts": 10.8, "reb": 6.4, "ast": 1.3, "fg3_pct": 0.330, "fg2_pct": 0.590, "ft_pct": 0.740, "mp": 21.0},
+                    {"name": "Didi Louzada", "num": "0", "pos": "Ala", "pts": 12.5, "reb": 4.2, "ast": 2.1, "fg3_pct": 0.380, "fg2_pct": 0.510, "ft_pct": 0.790, "mp": 24.0},
+                    {"name": "Santiago Scala", "num": "6", "pos": "Armador", "pts": 8.4, "reb": 2.0, "ast": 3.8, "fg3_pct": 0.385, "fg2_pct": 0.450, "ft_pct": 0.870, "mp": 18.0},
+                    {"name": "Paulo Zu", "num": "33", "pos": "Ala-Armador", "pts": 7.6, "reb": 2.8, "ast": 1.6, "fg3_pct": 0.350, "fg2_pct": 0.480, "ft_pct": 0.750, "mp": 16.0},
+                ]
+            },
+            {
+                "name": "Flamengo (2025–26)",
+                "base_name": "Flamengo",
+                "short_name": "FLA-25",
+                "city": "Rio de Janeiro, RJ",
+                "coach": "Gustavo De Conti",
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "ortg_base": 114.8, "drtg_base": 98.1, "pace_base": 77.0,
+                "color": "#c5221f", "accent": "#000000",
+                "clutch": {"win_pct": 0.750, "pts": 8.6, "efg_pct": 0.550, "ft_pct": 0.835, "tov_rate": 0.092},
+                "shot_clock": {"early_0_6s": {"freq": 0.24, "efg": 0.605}, "middle_7_18s": {"freq": 0.60, "efg": 0.540}, "late_19_24s": {"freq": 0.16, "efg": 0.425}},
+                "splits": {"catch_shoot_3p": 0.400, "pullup_3p": 0.350, "open_fg": 0.565, "contested_fg": 0.440, "rim_fg": 0.650, "short_mid_fg": 0.430, "long_mid_fg": 0.395, "corner3_fg": 0.415, "above3_fg": 0.370},
+                "playmaking": {"ast_tov_ratio": 1.85, "potential_ast": 33.5, "secondary_ast": 7.2},
+                "defense": {"rim_def_fg": 0.515, "stl_pct": 8.8, "blk_pct": 4.5, "pf_per_40": 17.2, "fd_per_40": 20.0},
+                "roster": [
+                    {"name": "Gui Deodato", "num": "1", "pos": "Ala", "pts": 16.0, "reb": 4.6, "ast": 3.0, "fg3_pct": 0.410, "fg2_pct": 0.550, "ft_pct": 0.830, "mp": 29.5},
+                    {"name": "Alexey Borges", "num": "4", "pos": "Armador", "pts": 13.8, "reb": 3.4, "ast": 6.2, "fg3_pct": 0.375, "fg2_pct": 0.505, "ft_pct": 0.810, "mp": 26.5},
+                    {"name": "Shaq Johnson", "num": "11", "pos": "Ala-Armador", "pts": 14.5, "reb": 4.4, "ast": 3.2, "fg3_pct": 0.360, "fg2_pct": 0.530, "ft_pct": 0.820, "mp": 27.0},
+                    {"name": "Franco Baralle", "num": "3", "pos": "Armador", "pts": 13.5, "reb": 3.6, "ast": 6.1, "fg3_pct": 0.375, "fg2_pct": 0.500, "ft_pct": 0.830, "mp": 26.0},
+                    {"name": "Taya Gallizzi", "num": "83", "pos": "Pivô", "pts": 10.8, "reb": 7.5, "ast": 1.1, "fg3_pct": 0.000, "fg2_pct": 0.640, "ft_pct": 0.690, "mp": 23.0},
+                ]
+            },
+            {
+                "name": "Minas Tênis Clube (2025–26)",
+                "base_name": "Minas Tênis Clube",
+                "short_name": "MTC-25",
+                "city": "Belo Horizonte, MG",
+                "coach": "Léo Costa",
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "ortg_base": 112.8, "drtg_base": 100.5, "pace_base": 74.8,
+                "color": "#002d62", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.680, "pts": 7.6, "efg_pct": 0.525, "ft_pct": 0.805, "tov_rate": 0.108},
+                "shot_clock": {"early_0_6s": {"freq": 0.20, "efg": 0.575}, "middle_7_18s": {"freq": 0.63, "efg": 0.525}, "late_19_24s": {"freq": 0.17, "efg": 0.410}},
+                "splits": {"catch_shoot_3p": 0.385, "pullup_3p": 0.330, "open_fg": 0.545, "contested_fg": 0.425, "rim_fg": 0.630, "short_mid_fg": 0.410, "long_mid_fg": 0.380, "corner3_fg": 0.400, "above3_fg": 0.355},
+                "playmaking": {"ast_tov_ratio": 1.68, "potential_ast": 31.0, "secondary_ast": 6.2},
+                "defense": {"rim_def_fg": 0.530, "stl_pct": 8.0, "blk_pct": 4.3, "pf_per_40": 18.2, "fd_per_40": 19.2},
+                "roster": [
+                    {"name": "Chuzito González", "num": "8", "pos": "Ala-Armador", "pts": 16.2, "reb": 3.2, "ast": 2.9, "fg3_pct": 0.425, "fg2_pct": 0.510, "ft_pct": 0.880, "mp": 27.0},
+                    {"name": "Danilo Fuzaro", "num": "24", "pos": "Ala", "pts": 14.6, "reb": 4.5, "ast": 2.5, "fg3_pct": 0.375, "fg2_pct": 0.525, "ft_pct": 0.785, "mp": 27.5},
+                    {"name": "Paranhos", "num": "13", "pos": "Pivô", "pts": 12.2, "reb": 8.8, "ast": 1.4, "fg3_pct": 0.000, "fg2_pct": 0.620, "ft_pct": 0.695, "mp": 25.0},
+                ]
+            }
+        ]
+    },
+    {
+        "id": "cbi-sub19-2025",
+        "base_id": "cbi-sub19",
+        "season": "2025–2026",
+        "season_id": "2025-2026",
+        "name": "CBI Sub-19 2025 (Safra 2006/07)",
+        "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
+        "organizer": "CBB & CBC",
+        "teams": [
+            {
+                "name": "Paulistano Sub-19 (2025)",
+                "base_name": "Paulistano Sub-19",
+                "short_name": "CAP19-25",
+                "city": "São Paulo, SP",
+                "coach": "Beto",
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "ortg_base": 111.8, "drtg_base": 95.0, "pace_base": 78.0,
+                "color": "#c8102e", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.800, "pts": 8.4, "efg_pct": 0.540, "ft_pct": 0.785, "tov_rate": 0.118},
+                "shot_clock": {"early_0_6s": {"freq": 0.25, "efg": 0.605}, "middle_7_18s": {"freq": 0.59, "efg": 0.520}, "late_19_24s": {"freq": 0.16, "efg": 0.385}},
+                "splits": {"catch_shoot_3p": 0.375, "pullup_3p": 0.315, "open_fg": 0.550, "contested_fg": 0.415, "rim_fg": 0.625, "short_mid_fg": 0.405, "long_mid_fg": 0.365, "corner3_fg": 0.385, "above3_fg": 0.340},
+                "playmaking": {"ast_tov_ratio": 1.58, "potential_ast": 32.0, "secondary_ast": 6.8},
+                "defense": {"rim_def_fg": 0.495, "stl_pct": 9.5, "blk_pct": 5.0, "pf_per_40": 19.2, "fd_per_40": 20.5},
+                "roster": [
+                    {"name": "Gabriel Landeira", "num": "11", "pos": "Ala-Armador", "pts": 17.0, "reb": 5.4, "ast": 3.8, "fg3_pct": 0.400, "fg2_pct": 0.540, "ft_pct": 0.840, "mp": 30.0},
+                    {"name": "Breno Silva", "num": "15", "pos": "Pivô", "pts": 14.2, "reb": 10.5, "ast": 1.6, "fg3_pct": 0.000, "fg2_pct": 0.645, "ft_pct": 0.700, "mp": 28.0},
+                ]
+            }
+        ]
+    },
+
+    # =========================================================================
+    # ---------------- 8. TEMPORADA HISTÓRICA: 2024–2025 -----------------------
+    # =========================================================================
+    {
+        "id": "nbb-2024",
+        "base_id": "nbb",
+        "season": "2024–2025",
+        "season_id": "2024-2025",
+        "name": "NBB Caixa 2024–2025 (Tricampeonato Franca)",
+        "category": "Elite Profissional Masculina",
+        "organizer": "LNB / CBB",
+        "teams": [
+            {
+                "name": "Sesi Franca (2024–25)",
+                "base_name": "Sesi Franca",
+                "short_name": "FRA-24",
+                "city": "Franca, SP",
+                "coach": "Helinho Garcia",
+                "season": "2024–2025",
+                "season_id": "2024-2025",
+                "ortg_base": 117.8, "drtg_base": 97.5, "pace_base": 73.2,
+                "color": "#1a4731", "accent": "#d4af37",
+                "clutch": {"win_pct": 0.842, "pts": 10.2, "efg_pct": 0.585, "ft_pct": 0.880, "tov_rate": 0.078},
+                "shot_clock": {"early_0_6s": {"freq": 0.16, "efg": 0.610}, "middle_7_18s": {"freq": 0.69, "efg": 0.565}, "late_19_24s": {"freq": 0.15, "efg": 0.460}},
+                "splits": {"catch_shoot_3p": 0.420, "pullup_3p": 0.380, "open_fg": 0.590, "contested_fg": 0.465, "rim_fg": 0.670, "short_mid_fg": 0.465, "long_mid_fg": 0.435, "corner3_fg": 0.440, "above3_fg": 0.390},
+                "playmaking": {"ast_tov_ratio": 2.05, "potential_ast": 36.5, "secondary_ast": 8.8},
+                "defense": {"rim_def_fg": 0.485, "stl_pct": 7.5, "blk_pct": 5.4, "pf_per_40": 16.2, "fd_per_40": 21.5},
+                "roster": [
+                    {"name": "Lucas Dias", "num": "9", "pos": "Ala-Pivô", "pts": 19.8, "reb": 7.9, "ast": 3.1, "fg3_pct": 0.415, "fg2_pct": 0.568, "ft_pct": 0.872, "mp": 32.5},
+                    {"name": "Georginho de Paula", "num": "32", "pos": "Armador", "pts": 15.8, "reb": 8.5, "ast": 7.8, "fg3_pct": 0.352, "fg2_pct": 0.540, "ft_pct": 0.795, "mp": 33.0},
+                    {"name": "Márcio Santos", "num": "3", "pos": "Pivô", "pts": 13.5, "reb": 7.8, "ast": 1.4, "fg3_pct": 0.290, "fg2_pct": 0.655, "ft_pct": 0.730, "mp": 24.5},
+                    {"name": "David Jackson", "num": "7", "pos": "Ala-Armador", "pts": 15.2, "reb": 3.8, "ast": 3.6, "fg3_pct": 0.440, "fg2_pct": 0.550, "ft_pct": 0.925, "mp": 29.0},
+                    {"name": "Lucas Mariano", "num": "28", "pos": "Pivô", "pts": 12.4, "reb": 5.2, "ast": 1.0, "fg3_pct": 0.385, "fg2_pct": 0.530, "ft_pct": 0.820, "mp": 21.0},
+                    {"name": "Santiago Scala", "num": "6", "pos": "Armador", "pts": 9.5, "reb": 2.3, "ast": 4.8, "fg3_pct": 0.405, "fg2_pct": 0.480, "ft_pct": 0.890, "mp": 22.0},
+                    {"name": "Jhonatan Luz", "num": "14", "pos": "Ala", "pts": 7.2, "reb": 3.5, "ast": 1.8, "fg3_pct": 0.370, "fg2_pct": 0.500, "ft_pct": 0.780, "mp": 18.0},
+                ]
+            },
+            {
+                "name": "Flamengo (2024–25)",
+                "base_name": "Flamengo",
+                "short_name": "FLA-24",
+                "city": "Rio de Janeiro, RJ",
+                "coach": "Gustavo De Conti",
+                "season": "2024–2025",
+                "season_id": "2024-2025",
+                "ortg_base": 113.5, "drtg_base": 99.2, "pace_base": 76.2,
+                "color": "#c5221f", "accent": "#000000",
+                "clutch": {"win_pct": 0.714, "pts": 8.2, "efg_pct": 0.535, "ft_pct": 0.810, "tov_rate": 0.102},
+                "shot_clock": {"early_0_6s": {"freq": 0.21, "efg": 0.585}, "middle_7_18s": {"freq": 0.62, "efg": 0.530}, "late_19_24s": {"freq": 0.17, "efg": 0.415}},
+                "splits": {"catch_shoot_3p": 0.390, "pullup_3p": 0.335, "open_fg": 0.550, "contested_fg": 0.430, "rim_fg": 0.635, "short_mid_fg": 0.415, "long_mid_fg": 0.385, "corner3_fg": 0.405, "above3_fg": 0.360},
+                "playmaking": {"ast_tov_ratio": 1.70, "potential_ast": 32.0, "secondary_ast": 6.5},
+                "defense": {"rim_def_fg": 0.525, "stl_pct": 8.4, "blk_pct": 4.1, "pf_per_40": 17.8, "fd_per_40": 19.5},
+                "roster": [
+                    {"name": "Gabriel Jaú", "num": "25", "pos": "Ala-Pivô", "pts": 14.8, "reb": 7.2, "ast": 1.8, "fg3_pct": 0.360, "fg2_pct": 0.565, "ft_pct": 0.780, "mp": 28.5},
+                    {"name": "Gui Deodato", "num": "1", "pos": "Ala", "pts": 15.2, "reb": 4.2, "ast": 2.6, "fg3_pct": 0.400, "fg2_pct": 0.540, "ft_pct": 0.820, "mp": 29.0},
+                    {"name": "Didi Louzada", "num": "0", "pos": "Ala", "pts": 13.6, "reb": 4.5, "ast": 2.4, "fg3_pct": 0.370, "fg2_pct": 0.515, "ft_pct": 0.765, "mp": 26.5},
+                    {"name": "Franco Baralle", "num": "3", "pos": "Armador", "pts": 13.2, "reb": 3.4, "ast": 6.2, "fg3_pct": 0.370, "fg2_pct": 0.490, "ft_pct": 0.835, "mp": 27.0},
+                    {"name": "Scott Machado", "num": "1", "pos": "Armador", "pts": 10.5, "reb": 2.8, "ast": 6.8, "fg3_pct": 0.355, "fg2_pct": 0.470, "ft_pct": 0.850, "mp": 23.0},
+                ]
+            }
+        ]
     }
 ]
 
@@ -520,17 +744,166 @@ HALL_OF_FAME = [
     {"nome": "Leandro Barbosa (Leandrinho)", "nome_completo": "Leandro Mateus Barbosa", "posicao": "Armador", "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Leandro_Barbosa_2016.jpg/440px-Leandro_Barbosa_2016.jpg", "detalhes": "The Brazilian Blur. Campeão da NBA em 2015 pelo Golden State Warriors e eleito NBA Sixth Man of the Year em 2007."},
 ]
 
-def generate_spatial_shots(team_name: str, count: int = 180) -> List[Dict[str, Any]]:
+SEASON_COMPARISONS: Dict[str, Any] = {
+    "Sesi Franca": {
+        "team_name": "Sesi Franca",
+        "city": "Franca, SP",
+        "badge_color": "#1a4731",
+        "accent_color": "#d4af37",
+        "narrative": "A evolução tática do Sesi Franca entre 2024 e 2027 reflete com exatidão o basquete moderno de elite. Em 2024–25, a equipe comandada por Helinho Garcia operava em meia-quadra cadenciada (Pace 73.2) com pivôs físicos (Márcio Santos e Lucas Mariano), gerando enorme volume de faltas cavadas (FTR 0.315) e o maior Net Rating recente do basquete nacional (+20.3). Em 2025–26, após a transferência de Márcio Santos para a Liga ACB (Breogán/Espanha), Franca acelerou o jogo para 74.8 posses, aumentando os arremessos de 3 em transição precoce para compensar a menor taxa de lances livres (FTR caiu para 0.272). Em 2026–27, com o jovem Nathan Mariano firmado no garrafão e rotação profunda da LDB, o equilíbrio foi restabelecido.",
+        "seasons": [
+            {
+                "season": "2024–2025",
+                "season_id": "2024-2025",
+                "label": "2024–2025 (Tricampeão)",
+                "trophy": "🏆 Campeão NBB & Copa Super 8",
+                "record": "31-5 (86.1%)",
+                "coach": "Helinho Garcia",
+                "pace": 73.2,
+                "ortg": 117.8,
+                "drtg": 97.5,
+                "net_rating": 20.3,
+                "efg_pct": 0.564,
+                "tov_pct": 0.121,
+                "orb_pct": 0.295,
+                "ftr": 0.315,
+                "rim_freq": 0.38,
+                "mid_freq": 0.25,
+                "three_freq": 0.37,
+                "key_departures": ["Lucas Mariano (fim da temporada)"],
+                "key_arrivals": ["Georginho de Paula (retorno da Alemanha/Ulm)"],
+                "pivotal_players": "Lucas Dias (MVP, 19.8 pts, 7.9 reb), Georginho (15.8 pts, 7.8 ast), Márcio Santos (13.5 pts, 7.8 reb, pivô dominante), David Jackson (15.2 pts, 92.5% FT).",
+                "tactical_summary": "Cadência e imposição física no garrafão. O mais alto Net Rating da história recente do NBB (+20.3) e maior taxa de lances livres cavados (FTR 0.315)."
+            },
+            {
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "label": "2025–2026 (Transição)",
+                "trophy": "Semifinalista NBB",
+                "record": "27-9 (75.0%)",
+                "coach": "Helinho Garcia",
+                "pace": 74.8,
+                "ortg": 114.2,
+                "drtg": 100.8,
+                "net_rating": 13.4,
+                "efg_pct": 0.546,
+                "tov_pct": 0.134,
+                "orb_pct": 0.262,
+                "ftr": 0.272,
+                "rim_freq": 0.33,
+                "mid_freq": 0.20,
+                "three_freq": 0.47,
+                "key_departures": ["Márcio Santos (Espanha / Liga ACB - Breogán)"],
+                "key_arrivals": ["Nathan Mariano (promoção da base LDB)", "Paulo Zu (LDB)"],
+                "pivotal_players": "Lucas Dias (18.9 pts, 7.5 reb), Georginho (17.2 pts, 7.1 ast), Nathan Mariano (10.8 pts, 6.4 reb, ascensão da base), David Jackson (minutos dosados: 23 min).",
+                "tactical_summary": "Transição precoce e perímetro. Sem a presença física de Márcio Santos, a taxa de faltas cavadas (FTR) caiu 4.3 pontos percentuais e o time compensou com chutes de 3 em transição."
+            },
+            {
+                "season": "2026–2027",
+                "season_id": "2026-2027",
+                "label": "2026–2027 (Atual)",
+                "trophy": "⚡ Temporada Vigente (Líder)",
+                "record": "20-4 (83.3%)",
+                "coach": "Helinho Garcia",
+                "pace": 75.4,
+                "ortg": 115.8,
+                "drtg": 99.8,
+                "net_rating": 16.0,
+                "efg_pct": 0.558,
+                "tov_pct": 0.125,
+                "orb_pct": 0.282,
+                "ftr": 0.288,
+                "rim_freq": 0.37,
+                "mid_freq": 0.17,
+                "three_freq": 0.46,
+                "key_departures": [],
+                "key_arrivals": ["Nathan Mariano consolidado como titular", "Didi Louzada"],
+                "pivotal_players": "Lucas Dias (19.5 pts, 7.8 reb), Georginho (16.4 pts, 8.2 reb, 7.4 ast), David Jackson (14.1 pts, 91.5% FT), Nathan Mariano (11.2 pts, 6.5 reb).",
+                "tactical_summary": "Consolidação moderna. Rotação profunda da LDB aliada à maturidade de Lucas Dias e Georginho, restabelecendo a proteção de aro e o espaçamento de elite."
+            }
+        ]
+    },
+    "Flamengo": {
+        "team_name": "Flamengo",
+        "city": "Rio de Janeiro, RJ",
+        "badge_color": "#c5221f",
+        "accent_color": "#000000",
+        "narrative": "O Flamengo passou por renovação tática contínua: de um time focado no rebote ofensivo com Gabriel Jaú em 2024–25 para um backcourt ultra-veloz com Alexey Borges e Shaq Johnson em 2025–26 e 2026–27.",
+        "seasons": [
+            {
+                "season": "2024–2025",
+                "season_id": "2024-2025",
+                "label": "2024–2025 (Vice-Campeão)",
+                "trophy": "Vice-Campeão NBB & Final BCLA",
+                "record": "29-7 (80.5%)",
+                "coach": "Gustavo De Conti",
+                "pace": 76.2, "ortg": 113.5, "drtg": 99.2, "net_rating": 14.3,
+                "efg_pct": 0.540, "tov_pct": 0.118, "orb_pct": 0.310, "ftr": 0.295,
+                "rim_freq": 0.36, "mid_freq": 0.22, "three_freq": 0.42,
+                "key_departures": ["Gabriel Jaú (Europa)", "Scott Machado"],
+                "key_arrivals": [],
+                "pivotal_players": "Gabriel Jaú (14.8 pts, 7.2 reb), Gui Deodato (15.2 pts), Didi Louzada (13.6 pts), Franco Baralle (13.2 pts).",
+                "tactical_summary": "Agressividade no rebote ofensivo com Gabriel Jaú e perímetro rápido sob o comando de De Conti."
+            },
+            {
+                "season": "2025–2026",
+                "season_id": "2025-2026",
+                "label": "2025–2026",
+                "trophy": "Campeão Copa Super 8",
+                "record": "28-8 (77.8%)",
+                "coach": "Gustavo De Conti",
+                "pace": 77.0, "ortg": 114.8, "drtg": 98.1, "net_rating": 16.7,
+                "efg_pct": 0.552, "tov_pct": 0.108, "orb_pct": 0.285, "ftr": 0.282,
+                "rim_freq": 0.38, "mid_freq": 0.18, "three_freq": 0.44,
+                "key_departures": ["Gabriel Jaú"],
+                "key_arrivals": ["Alexey Borges (Armador)", "Shaq Johnson", "Taya Gallizzi"],
+                "pivotal_players": "Alexey Borges (13.8 pts, 6.2 ast), Gui Deodato (16.0 pts), Shaq Johnson (14.5 pts), Taya Gallizzi (10.8 pts, 7.5 reb).",
+                "tactical_summary": "Aceleração no backcourt com Alexey Borges e Franco Baralle dividindo o playmaking, além de presença física de Gallizzi."
+            },
+            {
+                "season": "2026–2027",
+                "season_id": "2026-2027",
+                "label": "2026–2027 (Atual)",
+                "trophy": "⚡ Temporada Vigente",
+                "record": "21-5 (80.8%)",
+                "coach": "Gustavo De Conti",
+                "pace": 76.8, "ortg": 114.2, "drtg": 98.4, "net_rating": 15.8,
+                "efg_pct": 0.548, "tov_pct": 0.112, "orb_pct": 0.292, "ftr": 0.280,
+                "rim_freq": 0.39, "mid_freq": 0.16, "three_freq": 0.45,
+                "key_departures": [],
+                "key_arrivals": ["Kayo Gonçalves afirmado"],
+                "pivotal_players": "Gui Deodato (15.8 pts), Franco Baralle (14.2 pts, 6.5 ast), Alexey Borges (12.4 pts), Shaq Johnson (13.9 pts).",
+                "tactical_summary": "Pressão defensiva em toda a quadra, alta rotação de alas e transição de contra-ataque em menos de 6 segundos."
+            }
+        ]
+    }
+}
+
+def generate_spatial_shots(team_name: str, season: str = "2026–2027", count: int = 180) -> List[Dict[str, Any]]:
     """
     Generates realistic spatial coordinates (in meters) for a team on a half court
-    following modern shot distribution (concentration at rim and beyond 3PT line).
+    following modern shot distribution, adjusted by team and season.
     """
     shots = []
-    random.seed(abs(hash(team_name)) % 10000)
+    seed_val = abs(hash(f"{team_name}_{season}")) % 100000
+    random.seed(seed_val)
+    
+    # Season-specific tendencies: Franca 2024-25 had more rim/paint presence (Márcio Santos);
+    # 2025-26 shifted towards perimeter 3-pointers; 2026-27 is modern balanced.
+    three_pct_cutoff = 0.44
+    paint_pct_cutoff = 0.80
+    if "Franca" in team_name:
+        if "2024" in season:
+            three_pct_cutoff = 0.37  # fewer 3s, more inside
+            paint_pct_cutoff = 0.75  # more rim & paint with Márcio Santos
+        elif "2025" in season:
+            three_pct_cutoff = 0.48  # heavy 3pt volume
+            paint_pct_cutoff = 0.81
+    
     for i in range(count):
         shot_type_roll = random.random()
         clock_sec = random.randint(2, 24)
-        if shot_type_roll < 0.44:
+        if shot_type_roll < three_pct_cutoff:
             # 3-Point Shot
             if random.random() < 0.28:
                 # Corner 3
@@ -546,7 +919,7 @@ def generate_spatial_shots(team_name: str, count: int = 180) -> List[Dict[str, A
                 y = 1.575 + radius * math.sin(angle)
                 is_3pt = True
                 made = random.random() < 0.358
-        elif shot_type_roll < 0.80:
+        elif shot_type_roll < paint_pct_cutoff:
             # Rim / Restricted Area (<1.25m from rim center)
             r = random.uniform(0.2, 1.22)
             angle = random.uniform(0, 2 * math.pi)
@@ -565,8 +938,9 @@ def generate_spatial_shots(team_name: str, count: int = 180) -> List[Dict[str, A
             
         zone = classify_shot_zone(x, y)
         shots.append({
-            "shot_id": f"sh_{team_name[:3]}_{i}",
+            "shot_id": f"sh_{team_name[:3]}_{season[:4]}_{i}",
             "team_name": team_name,
+            "season": season,
             "x": round(x, 2),
             "y": round(y, 2),
             "zone": zone,
@@ -578,7 +952,7 @@ def generate_spatial_shots(team_name: str, count: int = 180) -> List[Dict[str, A
 
 def get_complete_fallback_dataset() -> Dict[str, Any]:
     """
-    Constructs the complete precomputed dataset for all competitions.
+    Constructs the complete precomputed dataset for all competitions and seasons.
     """
     competitions_output = []
     all_teams_flat = []
@@ -586,14 +960,24 @@ def get_complete_fallback_dataset() -> Dict[str, Any]:
     hexbins_by_team = {}
     
     for comp in COMPETITIONS_DATA:
+        comp_season = comp.get("season", "2026–2027")
+        comp_season_id = comp.get("season_id", "2026-2027")
         comp_teams = []
         for t in comp["teams"]:
-            shots = generate_spatial_shots(t["name"], count=180)
-            all_shots_by_team[t["name"]] = shots
+            team_season = t.get("season", comp_season)
+            team_season_id = t.get("season_id", comp_season_id)
+            shots = generate_spatial_shots(t["name"], season=team_season, count=180)
             
-            # Compute Goldsberry Hexbins and Zone Metrics
+            # Store shots and hexbins with composite key and bare team name for current season
+            team_key_season = f"{t['name']}__{team_season}"
+            all_shots_by_team[team_key_season] = shots
             hexbins = compute_hexbin_analytics(shots, gridsize=14, min_count=2)
-            hexbins_by_team[t["name"]] = hexbins
+            hexbins_by_team[team_key_season] = hexbins
+            
+            if team_season == "2026–2027" or t["name"] not in all_shots_by_team:
+                all_shots_by_team[t["name"]] = shots
+                hexbins_by_team[t["name"]] = hexbins
+                
             zone_eff = compute_zone_efficiency(shots)
             
             # Four Factors
@@ -639,6 +1023,8 @@ def get_complete_fallback_dataset() -> Dict[str, Any]:
                 roster_with_metrics.append({
                     **p,
                     "team": t["name"],
+                    "season": team_season,
+                    "season_id": team_season_id,
                     "competition_id": comp["id"],
                     "competition_name": comp["name"],
                     "fga": p_fga,
@@ -652,12 +1038,17 @@ def get_complete_fallback_dataset() -> Dict[str, Any]:
                 
             team_entry = {
                 "name": t["name"],
+                "base_name": t.get("base_name", t["name"]),
                 "short_name": t["short_name"],
                 "city": t["city"],
                 "coach": t["coach"],
+                "season": team_season,
+                "season_id": team_season_id,
+                "is_current_season": (team_season == "2026–2027"),
                 "color": t["color"],
                 "accent": t.get("accent", "#ffffff"),
                 "competition_id": comp["id"],
+                "base_competition_id": comp.get("base_id", comp["id"]),
                 "competition_name": comp["name"],
                 "four_factors": ff,
                 "clutch": t.get("clutch", {}),
@@ -674,6 +1065,9 @@ def get_complete_fallback_dataset() -> Dict[str, Any]:
             
         competitions_output.append({
             "id": comp["id"],
+            "base_id": comp.get("base_id", comp["id"]),
+            "season": comp_season,
+            "season_id": comp_season_id,
             "name": comp["name"],
             "category": comp["category"],
             "organizer": comp["organizer"],
@@ -681,6 +1075,8 @@ def get_complete_fallback_dataset() -> Dict[str, Any]:
         })
         
     return {
+        "available_seasons": AVAILABLE_SEASONS,
+        "season_comparisons": SEASON_COMPARISONS,
         "competitions": competitions_output,
         "teams": all_teams_flat,
         "hall_of_fame": HALL_OF_FAME,

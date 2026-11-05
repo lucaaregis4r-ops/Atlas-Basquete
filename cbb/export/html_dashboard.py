@@ -55,7 +55,11 @@ def generate_master_payload() -> Dict[str, Any]:
             all_players.append({
                 "name": p["name"],
                 "team": t["name"],
+                "base_team": t.get("base_name", t["name"]),
+                "season": t.get("season", "2026–2027"),
+                "season_id": t.get("season_id", "2026-2027"),
                 "competition_id": t.get("competition_id", p.get("competition_id", "nbb")),
+                "base_competition_id": t.get("base_competition_id", "nbb"),
                 "competition_name": t.get("competition_name", p.get("competition_name", "CBB")),
                 "number": p["num"],
                 "pos": p["pos"],
@@ -132,11 +136,14 @@ def generate_master_payload() -> Dict[str, Any]:
         "metadata": {
             "title": "Basquete BR — Atlas Tático",
             "subtitle": "Scouting Tático Independente • Modelagem Estocástica de Markov, Four Factors e Eficiência Espacial",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "season": "2026–2027",
+            "available_seasons": fallback.get("available_seasons", []),
             "disclaimer": "Projeto independente de ciência de dados esportivos. Dados abertos consolidados de súmulas oficiais CBB (CBI / Brasileirão) e LNB/NBB.",
-            "updated_at": "2026-11-05T12:00:00Z"
+            "updated_at": "2026-11-05T13:40:00Z"
         },
+        "seasons": fallback.get("available_seasons", []),
+        "season_comparisons": fallback.get("season_comparisons", {}),
         "competitions": competitions,
         "teams": teams,
         "cohort": cohort,

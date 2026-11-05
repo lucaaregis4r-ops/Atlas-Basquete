@@ -53,12 +53,12 @@ class DatabaseRepository:
         with self.get_connection() as conn:
             conn.execute("""
                 INSERT OR REPLACE INTO team_boxscores (
-                    match_id, team_name, is_home, pts, fgm, fga, fg3m, fg3a, ftm, fta,
+                    match_id, team_name, season, is_home, pts, fgm, fga, fg3m, fg3a, ftm, fta,
                     orb, drb, trb, ast, stl, blk, tov, pf, fd,
                     possessions, pace, ortg, drtg, net_rating, efg_pct, tov_pct, orb_pct, ftr
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, [
-                box["match_id"], box["team_name"], box["is_home"],
+                box["match_id"], box["team_name"], box.get("season", "2026-2027"), box["is_home"],
                 box.get("pts", 0), box.get("fgm", 0), box.get("fga", 0),
                 box.get("fg3m", 0), box.get("fg3a", 0), box.get("ftm", 0), box.get("fta", 0),
                 box.get("orb", 0), box.get("drb", 0), box.get("trb", 0),
@@ -74,12 +74,13 @@ class DatabaseRepository:
             for p in players:
                 conn.execute("""
                     INSERT OR REPLACE INTO player_boxscores (
-                        id, match_id, player_name, team_name, number, position, min_played,
+                        id, match_id, player_name, team_name, season, number, position, min_played,
                         pts, fgm, fga, fg3m, fg3a, ftm, fta, orb, drb, trb,
                         ast, stl, blk, tov, pf, fd, dunks, plus_minus, fiba_pir, game_score, ts_pct, usg_pct
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, [
                     p["id"], p["match_id"], p["player_name"], p["team_name"],
+                    p.get("season", "2026-2027"),
                     p.get("number", ""), p.get("position", "G"), p.get("min_played", 0.0),
                     p.get("pts", 0), p.get("fgm", 0), p.get("fga", 0),
                     p.get("fg3m", 0), p.get("fg3a", 0), p.get("ftm", 0), p.get("fta", 0),
@@ -96,11 +97,12 @@ class DatabaseRepository:
             for s in shots:
                 conn.execute("""
                     INSERT OR REPLACE INTO shot_events (
-                        shot_id, match_id, team_name, player_name, period, clock_seconds,
+                        shot_id, match_id, team_name, player_name, season, period, clock_seconds,
                         x_m, y_m, zone, made, points_value
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, [
                     s["shot_id"], s["match_id"], s["team_name"], s["player_name"],
+                    s.get("season", "2026-2027"),
                     s.get("period", 1), s.get("clock_seconds", 0),
                     s.get("x_m", 0.0), s.get("y_m", 0.0), s.get("zone", ""),
                     s.get("made", False), s.get("points_value", 2)
