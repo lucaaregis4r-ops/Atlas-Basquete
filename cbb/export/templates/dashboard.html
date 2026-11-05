@@ -328,18 +328,19 @@
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
     }
 
-    /* SVG Court Styling */
+    /* SVG Court Styling - FIBA Standard Upright */
     svg.fiba-court-pro {
       width: 100%;
       height: 100%;
       display: block;
     }
-    .court-wood { fill: #0a0d14; }
-    .court-paint { fill: #141c2b; stroke: #2a364f; stroke-width: 0.08; }
+    .court-wood { fill: #0b0f19; }
+    .court-wood-plank { stroke: rgba(255, 255, 255, 0.025); stroke-width: 0.04; }
+    .court-paint { fill: #131d2e; stroke: #334155; stroke-width: 0.08; }
     .court-line-pro { stroke: #cbd5e1; stroke-width: 0.08; fill: none; }
     .court-line-subtle { stroke: #475569; stroke-width: 0.06; stroke-dasharray: 0.25, 0.25; fill: none; }
-    .court-basket { stroke: #e05338; stroke-width: 0.09; fill: none; }
-    .court-backboard { stroke: #f8fafc; stroke-width: 0.16; }
+    .court-basket { stroke: #ea580c; stroke-width: 0.10; fill: none; }
+    .court-backboard { stroke: #f8fafc; stroke-width: 0.18; stroke-linecap: round; }
 
     /* Goldsberry Hexbins */
     .hex-poly {
@@ -347,7 +348,7 @@
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
     .hex-poly:hover {
-      filter: brightness(1.3);
+      filter: brightness(1.35) drop-shadow(0 0 4px rgba(255,255,255,0.4));
       stroke: #fff;
       stroke-width: 0.08;
     }
@@ -362,21 +363,194 @@
       stroke-width: 0.1;
       stroke: #fff;
     }
-    .shot-made { fill: var(--hot); opacity: 0.82; }
-    .shot-miss { fill: #475569; opacity: 0.55; }
+    .shot-made { fill: var(--hot); opacity: 0.88; }
+    .shot-miss { fill: #64748b; opacity: 0.50; }
 
     /* Zone Polygons */
     .zone-overlay {
       cursor: pointer;
-      fill: rgba(255, 255, 255, 0.03);
+      fill: rgba(255, 255, 255, 0.02);
       stroke: rgba(255, 255, 255, 0.12);
-      stroke-width: 0.05;
+      stroke-width: 0.06;
       transition: all 0.2s ease;
     }
     .zone-overlay:hover {
-      fill: rgba(224, 83, 56, 0.18);
+      fill: rgba(224, 83, 56, 0.20);
       stroke: var(--terracotta);
-      stroke-width: 0.09;
+      stroke-width: 0.10;
+    }
+
+    /* On-court direct badges */
+    .court-badge-box {
+      fill: rgba(10, 14, 22, 0.90);
+      stroke: rgba(148, 163, 184, 0.45);
+      stroke-width: 0.04;
+      rx: 0.20;
+    }
+    .court-badge-val {
+      font-family: inherit;
+      font-size: 0.35px;
+      font-weight: 700;
+      fill: #f8fafc;
+      text-anchor: middle;
+    }
+    .court-badge-sub {
+      font-family: inherit;
+      font-size: 0.24px;
+      font-weight: 500;
+      fill: #94a3b8;
+      text-anchor: middle;
+    }
+
+    /* Visual Court Legends */
+    .court-legend-container {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .court-legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 11.5px;
+    }
+    .legend-title {
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 10.5px;
+    }
+    .legend-items-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+    .legend-gradient-bar {
+      width: 150px;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #3b82f6, #f59e0b, #10b981);
+    }
+
+    /* Scatter Plot Quadrants */
+    .scatter-panel {
+      position: relative;
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .scatter-svg {
+      width: 100%;
+      height: 380px;
+      display: block;
+    }
+    .scatter-node {
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .scatter-node:hover {
+      filter: brightness(1.35) drop-shadow(0 0 8px rgba(224, 83, 56, 0.9));
+    }
+
+    /* Radar / Spider Chart */
+    .radar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .radar-svg {
+      width: 100%;
+      max-width: 400px;
+      height: 320px;
+    }
+
+    /* Shot Diet Stacked Bar */
+    .shot-diet-container {
+      margin-top: 14px;
+      padding: 14px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+    }
+    .shot-diet-bar {
+      height: 18px;
+      width: 100%;
+      display: flex;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .shot-diet-segment {
+      height: 100%;
+      transition: width 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .diet-rim { background: #10b981; }
+    .diet-mid { background: #f59e0b; }
+    .diet-c3 { background: #3b82f6; }
+    .diet-ab3 { background: #8b5cf6; }
+
+    /* Didactic Guide Cards */
+    .didactic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      margin-bottom: 24px;
+    }
+    .didactic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 18px;
+      transition: border-color 0.2s ease;
+    }
+    .didactic-card:hover {
+      border-color: var(--terracotta);
+    }
+    .didactic-badge {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+    .didactic-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .didactic-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
     }
 
     /* Tooltip */
@@ -501,8 +675,8 @@
         <div class="brand-sub">Scouting Tático Independente • Modelagem Estocástica de Markov, Four Factors e Eficiência Espacial</div>
       </div>
       <div class="header-meta">
-        <div><span class="status-dot"></span> Dados CBB, CBI & NBB 2026–2027</div>
-        <div class="tabular">FIBA Official Rules (40m)</div>
+        <div><span class="status-dot"></span> Sincronização Diária Ativa: 03:00 BRT (GitHub Actions)</div>
+        <div class="tabular">FIBA Official Rules (40m) • CBB / LNB / CBC</div>
       </div>
     </div>
   </header>
@@ -513,7 +687,9 @@
       <button class="comp-pill active" onclick="setCompetition('ALL')">Todas as Competições (Geral CBB)</button>
       <button class="comp-pill" onclick="setCompetition('nbb')">NBB Caixa & Copa Super 8</button>
       <button class="comp-pill" onclick="setCompetition('cbi-sub19')">CBI Sub-19 (CBB / CBC)</button>
-      <button class="comp-pill" onclick="setCompetition('cbi-sub17')">CBI Sub-17 (Paulistano Invicto & Instituto MF)</button>
+      <button class="comp-pill" onclick="setCompetition('cbi-sub17')">CBI Sub-17 (Paulistano Invicto & IMF)</button>
+      <button class="comp-pill" onclick="setCompetition('cbi-sub15')">CBI Super 15 (Sub-15 Base)</button>
+      <button class="comp-pill" onclick="setCompetition('ldb-sub22')">LDB Sub-22 (Desenvolvimento)</button>
       <button class="comp-pill" onclick="setCompetition('brasileirao-cbb')">Brasileirão CBB Adulto</button>
     </div>
   </div>
@@ -547,6 +723,15 @@
 
       <div class="grid-4" id="kpi-summary"></div>
 
+      <!-- NOVO GRÁFICO: Matriz de Quadrantes Táticos (Pace vs Net Rating) -->
+      <div class="scatter-panel">
+        <div class="panel-header">
+          <span>Matriz de Quadrantes Táticos • Ritmo de Jogo (Pace) vs Saldo Líquido (Net Rating / 100 posses)</span>
+          <span style="font-size:11px; color:var(--text-muted);">Passe o mouse para ver detalhes • Clique em uma equipe para abrir o dossiê</span>
+        </div>
+        <svg id="scatter-quadrant-svg" class="scatter-svg" viewBox="0 0 760 380"></svg>
+      </div>
+
       <div class="panel">
         <div class="panel-header">
           <span>Classificação Tática Avançada • Quatro Fatores & Expectativa Pitagórica</span>
@@ -573,6 +758,44 @@
           </table>
         </div>
       </div>
+
+      <!-- NOVO COMPONENTE: Cards Didáticos "Como Ler os Dados" -->
+      <div class="section-header" style="margin-top:32px;">
+        <div>
+          <h3 class="section-title" style="font-size:16px;">Guia Prático • Como Interpretar as Métricas Avançadas</h3>
+          <p class="section-desc">Conceitos fundamentais da analítica moderna de basquetebol explicados de forma simples e direta.</p>
+        </div>
+      </div>
+      <div class="didactic-grid">
+        <div class="didactic-card">
+          <span class="didactic-badge">Dean Oliver (2004)</span>
+          <h4>Os Quatro Fatores da Vitória</h4>
+          <p>
+            Pesos matemáticos empíricos comprovam o impacto real: <strong>Arremessar bem (eFG% - 40%)</strong> vale o dobro de <strong>Cuidar da Posse (TOV% - 25%)</strong>, que supera <strong>Rebote de Ataque (ORB% - 20%)</strong> e <strong>Faltas Cavadas (FTR - 15%)</strong>.
+          </p>
+        </div>
+        <div class="didactic-card">
+          <span class="didactic-badge">Markov & EPV (2016, 2020)</span>
+          <h4>Expected Possession Value (EPV)</h4>
+          <p>
+            Cada segundo com a bola na mão possui um valor em pontos ($EPV$). Infiltrações no garrafão geram $EPV = 1.28$, enquanto arremessos forçados no estouro do cronômetro caem para $EPV = 0.62$.
+          </p>
+        </div>
+        <div class="didactic-card">
+          <span class="didactic-badge">Kirk Goldsberry (2019)</span>
+          <h4>Eficiência Espacial (SES)</h4>
+          <p>
+            O <strong>Surplus de Eficiência Espacial</strong> compara os pontos por arremesso (PPS) com a média da liga na mesma coordenada. Hexágonos verdes indicam zonas quentes letais; azuis são abaixo da média.
+          </p>
+        </div>
+        <div class="didactic-card">
+          <span class="didactic-badge">FIBA vs Hollinger</span>
+          <h4>FIBA PIR vs Game Score</h4>
+          <p>
+            O <strong>PIR Oficial FIBA</strong> avalia produtividade simples $(PTS+REB+AST+STL+BLK - ERROS)$. Já o <strong>Game Score</strong> de John Hollinger pondera o custo real das tentativas de arremesso e lances livres.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 2: QUADRA & SHOT CHARTS (mplbasketball) -->
@@ -580,7 +803,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Eficiência Espacial na Quadra Oficial FIBA (28m × 15m)</h2>
-          <p class="section-desc">Geometria precisa padronizada por <code>mplbasketball</code>. Visualização em Hexbins de Goldsberry (volume por raio e eficiência por cor), Dispersão Individual e Zonas de Quadra.</p>
+          <p class="section-desc">Orientação padrão de transmissão e scouting (cesta na base inferior, meia quadra no topo). Geometria precisa <code>mplbasketball</code> com Hexbins Goldsberry, Dispersão Individual e 10 Zonas FIBA.</p>
         </div>
         <div class="filters-row">
           <select id="court-team-selector" class="filter-select" onchange="renderCourtView()">
@@ -601,71 +824,166 @@
           <div class="court-controls-bar">
             <div class="court-mode-group">
               <button id="btn-mode-hexbin" class="court-mode-btn active" onclick="setCourtMode('hexbin')">Hexbins Goldsberry</button>
-              <button id="btn-mode-scatter" class="court-mode-btn" onclick="setCourtMode('scatter')">Dispersão de Tiros</button>
+              <button id="btn-mode-scatter" class="court-mode-btn" onclick="setCourtMode('scatter')">Dispersão Individual</button>
               <button id="btn-mode-zones" class="court-mode-btn" onclick="setCourtMode('zones')">10 Zonas FIBA</button>
             </div>
-            <div style="font-size:11px; color:var(--text-dim);" class="tabular">FIBA Half Court • 14m × 15m</div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <label style="font-size:11.5px; color:var(--text-muted); display:flex; align-items:center; gap:4px; cursor:pointer;">
+                <input type="checkbox" id="chk-court-badges" checked onchange="toggleCourtBadges(this.checked)">
+                Rótulos na Quadra
+              </label>
+              <span style="font-size:11px; color:var(--text-dim);" class="tabular">FIBA Upright • 14m × 15m</span>
+            </div>
           </div>
 
           <div class="court-frame">
-            <svg id="fiba-court-svg" class="fiba-court-pro" viewBox="-8 -0.5 16 15">
-              <!-- Official FIBA Court Elements (mplbasketball geometry) -->
-              <rect x="-7.5" y="0" width="15" height="14" class="court-wood" />
-              <!-- Paint / Key (4.90m wide, 5.80m length) -->
-              <rect x="-2.45" y="0" width="4.90" height="5.80" class="court-paint" />
-              <!-- Free Throw Circle (r=1.80m at y=5.80m) -->
-              <circle cx="0" cy="5.80" r="1.80" class="court-line-pro" />
-              <path d="M -1.80 5.80 A 1.80 1.80 0 0 0 1.80 5.80" class="court-line-subtle" />
-              <!-- Restricted Area Arc (r=1.25m from rim at y=1.575m) -->
-              <path d="M -1.25 1.575 A 1.25 1.25 0 0 1 1.25 1.575 L 1.25 1.2 L -1.25 1.2 Z" class="court-line-pro" fill="none" />
-              <!-- Backboard & Rim -->
-              <line x1="-0.90" y1="1.20" x2="0.90" y2="1.20" class="court-backboard" />
-              <circle cx="0" cy="1.575" r="0.225" class="court-basket" />
-              <circle cx="0" cy="1.575" r="0.45" stroke="#334155" stroke-width="0.04" fill="none" />
+            <svg id="fiba-court-svg" class="fiba-court-pro" viewBox="-8.5 -0.5 17 15.5">
+              <defs>
+                <linearGradient id="court-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#090d16" />
+                  <stop offset="100%" stop-color="#0f1422" />
+                </linearGradient>
+                <linearGradient id="paint-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#141e30" />
+                  <stop offset="100%" stop-color="#1a263d" />
+                </linearGradient>
+              </defs>
+
+              <!-- Court Floor Background -->
+              <rect x="-8.2" y="-0.2" width="16.4" height="15.0" fill="#060910" rx="0.3" />
+              <rect x="-7.5" y="0.2" width="15" height="14" fill="url(#court-grad)" stroke="#1e293b" stroke-width="0.08" />
+
+              <!-- Subtle Hardwood Floorboards -->
+              <line x1="-7.5" y1="2.2" x2="7.5" y2="2.2" class="court-wood-plank" />
+              <line x1="-7.5" y1="4.2" x2="7.5" y2="4.2" class="court-wood-plank" />
+              <line x1="-7.5" y1="6.2" x2="7.5" y2="6.2" class="court-wood-plank" />
+              <line x1="-7.5" y1="8.2" x2="7.5" y2="8.2" class="court-wood-plank" />
+              <line x1="-7.5" y1="10.2" x2="7.5" y2="10.2" class="court-wood-plank" />
+              <line x1="-7.5" y1="12.2" x2="7.5" y2="12.2" class="court-wood-plank" />
+
+              <!-- The Key / Paint (4.90m wide, 5.80m length) -->
+              <rect x="-2.45" y="8.40" width="4.90" height="5.80" fill="url(#paint-grad)" stroke="#334155" stroke-width="0.08" />
+
+              <!-- Free Throw Circle (r=1.80m at y=8.40m) -->
+              <path d="M -1.80 8.40 A 1.80 1.80 0 0 1 1.80 8.40" class="court-line-pro" />
+              <path d="M -1.80 8.40 A 1.80 1.80 0 0 0 1.80 8.40" class="court-line-subtle" />
+              <line x1="-2.45" y1="8.40" x2="2.45" y2="8.40" class="court-line-pro" />
+
+              <!-- Restricted Area Arc (r=1.25m from rim at y=12.625m) -->
+              <path d="M -1.25 13.00 L -1.25 12.625 A 1.25 1.25 0 0 1 1.25 12.625 L 1.25 13.00" class="court-line-pro" />
+
+              <!-- Backboard, Support & Rim (FIBA Upright at Bottom) -->
+              <line x1="-0.90" y1="13.00" x2="0.90" y2="13.00" class="court-backboard" />
+              <line x1="0" y1="13.00" x2="0" y2="12.85" stroke="#ea580c" stroke-width="0.08" />
+              <circle cx="0" cy="12.625" r="0.225" class="court-basket" />
+              <path d="M -0.18 12.625 L -0.10 12.35 L 0.10 12.35 L 0.18 12.625" stroke="#94a3b8" stroke-width="0.03" fill="none" opacity="0.6" />
+
               <!-- Lane Rebound Hash Marks (Blocks at 1.75m, 2.60m, 3.45m, 4.30m) -->
-              <line x1="-2.60" y1="1.75" x2="-2.45" y2="1.75" class="court-line-pro" />
-              <line x1="2.45" y1="1.75" x2="2.60" y2="1.75" class="court-line-pro" />
-              <line x1="-2.60" y1="2.60" x2="-2.45" y2="2.60" class="court-line-pro" />
-              <line x1="2.45" y1="2.60" x2="2.60" y2="2.60" class="court-line-pro" />
-              <line x1="-2.60" y1="3.45" x2="-2.45" y2="3.45" class="court-line-pro" />
-              <line x1="2.45" y1="3.45" x2="2.60" y2="3.45" class="court-line-pro" />
-              <line x1="-2.60" y1="4.30" x2="-2.45" y2="4.30" class="court-line-pro" />
-              <line x1="2.45" y1="4.30" x2="2.60" y2="4.30" class="court-line-pro" />
-              <!-- Three-Point Line (Corners at 6.60m, arc radius 6.75m) -->
-              <line x1="-6.60" y1="0" x2="-6.60" y2="2.99" class="court-line-pro" />
-              <line x1="6.60" y1="0" x2="6.60" y2="2.99" class="court-line-pro" />
-              <path d="M -6.60 2.99 A 6.75 6.75 0 0 1 6.60 2.99" class="court-line-pro" />
-              <!-- Center Circle (r=1.80m at y=14.0m) -->
-              <path d="M -1.80 14.0 A 1.80 1.80 0 0 0 1.80 14.0" class="court-line-pro" />
+              <line x1="-2.60" y1="12.45" x2="-2.45" y2="12.45" class="court-line-pro" />
+              <line x1="2.45" y1="12.45" x2="2.60" y2="12.45" class="court-line-pro" />
+              <line x1="-2.60" y1="11.60" x2="-2.45" y2="11.60" class="court-line-pro" />
+              <line x1="2.45" y1="11.60" x2="2.60" y2="11.60" class="court-line-pro" />
+              <line x1="-2.60" y1="10.75" x2="-2.45" y2="10.75" class="court-line-pro" />
+              <line x1="2.45" y1="10.75" x2="2.60" y2="10.75" class="court-line-pro" />
+              <line x1="-2.60" y1="9.90" x2="-2.45" y2="9.90" class="court-line-pro" />
+              <line x1="2.45" y1="9.90" x2="2.60" y2="9.90" class="court-line-pro" />
+
+              <!-- Three-Point Line (Corners at 6.60m from basket axis, arc radius 6.75m) -->
+              <path d="M -6.60 14.20 L -6.60 11.21 A 6.75 6.75 0 0 1 6.60 11.21 L 6.60 14.20" class="court-line-pro" />
+
+              <!-- Court Boundaries & Half Court Line -->
+              <line x1="-7.5" y1="14.20" x2="7.5" y2="14.20" class="court-line-pro" />
+              <line x1="-7.5" y1="0.20" x2="-7.5" y2="14.20" class="court-line-pro" />
+              <line x1="7.5" y1="0.20" x2="7.5" y2="14.20" class="court-line-pro" />
+              <line x1="-7.5" y1="0.20" x2="7.5" y2="0.20" class="court-line-pro" />
+
+              <!-- Center Court Circle (r=1.80m at Half Court y=0.20m) -->
+              <path d="M -1.80 0.20 A 1.80 1.80 0 0 0 1.80 0.20" class="court-line-pro" />
+              <path d="M -0.40 0.20 A 0.40 0.40 0 0 0 0.40 0.20" class="court-line-subtle" />
+
+              <!-- Inbound lines (8.32m from baseline) -->
+              <line x1="-7.5" y1="5.88" x2="-7.0" y2="5.88" class="court-line-pro" />
+              <line x1="7.0" y1="5.88" x2="7.5" y2="5.88" class="court-line-pro" />
+
               <!-- Layers for Data -->
               <g id="layer-zones"></g>
               <g id="layer-hexbins"></g>
               <g id="layer-shots"></g>
+              <g id="layer-badges"></g>
             </svg>
             <div id="court-tooltip"></div>
           </div>
+
+          <!-- Comprehensive Visual Legends -->
+          <div class="court-legend-container">
+            <div class="court-legend-row">
+              <span class="legend-title">Frequência / Volume de Arremessos (Raio do Hexágono):</span>
+              <div class="legend-items-group">
+                <div class="legend-item">
+                  <svg width="14" height="14" viewBox="-1 -1 2 2"><polygon points="0,0.45 0.39,0.22 0.39,-0.22 0,-0.45 -0.39,-0.22 -0.39,0.22" fill="#94a3b8" /></svg>
+                  <span>Baixo (&lt; 2%)</span>
+                </div>
+                <div class="legend-item">
+                  <svg width="18" height="18" viewBox="-1 -1 2 2"><polygon points="0,0.7 0.6,0.35 0.6,-0.35 0,-0.7 -0.6,-0.35 -0.6,0.35" fill="#94a3b8" /></svg>
+                  <span>Médio (~ 5%)</span>
+                </div>
+                <div class="legend-item">
+                  <svg width="22" height="22" viewBox="-1 -1 2 2"><polygon points="0,0.95 0.82,0.47 0.82,-0.47 0,-0.95 -0.82,-0.47 -0.82,0.47" fill="#94a3b8" /></svg>
+                  <span>Alto (&gt; 8% do ataque)</span>
+                </div>
+              </div>
+            </div>
+            <div class="court-legend-row">
+              <span class="legend-title">Eficiência Espacial (Goldsberry SES vs Média FIBA 1.02 PPS):</span>
+              <div class="legend-items-group">
+                <span style="color:#3b82f6; font-weight:600;">Frio (&lt; -0.12)</span>
+                <div class="legend-gradient-bar"></div>
+                <span style="color:#10b981; font-weight:600;">Quente / Letal (&gt; +0.12)</span>
+              </div>
+              <div class="legend-items-group">
+                <div class="legend-item">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+                  <span>Convertido (+2/+3)</span>
+                </div>
+                <div class="legend-item">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#64748b;"></span>
+                  <span>Erro (0 pts)</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Zone Analytics Sidebar -->
-        <div class="panel">
-          <div class="panel-header">
-            <span>Tabela de Rendimento Espacial • Goldsberry SES & PPS</span>
+        <!-- Zone Analytics Sidebar & Shot Diet Breakdown -->
+        <div>
+          <div class="panel" style="margin-bottom:20px;">
+            <div class="panel-header">
+              <span>Tabela de Rendimento Espacial • Goldsberry SES & PPS</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="table-court-zones">
+                <thead>
+                  <tr>
+                    <th>Zona</th>
+                    <th class="tabular">FGM/FGA</th>
+                    <th class="tabular">FG%</th>
+                    <th class="tabular">Freq%</th>
+                    <th class="tabular">PPS</th>
+                    <th class="tabular">SES (vs Liga)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
           </div>
-          <div class="table-responsive">
-            <table class="data-table" id="table-court-zones">
-              <thead>
-                <tr>
-                  <th>Zona</th>
-                  <th class="tabular">FGM/FGA</th>
-                  <th class="tabular">FG%</th>
-                  <th class="tabular">Freq%</th>
-                  <th class="tabular">PPS</th>
-                  <th class="tabular">SES (vs Liga)</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+
+          <!-- NOVO: Dieta de Arremessos (Shot Profile Bar) -->
+          <div class="panel">
+            <div class="panel-header">
+              <span>Dieta de Arremessos • Distribuição Tática por Zona</span>
+            </div>
+            <div id="court-shot-diet-container"></div>
           </div>
         </div>
       </div>
@@ -674,6 +992,52 @@
     <!-- TAB 3: EQUIPES & ESTATÍSTICAS APROFUNDADAS -->
     <div id="tab-equipes" class="tab-content">
       <div class="section-header">
+        <div>
+          <h2 class="section-title">Dossiê Técnico da Equipe & Estatísticas Completas</h2>
+          <p class="section-desc">Estatísticas de clutch, cronômetro de 24s, distâncias de arremesso, criação, radar tático de 6 eixos e defesa.</p>
+        </div>
+        <div>
+          <select id="team-selector" class="filter-select" onchange="renderTeamDossier(this.value)"></select>
+        </div>
+      </div>
+
+      <div class="grid-3" id="team-advanced-kpis">
+        <!-- Clutch Stats, Shot Clock, Splits -->
+      </div>
+
+      <!-- NOVO: Radar Tático de 6 Eixos e Distribuição de Arremessos -->
+      <div class="grid-2">
+        <div class="radar-card">
+          <div class="panel-header" style="width:100%;">
+            <span>Perfil Tático de 6 Dimensões (Radar Chart)</span>
+            <span style="font-size:11px; color:var(--text-muted);">Vs. Média da Competição</span>
+          </div>
+          <svg id="team-radar-svg" class="radar-svg" viewBox="0 0 400 320"></svg>
+          <div style="display:flex; justify-content:center; gap:18px; margin-top:8px; font-size:11.5px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="width:12px; height:3px; background:var(--terracotta); display:inline-block;"></span>
+              <span id="radar-team-label" class="strong">Equipe Selecionada</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="width:12px; height:3px; background:#64748b; display:inline-block; border-top:1px dashed #64748b;"></span>
+              <span style="color:var(--text-muted);">Média Geral</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><span>Dieta & Distribuição de Arremessos da Equipe</span></div>
+          <div id="team-shot-diet-panel"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel" id="team-factors-panel"></div>
+        <div class="panel" id="team-zones-panel"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
         <div>
           <h2 class="section-title">Dossiê Técnico da Equipe & Estatísticas Completas</h2>
           <p class="section-desc">Estatísticas de clutch, cronômetro de 24s, distâncias de arremesso, criação e defesa.</p>
@@ -970,6 +1334,372 @@ __ATLAS_DATA_JSON__
       renderCourtView();
     }
 
+    let showCourtBadges = true;
+    function toggleCourtBadges(show) {
+      showCourtBadges = show;
+      renderCourtView();
+    }
+
+    // ==============================================================
+    // NOVO GRÁFICO 1: Matriz de Quadrantes Táticos (Pace vs Net Rating)
+    // ==============================================================
+    function renderTacticalQuadrantChart() {
+      const svg = document.getElementById("scatter-quadrant-svg");
+      if (!svg || !currentTeams.length) return;
+      const tooltip = document.getElementById("court-tooltip");
+
+      const W = 760;
+      const H = 380;
+      const padL = 65, padR = 40, padT = 35, padB = 45;
+      const plotW = W - padL - padR;
+      const plotH = H - padT - padB;
+
+      const minPace = 72, maxPace = 84, midPace = 76.5;
+      const minNet = -16, maxNet = 20, midNet = 0;
+
+      const getX = (p) => padL + ((p - minPace) / (maxPace - minPace)) * plotW;
+      const getY = (n) => padT + ((maxNet - n) / (maxNet - minNet)) * plotH;
+
+      const midX = getX(midPace);
+      const midY = getY(midNet);
+
+      let html = `
+        <!-- Quadrant Background Tints -->
+        <rect x="${midX}" y="${padT}" width="${padL + plotW - midX}" height="${midY - padT}" fill="rgba(16, 185, 129, 0.05)" />
+        <rect x="${padL}" y="${padT}" width="${midX - padL}" height="${midY - padT}" fill="rgba(59, 130, 246, 0.05)" />
+        <rect x="${padL}" y="${midY}" width="${midX - padL}" height="${padT + plotH - midY}" fill="rgba(239, 68, 68, 0.04)" />
+        <rect x="${midX}" y="${midY}" width="${padL + plotW - midX}" height="${padT + plotH - midY}" fill="rgba(245, 158, 11, 0.05)" />
+
+        <!-- Quadrant Tactical Headers -->
+        <text x="${W - padR - 12}" y="${padT + 22}" text-anchor="end" fill="#10b981" font-size="11" font-weight="700" letter-spacing="0.05em">RÁPIDO & LETAL</text>
+        <text x="${W - padR - 12}" y="${padT + 36}" text-anchor="end" fill="#94a3b8" font-size="9.5">Alto Ritmo • Saldo Positivo</text>
+
+        <text x="${padL + 12}" y="${padT + 22}" text-anchor="start" fill="#3b82f6" font-size="11" font-weight="700" letter-spacing="0.05em">METÓDICO & EFICIENTE</text>
+        <text x="${padL + 12}" y="${padT + 36}" text-anchor="start" fill="#94a3b8" font-size="9.5">Meia Quadra Cadenciada & Defesa</text>
+
+        <text x="${padL + 12}" y="${H - padB - 26}" text-anchor="start" fill="#ef4444" font-size="11" font-weight="700" letter-spacing="0.05em">LENTO & EM DIFICULDADE</text>
+        <text x="${padL + 12}" y="${H - padB - 12}" text-anchor="start" fill="#94a3b8" font-size="9.5">Ritmo Travado • Déficit de Pontos</text>
+
+        <text x="${W - padR - 12}" y="${H - padB - 26}" text-anchor="end" fill="#f59e0b" font-size="11" font-weight="700" letter-spacing="0.05em">CAÓTICO & VULNERÁVEL</text>
+        <text x="${W - padR - 12}" y="${H - padB - 12}" text-anchor="end" fill="#94a3b8" font-size="9.5">Acelera muito mas cede transições</text>
+
+        <!-- Grid Lines & Crosshairs -->
+        <line x1="${padL}" y1="${midY}" x2="${W - padR}" y2="${midY}" stroke="#475569" stroke-width="1.2" stroke-dasharray="3,3" />
+        <line x1="${midX}" y1="${padT}" x2="${midX}" y2="${H - padB}" stroke="#475569" stroke-width="1.2" stroke-dasharray="3,3" />
+
+        <!-- Outer Axes -->
+        <line x1="${padL}" y1="${H - padB}" x2="${W - padR}" y2="${H - padB}" stroke="#334155" stroke-width="1.2" />
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H - padB}" stroke="#334155" stroke-width="1.2" />
+
+        <!-- Axis Labels -->
+        <text x="${W / 2}" y="${H - 12}" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-weight="600">Ritmo de Jogo (Pace • Posses por 40 minutos)</text>
+        <text x="18" y="${H / 2}" text-anchor="middle" fill="#94a3b8" font-size="11.5" font-weight="600" transform="rotate(-90 18 ${H / 2})">Saldo Líquido (Net Rating / 100 posses)</text>
+      `;
+
+      // X Ticks
+      [74, 76, 78, 80, 82].forEach(p => {
+        const tx = getX(p);
+        html += `
+          <line x1="${tx}" y1="${H - padB}" x2="${tx}" y2="${H - padB + 5}" stroke="#475569" stroke-width="1" />
+          <text x="${tx}" y="${H - padB + 16}" text-anchor="middle" fill="#64748b" font-size="10">${p}</text>
+        `;
+      });
+
+      // Y Ticks
+      [-10, -5, 0, 5, 10, 15].forEach(n => {
+        const ty = getY(n);
+        html += `
+          <line x1="${padL - 5}" y1="${ty}" x2="${padL}" y2="${ty}" stroke="#475569" stroke-width="1" />
+          <text x="${padL - 8}" y="${ty + 3.5}" text-anchor="end" fill="#64748b" font-size="10">${n > 0 ? '+' + n : n}</text>
+        `;
+      });
+
+      // Team Nodes
+      currentTeams.forEach((t, idx) => {
+        const cx = getX(t.four_factors.pace);
+        const cy = getY(t.four_factors.net_rating);
+        const code = t.short_name || t.name.slice(0, 3).toUpperCase();
+        html += `
+          <g class="scatter-node" data-idx="${idx}" onclick="selectTeamFromScatter('${t.name}')">
+            <circle cx="${cx}" cy="${cy}" r="11" fill="${t.color || '#e05338'}" stroke="${t.accent || '#ffffff'}" stroke-width="1.8" />
+            <text x="${cx}" y="${cy + 3.5}" text-anchor="middle" fill="#ffffff" font-size="8" font-weight="700" style="pointer-events:none;">${code}</text>
+          </g>
+        `;
+      });
+
+      svg.innerHTML = html;
+
+      svg.onmousemove = (e) => {
+        const g = e.target.closest(".scatter-node");
+        if (g && tooltip) {
+          const idx = parseInt(g.getAttribute("data-idx"));
+          const t = currentTeams[idx];
+          if (t) {
+            const ff = t.four_factors;
+            tooltip.style.display = "block";
+            tooltip.style.left = (e.pageX + 14) + "px";
+            tooltip.style.top = (e.pageY - 30) + "px";
+            tooltip.innerHTML = `
+              <strong style="color:var(--text-main); font-size:13px;">${t.name}</strong><br>
+              <span style="font-size:11px; color:var(--text-dim);">${t.competition_name || 'CBB'} • ${t.city}</span><br>
+              <div style="margin-top:6px; font-size:11.5px; line-height:1.4;">
+                Pace: <strong class="tabular">${ff.pace}</strong> posses/40m<br>
+                Net Rating: <strong class="tabular" style="color:${ff.net_rating>=0?'var(--hot)':'#ef4444'}">${ff.net_rating>0?'+':''}${ff.net_rating}</strong><br>
+                Ataque (ORtg): <span class="tabular">${ff.ortg}</span> | Defesa (DRtg): <span class="tabular">${ff.drtg}</span><br>
+                eFG%: <strong class="tabular">${(ff.efg_pct*100).toFixed(1)}%</strong> | TOV%: <span class="tabular">${(ff.tov_pct*100).toFixed(1)}%</span>
+              </div>
+              <div style="font-size:10px; color:var(--terracotta); margin-top:4px;">Clique para abrir dossiê completo</div>
+            `;
+          }
+        } else if (tooltip && !e.target.closest(".scatter-node")) {
+          tooltip.style.display = "none";
+        }
+      };
+
+      svg.onmouseleave = () => { if (tooltip) tooltip.style.display = "none"; };
+    }
+
+    function selectTeamFromScatter(teamName) {
+      switchTab("equipes");
+      const sel = document.getElementById("team-selector");
+      if (sel) sel.value = teamName;
+      renderTeamDossier(teamName);
+    }
+
+    // ==============================================================
+    // NOVO GRÁFICO 2: Radar Tático de 6 Dimensões (Spider Chart)
+    // ==============================================================
+    function renderTacticalRadar(team) {
+      const svg = document.getElementById("team-radar-svg");
+      if (!svg || !team) return;
+
+      const labelEl = document.getElementById("radar-team-label");
+      if (labelEl) labelEl.textContent = team.name;
+
+      const ff = team.four_factors;
+      const def = team.defense || {};
+
+      const axes = [
+        { name: "eFG%", val: ff.efg_pct, min: 0.40, max: 0.60, display: (ff.efg_pct*100).toFixed(1) + "%" },
+        { name: "Segurança", val: 1 - ff.tov_pct, min: 0.80, max: 0.92, display: ((1-ff.tov_pct)*100).toFixed(1) + "%" },
+        { name: "Rebote Of.", val: ff.orb_pct, min: 0.15, max: 0.35, display: (ff.orb_pct*100).toFixed(1) + "%" },
+        { name: "Lance Livre", val: ff.ftr, min: 0.15, max: 0.35, display: ff.ftr.toFixed(3) },
+        { name: "Ritmo (Pace)", val: ff.pace, min: 70, max: 85, display: ff.pace.toFixed(1) },
+        { name: "Prot. Aro", val: 1 - (def.rim_def_fg || 0.52), min: 0.40, max: 0.60, display: ((1-(def.rim_def_fg||0.52))*100).toFixed(1) + "%" },
+      ];
+
+      const medians = [0.505, 0.845, 0.230, 0.260, 76.5, 0.485];
+      const cx = 200, cy = 160, R = 105;
+      const numAxes = axes.length;
+      const angleStep = (2 * Math.PI) / numAxes;
+
+      let html = `
+        <!-- Concentric Web Rings -->
+        ${[0.25, 0.50, 0.75, 1.0].map(scale => {
+          let pts = [];
+          for (let i = 0; i < numAxes; i++) {
+            const ang = -Math.PI / 2 + i * angleStep;
+            pts.push((cx + R * scale * Math.cos(ang)).toFixed(1) + "," + (cy + R * scale * Math.sin(ang)).toFixed(1));
+          }
+          return `<polygon points="${pts.join(" ")}" fill="none" stroke="#222f44" stroke-width="1" />`;
+        }).join("")}
+
+        <!-- Axis Rays & Labels -->
+        ${axes.map((ax, i) => {
+          const ang = -Math.PI / 2 + i * angleStep;
+          const x2 = cx + R * Math.cos(ang);
+          const y2 = cy + R * Math.sin(ang);
+          const lx = cx + (R + 22) * Math.cos(ang);
+          const ly = cy + (R + 20) * Math.sin(ang);
+          return `
+            <line x1="${cx}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#334155" stroke-width="1" />
+            <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-weight="600">${ax.name}</text>
+            <text x="${lx.toFixed(1)}" y="${(ly + 11).toFixed(1)}" text-anchor="middle" fill="#cbd5e1" font-size="9" class="tabular">${ax.display}</text>
+          `;
+        }).join("")}
+      `;
+
+      // League Median Polygon
+      const medPts = medians.map((mVal, i) => {
+        const ax = axes[i];
+        const norm = Math.max(0.08, Math.min(1.0, (mVal - ax.min) / (ax.max - ax.min)));
+        const ang = -Math.PI / 2 + i * angleStep;
+        return (cx + R * norm * Math.cos(ang)).toFixed(1) + "," + (cy + R * norm * Math.sin(ang)).toFixed(1);
+      });
+      html += `<polygon points="${medPts.join(" ")}" fill="rgba(100, 116, 139, 0.12)" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" />`;
+
+      // Selected Team Polygon
+      const teamPts = axes.map((ax, i) => {
+        const norm = Math.max(0.08, Math.min(1.0, (ax.val - ax.min) / (ax.max - ax.min)));
+        const ang = -Math.PI / 2 + i * angleStep;
+        return (cx + R * norm * Math.cos(ang)).toFixed(1) + "," + (cy + R * norm * Math.sin(ang)).toFixed(1);
+      });
+      html += `
+        <polygon points="${teamPts.join(" ")}" fill="rgba(224, 83, 56, 0.35)" stroke="var(--terracotta)" stroke-width="2.5" />
+        ${teamPts.map(pt => `<circle cx="${pt.split(',')[0]}" cy="${pt.split(',')[1]}" r="3.5" fill="#f8fafc" stroke="var(--terracotta)" stroke-width="1.5" />`).join("")}
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    // ==============================================================
+    // NOVO GRÁFICO 3: Dieta de Arremessos (Shot Profile Stacked Bar)
+    // ==============================================================
+    function renderShotDietBar(team, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container || !team) return;
+
+      const ze = team.zone_efficiency || {};
+      const ra = ze["Restricted Area (<1.25m)"] || { freq: 0.34, fg_pct: 0.64, pps: 1.28 };
+      const pNon = ze["Paint (Non-RA)"] || { freq: 0.16, fg_pct: 0.44, pps: 0.88 };
+      const mid = {
+        freq: ((ze["Mid-Range Left"]?.freq || 0.05) + (ze["Mid-Range Right"]?.freq || 0.05) + (ze["Mid-Range Center"]?.freq || 0.04)),
+        fg_pct: 0.405,
+        pps: 0.81
+      };
+      const c3 = {
+        freq: ((ze["Corner 3 Left"]?.freq || 0.06) + (ze["Corner 3 Right"]?.freq || 0.06)),
+        fg_pct: 0.410,
+        pps: 1.23
+      };
+      const ab3 = {
+        freq: ((ze["Above the Break 3 Center"]?.freq || 0.12) + (ze["Above the Break 3 Left"]?.freq || 0.08) + (ze["Above the Break 3 Right"]?.freq || 0.09)),
+        fg_pct: 0.360,
+        pps: 1.08
+      };
+
+      const rimFreq = Math.round((ra.freq + pNon.freq) * 100);
+      const midFreq = Math.round(mid.freq * 100);
+      const c3Freq = Math.round(c3.freq * 100);
+      const ab3Freq = Math.round(ab3.freq * 100);
+
+      container.innerHTML = `
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">
+          Proporção dos arremessos tentados por setor da quadra:
+        </div>
+        <div class="shot-diet-bar">
+          <div class="shot-diet-segment diet-rim" style="width:${rimFreq}%;" title="Garrafão: ${rimFreq}% vol"></div>
+          <div class="shot-diet-segment diet-mid" style="width:${midFreq}%;" title="Meia Distância: ${midFreq}% vol"></div>
+          <div class="shot-diet-segment diet-c3" style="width:${c3Freq}%;" title="Canto 3P: ${c3Freq}% vol"></div>
+          <div class="shot-diet-segment diet-ab3" style="width:${ab3Freq}%;" title="3P Perímetro: ${ab3Freq}% vol"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; margin-top:12px; font-size:11.5px;">
+          <div style="border-left:3px solid #10b981; padding-left:8px;">
+            <span style="color:var(--text-dim); font-size:10.5px;">GARRAFÃO</span>
+            <div class="strong tabular">${rimFreq}% vol • ${(ra.fg_pct*100).toFixed(0)}% FG</div>
+            <div style="font-size:10.5px; color:#10b981;">${ra.pps.toFixed(2)} PPS</div>
+          </div>
+          <div style="border-left:3px solid #f59e0b; padding-left:8px;">
+            <span style="color:var(--text-dim); font-size:10.5px;">MEIA DISTÂNCIA</span>
+            <div class="strong tabular">${midFreq}% vol • ${(mid.fg_pct*100).toFixed(0)}% FG</div>
+            <div style="font-size:10.5px; color:#f59e0b;">${mid.pps.toFixed(2)} PPS</div>
+          </div>
+          <div style="border-left:3px solid #3b82f6; padding-left:8px;">
+            <span style="color:var(--text-dim); font-size:10.5px;">CANTO 3P (CORNER)</span>
+            <div class="strong tabular">${c3Freq}% vol • ${(c3.fg_pct*100).toFixed(0)}% 3P</div>
+            <div style="font-size:10.5px; color:#3b82f6;">${c3.pps.toFixed(2)} PPS</div>
+          </div>
+          <div style="border-left:3px solid #8b5cf6; padding-left:8px;">
+            <span style="color:var(--text-dim); font-size:10.5px;">3P PERÍMETRO</span>
+            <div class="strong tabular">${ab3Freq}% vol • ${(ab3.fg_pct*100).toFixed(0)}% 3P</div>
+            <div style="font-size:10.5px; color:#8b5cf6;">${ab3.pps.toFixed(2)} PPS</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==============================================================
+    // RÓTULOS DIRETOS NA QUADRA (On-Court Stat Badges)
+    // ==============================================================
+    function renderOnCourtBadges(zoneData) {
+      const getZ = (name) => zoneData[name] || { fg_pct: 0.40, pps: 0.95, ses: 0 };
+
+      const zRA = getZ("Restricted Area (<1.25m)");
+      const zPaint = getZ("Paint (Non-RA)");
+      const zC3L = getZ("Corner 3 Left");
+      const zC3R = getZ("Corner 3 Right");
+      const zMidL = getZ("Mid-Range Left");
+      const zMidR = getZ("Mid-Range Right");
+      const zMidC = getZ("Mid-Range Center");
+      const zAbC = getZ("Above the Break 3 Center");
+      const zAbL = getZ("Above the Break 3 Left");
+      const zAbR = getZ("Above the Break 3 Right");
+
+      const fmtPct = (p) => (p * 100).toFixed(1) + "%";
+
+      return `
+        <!-- Aro (<1.25m) -->
+        <g transform="translate(0, 12.00)" style="pointer-events:none;">
+          <rect x="-1.50" y="-0.50" width="3.00" height="1.00" class="court-badge-box" stroke="${zRA.ses>=0?'#10b981':'#ef4444'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zRA.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">Aro • ${zRA.pps.toFixed(2)} PPS</text>
+        </g>
+
+        <!-- Meio Garrafão -->
+        <g transform="translate(0, 9.70)" style="pointer-events:none;">
+          <rect x="-1.50" y="-0.50" width="3.00" height="1.00" class="court-badge-box" stroke="${zPaint.ses>=0?'#10b981':'#f59e0b'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zPaint.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">Garrafão • ${zPaint.pps.toFixed(2)} PPS</text>
+        </g>
+
+        <!-- Canto 3P Esquerdo -->
+        <g transform="translate(-6.80, 12.60)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zC3L.ses>=0?'#10b981':'#3b82f6'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zC3L.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">3P Canto Esq</text>
+        </g>
+
+        <!-- Canto 3P Direito -->
+        <g transform="translate(6.80, 12.60)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zC3R.ses>=0?'#10b981':'#3b82f6'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zC3R.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">3P Canto Dir</text>
+        </g>
+
+        <!-- Meia Distância Esquerda -->
+        <g transform="translate(-4.30, 10.20)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zMidL.ses>=0?'#10b981':'#f59e0b'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zMidL.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">Meia Esq • ${zMidL.pps.toFixed(2)}</text>
+        </g>
+
+        <!-- Meia Distância Direita -->
+        <g transform="translate(4.30, 10.20)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zMidR.ses>=0?'#10b981':'#f59e0b'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zMidR.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">Meia Dir • ${zMidR.pps.toFixed(2)}</text>
+        </g>
+
+        <!-- Meia Distância Topo -->
+        <g transform="translate(0, 7.10)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zMidC.ses>=0?'#10b981':'#f59e0b'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zMidC.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">Floater • ${zMidC.pps.toFixed(2)}</text>
+        </g>
+
+        <!-- 3P Topo Central -->
+        <g transform="translate(0, 4.30)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zAbC.ses>=0?'#10b981':'#3b82f6'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zAbC.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">3P Central • ${zAbC.pps.toFixed(2)}</text>
+        </g>
+
+        <!-- 3P 45° Esquerda -->
+        <g transform="translate(-4.50, 4.90)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zAbL.ses>=0?'#10b981':'#3b82f6'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zAbL.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">3P 45° Esq</text>
+        </g>
+
+        <!-- 3P 45° Direita -->
+        <g transform="translate(4.50, 4.90)" style="pointer-events:none;">
+          <rect x="-1.40" y="-0.50" width="2.80" height="1.00" class="court-badge-box" stroke="${zAbR.ses>=0?'#10b981':'#3b82f6'}" />
+          <text x="0" y="-0.08" class="court-badge-val">${fmtPct(zAbR.fg_pct)}</text>
+          <text x="0" y="0.32" class="court-badge-sub">3P 45° Dir</text>
+        </g>
+      `;
+    }
+
     function initApp() {
       renderOverviewTab();
       populateTeamSelectors();
@@ -1115,7 +1845,11 @@ __ATLAS_DATA_JSON__
         </div>
       `;
 
-      // 2. Factors panel
+      // 2. Render Tactical Radar & Shot Diet Bar
+      renderTacticalRadar(team);
+      renderShotDietBar(team, "team-shot-diet-panel");
+
+      // 3. Factors panel
       document.getElementById("team-factors-panel").innerHTML = `
         <div class="panel-header">
           <span>Quatro Fatores de ${team.name}</span>
@@ -1161,7 +1895,7 @@ __ATLAS_DATA_JSON__
         </div>
       `;
 
-      // 3. Zone Breakdown
+      // 4. Zone Breakdown
       const topZones = Object.entries(team.zone_efficiency)
         .sort((a,b) => b[1].fga - a[1].fga).slice(0, 4);
 
@@ -1183,7 +1917,7 @@ __ATLAS_DATA_JSON__
         </div>
       `;
 
-      // 4. Roster Table
+      // 5. Roster Table
       const tbody = document.querySelector("#team-roster-table tbody");
       tbody.innerHTML = team.roster.map(p => {
         const adv = p.advanced || {};
@@ -1208,7 +1942,7 @@ __ATLAS_DATA_JSON__
     }
 
     // ==============================================================
-    // ADVANCED COURT RENDERING (mplbasketball standard)
+    // ADVANCED COURT RENDERING (FIBA Upright Standard)
     // ==============================================================
     function renderCourtView() {
       const selectedTeam = document.getElementById("court-team-selector")?.value || "ALL";
@@ -1217,11 +1951,13 @@ __ATLAS_DATA_JSON__
       const hexG = document.getElementById("layer-hexbins");
       const shotsG = document.getElementById("layer-shots");
       const zonesG = document.getElementById("layer-zones");
+      const badgesG = document.getElementById("layer-badges");
       const tooltip = document.getElementById("court-tooltip");
 
       hexG.innerHTML = "";
       shotsG.innerHTML = "";
       zonesG.innerHTML = "";
+      if (badgesG) badgesG.innerHTML = "";
 
       // Get shots based on selection
       let shots = [];
@@ -1239,36 +1975,47 @@ __ATLAS_DATA_JSON__
         shots = shots.filter(s => s.zone.includes("Mid-Range"));
       }
 
-      // Render mode
+      const teamObj = selectedTeam !== "ALL" ? ATLAS.teams.find(t => t.name === selectedTeam) : ATLAS.teams[0];
+      const zoneData = teamObj ? teamObj.zone_efficiency : ATLAS.teams[0].zone_efficiency;
+
+      // Render On-Court Badges if enabled
+      if (badgesG && showCourtBadges) {
+        badgesG.innerHTML = renderOnCourtBadges(zoneData);
+      }
+
+      // Render Shot Diet bar in sidebar
+      renderShotDietBar(teamObj, "court-shot-diet-container");
+
+      // Render Mode: Hexbin / Scatter / Zones
       if (courtMode === "hexbin") {
         let hexbins = [];
         if (selectedTeam !== "ALL" && ATLAS.hexbins[selectedTeam]) {
           hexbins = ATLAS.hexbins[selectedTeam];
         } else {
-          // Pre-aggregate
           const allHex = [];
           Object.values(ATLAS.hexbins).forEach(hList => allHex.push(...hList));
           hexbins = allHex;
         }
 
         hexG.innerHTML = hexbins.map((h, i) => {
-          let col = "#94a3b8";
+          let col = "#f59e0b"; // Neutral
           if (h.ses >= 0.12) col = "#10b981"; // Hot
           else if (h.ses <= -0.12) col = "#3b82f6"; // Cold
-          else col = "#f59e0b"; // Neutral
 
-          // Draw regular hexagon SVG path centered at (h.x, h.y)
+          // Invert Y coordinate so baseline is at the bottom (y_svg = 14.20 - y)
+          const cx = h.x;
+          const cy = 14.20 - h.y;
           const r = h.radius || 0.45;
           const a = (2 * Math.PI) / 6;
           let pathD = "";
           for (let p = 0; p < 6; p++) {
-            const px = h.x + r * Math.sin(p * a);
-            const py = h.y + r * Math.cos(p * a);
+            const px = cx + r * Math.sin(p * a);
+            const py = cy + r * Math.cos(p * a);
             pathD += (p === 0 ? "M " : "L ") + px.toFixed(3) + " " + py.toFixed(3) + " ";
           }
           pathD += "Z";
 
-          return `<path class="hex-poly" d="${pathD}" fill="${col}" opacity="0.82" data-idx="${i}" />`;
+          return `<path class="hex-poly" d="${pathD}" fill="${col}" opacity="0.84" stroke="${col}" stroke-width="0.02" data-idx="${i}" />`;
         }).join("");
 
         svg.onmousemove = (e) => {
@@ -1295,7 +2042,9 @@ __ATLAS_DATA_JSON__
       } else if (courtMode === "scatter") {
         shotsG.innerHTML = shots.map((s, idx) => {
           const cls = s.made ? "shot-made" : "shot-miss";
-          return `<circle class="shot-dot-pro ${cls}" cx="${s.x}" cy="${s.y}" r="0.22" data-idx="${idx}" />`;
+          const sx = s.x;
+          const sy = 14.20 - s.y;
+          return `<circle class="shot-dot-pro ${cls}" cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="0.22" data-idx="${idx}" />`;
         }).join("");
 
         svg.onmousemove = (e) => {
@@ -1320,22 +2069,24 @@ __ATLAS_DATA_JSON__
         };
 
       } else if (courtMode === "zones") {
-        // Draw 10 Goldsberry Zone Boundaries
+        // Draw 10 Goldsberry Zone Boundaries in Upright Coordinate Space
         zonesG.innerHTML = `
           <!-- Restricted Area -->
-          <circle cx="0" cy="1.575" r="1.25" class="zone-overlay" data-zone="Restricted Area (<1.25m)" />
+          <circle cx="0" cy="12.625" r="1.25" class="zone-overlay" data-zone="Restricted Area (<1.25m)" />
           <!-- Paint Non-RA -->
-          <rect x="-2.45" y="1.575" width="4.90" height="4.225" class="zone-overlay" data-zone="Paint (Non-RA)" />
+          <rect x="-2.45" y="8.40" width="4.90" height="4.225" class="zone-overlay" data-zone="Paint (Non-RA)" />
           <!-- Corner 3 Left -->
-          <rect x="-7.5" y="0" width="0.9" height="2.99" class="zone-overlay" data-zone="Corner 3 Left" />
+          <rect x="-7.5" y="11.21" width="0.9" height="2.99" class="zone-overlay" data-zone="Corner 3 Left" />
           <!-- Corner 3 Right -->
-          <rect x="6.6" y="0" width="0.9" height="2.99" class="zone-overlay" data-zone="Corner 3 Right" />
+          <rect x="6.6" y="11.21" width="0.9" height="2.99" class="zone-overlay" data-zone="Corner 3 Right" />
           <!-- Mid Left -->
-          <path d="M -6.6 0 L -2.45 0 L -2.45 5.8 L -6.6 2.99 Z" class="zone-overlay" data-zone="Mid-Range Left" />
+          <path d="M -6.6 14.20 L -2.45 14.20 L -2.45 8.40 L -6.6 11.21 Z" class="zone-overlay" data-zone="Mid-Range Left" />
           <!-- Mid Right -->
-          <path d="M 6.6 0 L 2.45 0 L 2.45 5.8 L 6.6 2.99 Z" class="zone-overlay" data-zone="Mid-Range Right" />
+          <path d="M 6.6 14.20 L 2.45 14.20 L 2.45 8.40 L 6.6 11.21 Z" class="zone-overlay" data-zone="Mid-Range Right" />
           <!-- Mid Center -->
-          <path d="M -2.45 5.8 L 2.45 5.8 L 2.45 7.5 L -2.45 7.5 Z" class="zone-overlay" data-zone="Mid-Range Center" />
+          <path d="M -2.45 8.40 L 2.45 8.40 L 2.45 6.70 L -2.45 6.70 Z" class="zone-overlay" data-zone="Mid-Range Center" />
+          <!-- Above 3 Center -->
+          <path d="M -2.45 6.70 L 2.45 6.70 L 2.45 0.20 L -2.45 0.20 Z" class="zone-overlay" data-zone="Above the Break 3 Center" />
         `;
 
         svg.onmousemove = (e) => {
@@ -1355,8 +2106,6 @@ __ATLAS_DATA_JSON__
       svg.onmouseleave = () => { tooltip.style.display = "none"; };
 
       // Update Zone Efficiency Table
-      const teamObj = selectedTeam !== "ALL" ? ATLAS.teams.find(t => t.name === selectedTeam) : null;
-      const zoneData = teamObj ? teamObj.zone_efficiency : ATLAS.teams[0].zone_efficiency;
       const tbody = document.querySelector("#table-court-zones tbody");
       tbody.innerHTML = Object.entries(zoneData).map(([zName, z]) => {
         const statusChip = z.status === "hot" ? '<span class="metric-chip chip-pos">QUENTE (Hot)</span>' :

@@ -55,6 +55,8 @@ def generate_master_payload() -> Dict[str, Any]:
             all_players.append({
                 "name": p["name"],
                 "team": t["name"],
+                "competition_id": t.get("competition_id", p.get("competition_id", "nbb")),
+                "competition_name": t.get("competition_name", p.get("competition_name", "CBB")),
                 "number": p["num"],
                 "pos": p["pos"],
                 "mp": p["mp"],

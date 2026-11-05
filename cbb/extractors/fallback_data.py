@@ -172,6 +172,40 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
                     {"name": "Lucas Rodriguez", "num": "4", "pos": "Armador", "pts": 13.0, "reb": 3.2, "ast": 6.4, "fg3_pct": 0.355, "fg2_pct": 0.480, "ft_pct": 0.810, "mp": 27.5},
                     {"name": "Winicius Braga", "num": "14", "pos": "Pivô", "pts": 11.8, "reb": 8.5, "ast": 1.2, "fg3_pct": 0.000, "fg2_pct": 0.610, "ft_pct": 0.670, "mp": 25.0},
                 ]
+            },
+            {
+                "name": "Tijuca TC Sub-19",
+                "short_name": "TIJ-19",
+                "city": "Rio de Janeiro, RJ",
+                "coach": "Léo Figueiró",
+                "ortg_base": 108.0, "drtg_base": 97.5, "pace_base": 78.0,
+                "color": "#b91c1c", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.625, "pts": 7.2, "efg_pct": 0.510, "ft_pct": 0.760, "tov_rate": 0.125},
+                "shot_clock": {"early_0_6s": {"freq": 0.25, "efg": 0.585}, "middle_7_18s": {"freq": 0.58, "efg": 0.510}, "late_19_24s": {"freq": 0.17, "efg": 0.380}},
+                "splits": {"catch_shoot_3p": 0.365, "pullup_3p": 0.315, "open_fg": 0.530, "contested_fg": 0.400, "rim_fg": 0.615, "short_mid_fg": 0.395, "long_mid_fg": 0.360, "corner3_fg": 0.375, "above3_fg": 0.335},
+                "playmaking": {"ast_tov_ratio": 1.45, "potential_ast": 29.5, "secondary_ast": 5.8},
+                "defense": {"rim_def_fg": 0.510, "stl_pct": 9.2, "blk_pct": 4.5, "pf_per_40": 20.0, "fd_per_40": 19.5},
+                "roster": [
+                    {"name": "Bernardo Calado", "num": "10", "pos": "Ala-Armador", "pts": 15.8, "reb": 4.9, "ast": 3.5, "fg3_pct": 0.370, "fg2_pct": 0.510, "ft_pct": 0.790, "mp": 29.5},
+                    {"name": "Caio Veríssimo", "num": "8", "pos": "Armador", "pts": 13.2, "reb": 3.4, "ast": 6.8, "fg3_pct": 0.350, "fg2_pct": 0.475, "ft_pct": 0.820, "mp": 28.0},
+                ]
+            },
+            {
+                "name": "Foz Basquete Sub-19 (Fem)",
+                "short_name": "FOZ-19",
+                "city": "Foz do Iguaçu, PR",
+                "coach": "Claudio Lisboa",
+                "ortg_base": 109.2, "drtg_base": 95.8, "pace_base": 79.5,
+                "color": "#0d9488", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.714, "pts": 8.2, "efg_pct": 0.525, "ft_pct": 0.780, "tov_rate": 0.118},
+                "shot_clock": {"early_0_6s": {"freq": 0.27, "efg": 0.600}, "middle_7_18s": {"freq": 0.57, "efg": 0.515}, "late_19_24s": {"freq": 0.16, "efg": 0.385}},
+                "splits": {"catch_shoot_3p": 0.375, "pullup_3p": 0.320, "open_fg": 0.540, "contested_fg": 0.410, "rim_fg": 0.620, "short_mid_fg": 0.405, "long_mid_fg": 0.365, "corner3_fg": 0.385, "above3_fg": 0.340},
+                "playmaking": {"ast_tov_ratio": 1.50, "potential_ast": 31.0, "secondary_ast": 6.2},
+                "defense": {"rim_def_fg": 0.495, "stl_pct": 10.2, "blk_pct": 4.8, "pf_per_40": 18.8, "fd_per_40": 20.8},
+                "roster": [
+                    {"name": "Maria Paula", "num": "9", "pos": "Ala", "pts": 18.5, "reb": 7.4, "ast": 4.2, "fg3_pct": 0.390, "fg2_pct": 0.525, "ft_pct": 0.830, "mp": 31.0},
+                    {"name": "Larissa Silva", "num": "4", "pos": "Armadora", "pts": 14.1, "reb": 3.8, "ast": 7.5, "fg3_pct": 0.365, "fg2_pct": 0.485, "ft_pct": 0.800, "mp": 29.0},
+                ]
             }
         ]
     },
@@ -235,11 +269,151 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
                     {"name": "Matheus Teles", "num": "8", "pos": "Ala-Armador", "pts": 17.1, "reb": 5.4, "ast": 3.8, "fg3_pct": 0.375, "fg2_pct": 0.520, "ft_pct": 0.795, "mp": 30.0},
                     {"name": "Kauã Santos", "num": "4", "pos": "Armador", "pts": 13.5, "reb": 3.6, "ast": 6.8, "fg3_pct": 0.350, "fg2_pct": 0.485, "ft_pct": 0.815, "mp": 28.0},
                 ]
+            },
+            {
+                "name": "Flamengo Sub-17",
+                "short_name": "FLA-17",
+                "city": "Rio de Janeiro, RJ",
+                "coach": "Leonardo Dutra",
+                "ortg_base": 111.2, "drtg_base": 93.0, "pace_base": 81.5,
+                "color": "#c5221f", "accent": "#000000",
+                "clutch": {"win_pct": 0.778, "pts": 8.5, "efg_pct": 0.535, "ft_pct": 0.800, "tov_rate": 0.110},
+                "shot_clock": {"early_0_6s": {"freq": 0.31, "efg": 0.625}, "middle_7_18s": {"freq": 0.55, "efg": 0.525}, "late_19_24s": {"freq": 0.14, "efg": 0.400}},
+                "splits": {"catch_shoot_3p": 0.385, "pullup_3p": 0.330, "open_fg": 0.555, "contested_fg": 0.420, "rim_fg": 0.635, "short_mid_fg": 0.410, "long_mid_fg": 0.375, "corner3_fg": 0.395, "above3_fg": 0.350},
+                "playmaking": {"ast_tov_ratio": 1.60, "potential_ast": 33.5, "secondary_ast": 7.2},
+                "defense": {"rim_def_fg": 0.480, "stl_pct": 10.5, "blk_pct": 5.4, "pf_per_40": 18.5, "fd_per_40": 21.5},
+                "roster": [
+                    {"name": "Yan Djalo", "num": "11", "pos": "Ala-Armador", "pts": 19.4, "reb": 6.8, "ast": 4.5, "fg3_pct": 0.395, "fg2_pct": 0.540, "ft_pct": 0.835, "mp": 31.0},
+                    {"name": "Davi Ramos", "num": "5", "pos": "Armador", "pts": 14.2, "reb": 3.8, "ast": 7.6, "fg3_pct": 0.365, "fg2_pct": 0.490, "ft_pct": 0.810, "mp": 29.0},
+                ]
+            },
+            {
+                "name": "Bauru Basket Sub-17",
+                "short_name": "BAU-17",
+                "city": "Bauru, SP",
+                "coach": "Hudson Previdelo",
+                "ortg_base": 109.0, "drtg_base": 96.5, "pace_base": 79.0,
+                "color": "#1e3a8a", "accent": "#f59e0b",
+                "clutch": {"win_pct": 0.625, "pts": 7.5, "efg_pct": 0.510, "ft_pct": 0.775, "tov_rate": 0.120},
+                "shot_clock": {"early_0_6s": {"freq": 0.27, "efg": 0.590}, "middle_7_18s": {"freq": 0.57, "efg": 0.510}, "late_19_24s": {"freq": 0.16, "efg": 0.380}},
+                "splits": {"catch_shoot_3p": 0.370, "pullup_3p": 0.315, "open_fg": 0.535, "contested_fg": 0.405, "rim_fg": 0.615, "short_mid_fg": 0.395, "long_mid_fg": 0.360, "corner3_fg": 0.380, "above3_fg": 0.335},
+                "playmaking": {"ast_tov_ratio": 1.48, "potential_ast": 30.0, "secondary_ast": 6.0},
+                "defense": {"rim_def_fg": 0.510, "stl_pct": 9.5, "blk_pct": 4.6, "pf_per_40": 19.8, "fd_per_40": 20.0},
+                "roster": [
+                    {"name": "Gustavo Guimarães", "num": "7", "pos": "Ala", "pts": 17.8, "reb": 6.5, "ast": 3.4, "fg3_pct": 0.380, "fg2_pct": 0.525, "ft_pct": 0.810, "mp": 30.5},
+                    {"name": "Otávio Bauru", "num": "4", "pos": "Armador", "pts": 13.0, "reb": 3.4, "ast": 6.5, "fg3_pct": 0.355, "fg2_pct": 0.480, "ft_pct": 0.795, "mp": 27.5},
+                ]
             }
         ]
     },
 
-    # ---------------- 4. BRASILEIRÃO CBB ADULTO ----------------
+    # ---------------- 4. CBI SUPER 15 (SUB-15) ----------------
+    {
+        "id": "cbi-sub15",
+        "name": "CBI Super 15 (Sub-15) CBB/CBC",
+        "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
+        "organizer": "CBB & CBC",
+        "teams": [
+            {
+                "name": "Pinheiros Sub-15 (Campeão)",
+                "short_name": "ECP-15",
+                "city": "São Paulo, SP",
+                "coach": "Vinicius Ribeiro",
+                "ortg_base": 113.0, "drtg_base": 87.0, "pace_base": 84.0,
+                "color": "#00205b", "accent": "#0080ff",
+                "clutch": {"win_pct": 0.889, "pts": 9.2, "efg_pct": 0.565, "ft_pct": 0.790, "tov_rate": 0.115},
+                "shot_clock": {"early_0_6s": {"freq": 0.35, "efg": 0.650}, "middle_7_18s": {"freq": 0.52, "efg": 0.530}, "late_19_24s": {"freq": 0.13, "efg": 0.400}},
+                "splits": {"catch_shoot_3p": 0.385, "pullup_3p": 0.325, "open_fg": 0.570, "contested_fg": 0.430, "rim_fg": 0.650, "short_mid_fg": 0.420, "long_mid_fg": 0.370, "corner3_fg": 0.395, "above3_fg": 0.350},
+                "playmaking": {"ast_tov_ratio": 1.70, "potential_ast": 35.0, "secondary_ast": 8.0},
+                "defense": {"rim_def_fg": 0.440, "stl_pct": 12.5, "blk_pct": 6.8, "pf_per_40": 18.0, "fd_per_40": 23.0},
+                "roster": [
+                    {"name": "Arthur Mendes", "num": "10", "pos": "Armador", "pts": 20.5, "reb": 5.2, "ast": 8.8, "fg3_pct": 0.395, "fg2_pct": 0.535, "ft_pct": 0.835, "mp": 31.0},
+                    {"name": "Felipe Nogueira", "num": "15", "pos": "Pivô", "pts": 16.2, "reb": 12.4, "ast": 2.0, "fg3_pct": 0.000, "fg2_pct": 0.640, "ft_pct": 0.720, "mp": 29.0},
+                ]
+            },
+            {
+                "name": "Sociedade Thalia Sub-15",
+                "short_name": "THA-15",
+                "city": "Curitiba, PR",
+                "coach": "Rafael Rossi",
+                "ortg_base": 109.5, "drtg_base": 93.5, "pace_base": 82.5,
+                "color": "#15803d", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.750, "pts": 8.1, "efg_pct": 0.525, "ft_pct": 0.770, "tov_rate": 0.125},
+                "shot_clock": {"early_0_6s": {"freq": 0.32, "efg": 0.610}, "middle_7_18s": {"freq": 0.54, "efg": 0.515}, "late_19_24s": {"freq": 0.14, "efg": 0.385}},
+                "splits": {"catch_shoot_3p": 0.370, "pullup_3p": 0.315, "open_fg": 0.540, "contested_fg": 0.410, "rim_fg": 0.625, "short_mid_fg": 0.400, "long_mid_fg": 0.360, "corner3_fg": 0.380, "above3_fg": 0.340},
+                "playmaking": {"ast_tov_ratio": 1.50, "potential_ast": 31.5, "secondary_ast": 6.8},
+                "defense": {"rim_def_fg": 0.485, "stl_pct": 11.0, "blk_pct": 5.2, "pf_per_40": 19.0, "fd_per_40": 21.5},
+                "roster": [
+                    {"name": "Leonardo Thalia", "num": "7", "pos": "Ala", "pts": 18.0, "reb": 7.5, "ast": 4.0, "fg3_pct": 0.375, "fg2_pct": 0.520, "ft_pct": 0.800, "mp": 30.0},
+                    {"name": "Bernardo Silva", "num": "4", "pos": "Armador", "pts": 14.5, "reb": 3.8, "ast": 7.2, "fg3_pct": 0.360, "fg2_pct": 0.485, "ft_pct": 0.810, "mp": 28.5},
+                ]
+            }
+        ]
+    },
+
+    # ---------------- 5. LDB SUB-22 (LIGA DE DESENVOLVIMENTO) ----------------
+    {
+        "id": "ldb-sub22",
+        "name": "LDB Sub-22 (Liga de Desenvolvimento)",
+        "category": "Principal Liga de Formação Profissional do Brasil",
+        "organizer": "LNB & CBB",
+        "teams": [
+            {
+                "name": "Paulistano Sub-22",
+                "short_name": "CAP-22",
+                "city": "São Paulo, SP",
+                "coach": "Beto",
+                "ortg_base": 113.8, "drtg_base": 96.0, "pace_base": 78.0,
+                "color": "#c8102e", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.818, "pts": 8.8, "efg_pct": 0.555, "ft_pct": 0.820, "tov_rate": 0.105},
+                "shot_clock": {"early_0_6s": {"freq": 0.25, "efg": 0.615}, "middle_7_18s": {"freq": 0.59, "efg": 0.535}, "late_19_24s": {"freq": 0.16, "efg": 0.410}},
+                "splits": {"catch_shoot_3p": 0.395, "pullup_3p": 0.345, "open_fg": 0.565, "contested_fg": 0.435, "rim_fg": 0.645, "short_mid_fg": 0.425, "long_mid_fg": 0.385, "corner3_fg": 0.410, "above3_fg": 0.365},
+                "playmaking": {"ast_tov_ratio": 1.75, "potential_ast": 34.0, "secondary_ast": 7.5},
+                "defense": {"rim_def_fg": 0.485, "stl_pct": 9.2, "blk_pct": 5.1, "pf_per_40": 18.0, "fd_per_40": 21.0},
+                "roster": [
+                    {"name": "Kauan Raymundo", "num": "12", "pos": "Ala-Pivô", "pts": 18.6, "reb": 9.2, "ast": 2.5, "fg3_pct": 0.360, "fg2_pct": 0.580, "ft_pct": 0.795, "mp": 31.0},
+                    {"name": "Vitinho Silva", "num": "7", "pos": "Armador", "pts": 16.0, "reb": 4.2, "ast": 7.4, "fg3_pct": 0.380, "fg2_pct": 0.510, "ft_pct": 0.840, "mp": 29.5},
+                    {"name": "Brunão", "num": "15", "pos": "Pivô", "pts": 13.5, "reb": 10.0, "ast": 1.5, "fg3_pct": 0.000, "fg2_pct": 0.630, "ft_pct": 0.710, "mp": 27.0},
+                ]
+            },
+            {
+                "name": "Sesi Franca Sub-22",
+                "short_name": "FRA-22",
+                "city": "Franca, SP",
+                "coach": "Pablo Costa",
+                "ortg_base": 114.2, "drtg_base": 97.8, "pace_base": 76.5,
+                "color": "#1a4731", "accent": "#d4af37",
+                "clutch": {"win_pct": 0.750, "pts": 8.5, "efg_pct": 0.545, "ft_pct": 0.830, "tov_rate": 0.098},
+                "shot_clock": {"early_0_6s": {"freq": 0.22, "efg": 0.605}, "middle_7_18s": {"freq": 0.63, "efg": 0.540}, "late_19_24s": {"freq": 0.15, "efg": 0.425}},
+                "splits": {"catch_shoot_3p": 0.405, "pullup_3p": 0.355, "open_fg": 0.570, "contested_fg": 0.440, "rim_fg": 0.650, "short_mid_fg": 0.430, "long_mid_fg": 0.400, "corner3_fg": 0.420, "above3_fg": 0.370},
+                "playmaking": {"ast_tov_ratio": 1.82, "potential_ast": 34.5, "secondary_ast": 7.8},
+                "defense": {"rim_def_fg": 0.505, "stl_pct": 8.2, "blk_pct": 4.8, "pf_per_40": 17.5, "fd_per_40": 20.5},
+                "roster": [
+                    {"name": "Nathan Mariano", "num": "11", "pos": "Ala-Armador", "pts": 18.2, "reb": 5.5, "ast": 4.2, "fg3_pct": 0.410, "fg2_pct": 0.540, "ft_pct": 0.850, "mp": 30.5},
+                    {"name": "Vinicius", "num": "9", "pos": "Ala-Pivô", "pts": 15.1, "reb": 8.4, "ast": 2.2, "fg3_pct": 0.350, "fg2_pct": 0.575, "ft_pct": 0.785, "mp": 28.0},
+                ]
+            },
+            {
+                "name": "São José Sub-22",
+                "short_name": "SJE-22",
+                "city": "São José dos Campos, SP",
+                "coach": "Cristiano Ahmed",
+                "ortg_base": 109.8, "drtg_base": 100.5, "pace_base": 77.2,
+                "color": "#1e40af", "accent": "#facc15",
+                "clutch": {"win_pct": 0.600, "pts": 7.3, "efg_pct": 0.515, "ft_pct": 0.780, "tov_rate": 0.115},
+                "shot_clock": {"early_0_6s": {"freq": 0.23, "efg": 0.585}, "middle_7_18s": {"freq": 0.60, "efg": 0.515}, "late_19_24s": {"freq": 0.17, "efg": 0.395}},
+                "splits": {"catch_shoot_3p": 0.370, "pullup_3p": 0.325, "open_fg": 0.540, "contested_fg": 0.410, "rim_fg": 0.620, "short_mid_fg": 0.405, "long_mid_fg": 0.370, "corner3_fg": 0.385, "above3_fg": 0.345},
+                "playmaking": {"ast_tov_ratio": 1.52, "potential_ast": 30.5, "secondary_ast": 6.1},
+                "defense": {"rim_def_fg": 0.525, "stl_pct": 8.5, "blk_pct": 4.2, "pf_per_40": 19.0, "fd_per_40": 19.5},
+                "roster": [
+                    {"name": "Felipe Gregate", "num": "8", "pos": "Ala-Armador", "pts": 16.5, "reb": 4.8, "ast": 3.9, "fg3_pct": 0.375, "fg2_pct": 0.510, "ft_pct": 0.815, "mp": 29.5},
+                    {"name": "Gabriel Caldeira", "num": "5", "pos": "Armador", "pts": 13.8, "reb": 3.4, "ast": 6.8, "fg3_pct": 0.360, "fg2_pct": 0.485, "ft_pct": 0.830, "mp": 28.0},
+                ]
+            }
+        ]
+    },
+
+    # ---------------- 6. BRASILEIRÃO CBB ADULTO ----------------
     {
         "id": "brasileirao-cbb",
         "name": "Brasileirão CBB Adulto 2026",
@@ -296,6 +470,40 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
                 "roster": [
                     {"name": "Adler", "num": "9", "pos": "Armador", "pts": 16.2, "reb": 4.1, "ast": 6.5, "fg3_pct": 0.370, "fg2_pct": 0.495, "ft_pct": 0.825, "mp": 29.5},
                     {"name": "Lucas Faggiano", "num": "13", "pos": "Pivô", "pts": 13.5, "reb": 8.8, "ast": 1.2, "fg3_pct": 0.000, "fg2_pct": 0.615, "ft_pct": 0.680, "mp": 27.0},
+                ]
+            },
+            {
+                "name": "Basquete Blumenau",
+                "short_name": "BLU",
+                "city": "Blumenau, SC",
+                "coach": "André Germano",
+                "ortg_base": 108.9, "drtg_base": 99.8, "pace_base": 75.5,
+                "color": "#16a34a", "accent": "#ffffff",
+                "clutch": {"win_pct": 0.600, "pts": 7.6, "efg_pct": 0.518, "ft_pct": 0.795, "tov_rate": 0.112},
+                "shot_clock": {"early_0_6s": {"freq": 0.21, "efg": 0.580}, "middle_7_18s": {"freq": 0.62, "efg": 0.520}, "late_19_24s": {"freq": 0.17, "efg": 0.405}},
+                "splits": {"catch_shoot_3p": 0.380, "pullup_3p": 0.335, "open_fg": 0.545, "contested_fg": 0.418, "rim_fg": 0.625, "short_mid_fg": 0.410, "long_mid_fg": 0.380, "corner3_fg": 0.395, "above3_fg": 0.350},
+                "playmaking": {"ast_tov_ratio": 1.58, "potential_ast": 30.2, "secondary_ast": 5.9},
+                "defense": {"rim_def_fg": 0.525, "stl_pct": 8.1, "blk_pct": 4.2, "pf_per_40": 18.2, "fd_per_40": 19.5},
+                "roster": [
+                    {"name": "Lucas Gabriel", "num": "8", "pos": "Ala", "pts": 16.4, "reb": 5.2, "ast": 3.2, "fg3_pct": 0.385, "fg2_pct": 0.515, "ft_pct": 0.810, "mp": 29.0},
+                    {"name": "Vinicius Gobor", "num": "5", "pos": "Armador", "pts": 13.8, "reb": 3.5, "ast": 6.9, "fg3_pct": 0.360, "fg2_pct": 0.480, "ft_pct": 0.830, "mp": 28.5},
+                ]
+            },
+            {
+                "name": "Praia Clube / Uberlândia",
+                "short_name": "PRA",
+                "city": "Uberlândia, MG",
+                "coach": "Guto Trompczynski",
+                "ortg_base": 110.2, "drtg_base": 98.4, "pace_base": 76.8,
+                "color": "#ca8a04", "accent": "#000000",
+                "clutch": {"win_pct": 0.667, "pts": 8.0, "efg_pct": 0.528, "ft_pct": 0.805, "tov_rate": 0.104},
+                "shot_clock": {"early_0_6s": {"freq": 0.23, "efg": 0.595}, "middle_7_18s": {"freq": 0.61, "efg": 0.525}, "late_19_24s": {"freq": 0.16, "efg": 0.410}},
+                "splits": {"catch_shoot_3p": 0.388, "pullup_3p": 0.340, "open_fg": 0.555, "contested_fg": 0.425, "rim_fg": 0.630, "short_mid_fg": 0.415, "long_mid_fg": 0.380, "corner3_fg": 0.400, "above3_fg": 0.355},
+                "playmaking": {"ast_tov_ratio": 1.68, "potential_ast": 31.5, "secondary_ast": 6.5},
+                "defense": {"rim_def_fg": 0.518, "stl_pct": 8.6, "blk_pct": 4.4, "pf_per_40": 18.0, "fd_per_40": 20.2},
+                "roster": [
+                    {"name": "Rafa Moreira", "num": "11", "pos": "Ala-Pivô", "pts": 17.2, "reb": 8.0, "ast": 2.8, "fg3_pct": 0.370, "fg2_pct": 0.550, "ft_pct": 0.825, "mp": 30.0},
+                    {"name": "Wellington", "num": "3", "pos": "Armador", "pts": 14.0, "reb": 3.6, "ast": 7.0, "fg3_pct": 0.365, "fg2_pct": 0.490, "ft_pct": 0.820, "mp": 28.0},
                 ]
             }
         ]
