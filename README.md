@@ -6,7 +6,15 @@
 
 > **Consultar a publicação online:** [https://lucaaregis4r-ops.github.io/Atlas-Basquete/](https://lucaaregis4r-ops.github.io/Atlas-Basquete/)
 
-Scouting tático, modelagem estocástica de posse via Cadeias de Markov, Four Factors e eficiência espacial do basquetebol brasileiro. Desenvolvido no mesmo padrão técnico e editorial do **Vôlei BR — Atlas Tático**.
+Scouting tático do basquetebol brasileiro, com um piloto de dados observados do NBB e módulos de demonstração de Four Factors, Markov e eficiência espacial.
+
+## NBB observado
+
+O piloto separa temporadas e informa a cobertura de cada partida. Em 2026–2027, acompanha uma amostra de jogos de Minas e Cruzeiro, com seus adversários. A final de 2025–2026 oferece um recorte histórico separado. Cada partida aponta para o relatório original da LNB.
+
+A distribuição experimental calcula a participação de cada atleta nas tentativas de quadra observadas da equipe, com filtros de período e tipo de arremesso. A fatia ajustada aplica 20 tentativas equivalentes a partir dos outros períodos para recortes com ao menos 20 tentativas em três jogos. As coordenadas estão em porcentagem do gráfico da LNB. A cobertura do jogada a jogada exige os quatro quartos e placar final compatível com a tabela oficial. Os arremessos são conferidos por equipe e tipo contra a súmula.
+
+O conjunto observado está em `docs/exports/nbb_observed.json`. Para atualizar os relatórios da amostra declarada em `data/nbb_pilot_sources.json`, execute `python -m cbb.extractors.lnb_observed` e depois `python -m cbb export`. O comando de sincronização do acervo CBB não amplia a amostra da LNB.
 
 ---
 
@@ -112,6 +120,8 @@ pytest -v
 
 ## 4. Navegação do Atlas
 
+**NBB observado** é a tela inicial. As abas abaixo usam números ilustrativos, incluindo as partidas e os mapas de arremessos.
+
 - **Visão Geral**: Matriz dos Quatro Fatores da Liga, ranking de Net Rating, Pace vs Eficiência.
 - **Equipes**: Dossiê individual de cada clube, gráficos comparativos e elenco com métricas avançadas.
 - **Quadra & Shot Charts**: Quadra oficial FIBA vetorial com cálculo de SES (Goldsberry), filtro por tipo de arremesso e tooltips dinâmicos.
@@ -127,5 +137,5 @@ pytest -v
 ## 5. Licença e Aviso Legal
 
 Projeto independente de ciência de dados e scouting esportivo desenvolvido por **Lucas Regis**.
-Dados públicos abertos consolidados a partir da **CBB (Confederação Brasileira de Basketball)** e da **LNB (Liga Nacional de Basquete)**.
+Os dados observados vêm dos relatórios oficiais da **LNB (Liga Nacional de Basquete)**. As exportações analíticas legadas correspondem à demonstração.
 Distribuído sob licença MIT.

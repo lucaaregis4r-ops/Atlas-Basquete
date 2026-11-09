@@ -2,9 +2,8 @@
 HTML Dashboard Generator for Basquete BR — Atlas Tático.
 Exports self-contained HTML and JSON packages for local and GitHub Pages deployment.
 """
-from pathlib import Path
 import json
-import os
+from pathlib import Path
 from typing import Dict, Any
 
 from cbb.config import DOCS_DIR, EXPORTS_DIR, BASE_DIR
@@ -12,7 +11,7 @@ from cbb.metric_definitions import METRIC_CATALOG
 from cbb.extractors.fallback_data import get_complete_fallback_dataset
 from cbb.analysis.markov_possession import BasketballMarkovModel, TRANSIENT_STATES, ABSORBING_STATES
 from cbb.analysis.four_factors import compute_cohort_four_factors
-from cbb.database.repository import default_repo
+from cbb.extractors.lnb_observed import SNAPSHOT_PATH
 
 def generate_master_payload() -> Dict[str, Any]:
     """
@@ -139,7 +138,9 @@ def generate_master_payload() -> Dict[str, Any]:
             "version": "1.2.0",
             "season": "2026–2027",
             "available_seasons": fallback.get("available_seasons", []),
-            "disclaimer": "Projeto independente de ciência de dados esportivos. Dados abertos consolidados de súmulas oficiais CBB (CBI / Brasileirão) e LNB/NBB.",
+            "data_origin": "demonstration",
+            "observed_snapshot": "nbb_observed.json",
+            "disclaimer": "Amostra ilustrativa. Os relatórios oficiais do piloto NBB estão no arquivo nbb_observed.json.",
             "updated_at": "2026-11-05T13:40:00Z"
         },
         "seasons": fallback.get("available_seasons", []),
@@ -187,10 +188,10 @@ def export_dashboard(target_html_path: Path = None):
         raise FileNotFoundError(f"Template not found at {template_path}")
         
     template_html = template_path.read_text(encoding="utf-8")
-    json_str = json.dumps(data, ensure_ascii=False)
-    
-    # Embed payload directly
-    rendered_html = template_html.replace("__ATLAS_DATA_JSON__", json_str)
+    demo_data = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    observed_data = SNAPSHOT_PATH.read_text(encoding="utf-8").replace("<", "\\u003c")
+    rendered_html = template_html.replace("__ATLAS_DATA_JSON__", demo_data)
+    rendered_html = rendered_html.replace("__NBB_OBSERVED_JSON__", observed_data)
     
     # Output to both index.html (root) and docs/index.html (Pages)
     (BASE_DIR / "index.html").write_text(rendered_html, encoding="utf-8")

@@ -235,6 +235,12 @@
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+    .observed-mode .demo-filter { display: none; }
+    .observed-status { margin-bottom: 16px; }
+    .observed-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+    .observed-filters label { display: grid; gap: 4px; font-size: 13px; }
+    .observed-filters select { max-width: 100%; padding: 6px 8px; }
+    .observed-games { margin-top: 16px; }
 
     /* Editorial Section Headers */
     .section-header {
@@ -805,7 +811,7 @@
     }
   </style>
 </head>
-<body>
+<body class="observed-mode">
 
   <!-- Masthead -->
   <header class="masthead">
@@ -815,14 +821,14 @@
         <div class="brand-sub">Scouting Tático Independente • Modelagem Estocástica de Markov, Four Factors e Eficiência Espacial</div>
       </div>
       <div class="header-meta">
-        <div><span class="status-dot"></span> Sincronização Diária Ativa: 03:00 BRT (GitHub Actions)</div>
+        <div>Dados observados da LNB · Piloto NBB</div>
         <div class="tabular">FIBA Official Rules (40m) • CBB / LNB / CBC</div>
       </div>
     </div>
   </header>
 
   <!-- Season Selector Bar -->
-  <div class="season-bar">
+  <div class="season-bar demo-filter">
     <div class="season-bar-inner">
       <div class="season-label-group">
         <span class="season-icon">📅</span>
@@ -841,7 +847,7 @@
   </div>
 
   <!-- Competition Filter Bar -->
-  <div class="comp-bar">
+  <div class="comp-bar demo-filter">
     <div class="comp-bar-inner" id="competition-pills">
       <button class="comp-pill active" onclick="setCompetition('ALL')">Todas as Competições (Geral CBB)</button>
       <button class="comp-pill" onclick="setCompetition('nbb')">NBB Caixa & Copa Super 8</button>
@@ -856,7 +862,8 @@
   <!-- Navigation -->
   <nav class="subnav">
     <div class="subnav-inner">
-      <button class="nav-btn active" onclick="switchTab('visao-geral')">Visão Geral & Four Factors</button>
+      <button class="nav-btn active" onclick="switchTab('observado')">NBB observado</button>
+      <button class="nav-btn" onclick="switchTab('visao-geral')">Demonstração · Four Factors</button>
       <button class="nav-btn" onclick="switchTab('quadra')">Quadra & Shot Charts (mplbasketball)</button>
       <button class="nav-btn" onclick="switchTab('equipes')">Equipes & Estatísticas Aprofundadas</button>
       <button class="nav-btn" onclick="switchTab('season-history')">📈 Evolução por Temporada</button>
@@ -872,8 +879,55 @@
   <!-- Main Container -->
   <main class="container">
 
+    <p class="panel demo-filter observed-status" role="status">Modo demonstração. Estatísticas, partidas, rankings e coordenadas ilustrativas. Use NBB observado para consultar dados oficiais do piloto.</p>
+    <p id="demo-load-status" role="status"></p>
+    <div id="tab-observado" class="tab-content active">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">NBB observado</h2>
+          <p class="section-desc">Piloto com relatórios públicos da LNB. A amostra de 2026–2027 acompanha Cruzeiro e Minas e inclui seus adversários.</p>
+        </div>
+      </div>
+      <p id="observed-coverage" class="panel observed-status" role="status"></p>
+
+      <div class="panel">
+        <div class="panel-header"><span>Distribuição de finalizações · experimental</span></div>
+        <p class="section-desc">Quem costuma arremessar quando a equipe chega a uma tentativa de quadra? Compare a distribuição por quarto e por tipo de arremesso.</p>
+        <div class="observed-filters">
+          <label>Temporada <select id="observed-season"></select></label>
+          <label>Equipe <select id="observed-team"></select></label>
+          <label>Período <select id="observed-quarter">
+            <option value="0">Todos</option><option value="1">1º quarto</option><option value="2">2º quarto</option>
+            <option value="3">3º quarto</option><option value="4">4º quarto</option><option value="5">Prorrogações</option>
+          </select></label>
+          <label>Arremesso <select id="observed-points">
+            <option value="0">Todos</option><option value="2">2 pontos</option><option value="3">3 pontos</option>
+          </select></label>
+        </div>
+        <p id="observed-sample" class="section-desc" role="status"></p>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>Atleta</th><th>Tentativas</th><th>Convertidas</th><th>Fatia observada</th><th>Fatia ajustada</th></tr></thead>
+            <tbody id="observed-distribution"></tbody>
+          </table>
+        </div>
+        <p class="section-desc">A fatia ajustada combina o recorte com 20 tentativas equivalentes dos outros períodos, para estabilizar amostras pequenas. É exibida a partir de 20 tentativas no recorte, em pelo menos três jogos. A distribuição é histórica e condicionada à existência de um arremesso de quadra.</p>
+      </div>
+
+      <div class="panel observed-games">
+        <div class="panel-header"><span>Relatórios, súmulas e cobertura por jogo</span></div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>Data</th><th>Partida</th><th>Jogada a jogada</th><th>Com coordenadas</th><th>Fonte LNB</th></tr></thead>
+            <tbody id="observed-games"></tbody>
+          </table>
+        </div>
+        <p class="section-desc">Coordenadas correspondem aos arremessos de quadra com posição marcada no relatório. Quando a LNB publica apenas a súmula, a linha identifica essa cobertura.</p>
+      </div>
+    </div>
+
     <!-- TAB 1: VISÃO GERAL -->
-    <div id="tab-visao-geral" class="tab-content active">
+    <div id="tab-visao-geral" class="tab-content">
       <div class="section-header">
         <div>
           <h2 class="section-title">Matriz Oliver Four Factors • <span id="comp-title-label">Todas as Competições</span></h2>
@@ -1438,7 +1492,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">Hall da Fama & Lendas do Basquetebol Brasileiro</h2>
-          <p class="section-desc">Registros históricos oficiais preservados do acervo CBB Archive (1928–2026).</p>
+          <p class="section-desc">Amostra de referência do acervo histórico do basquete brasileiro.</p>
         </div>
       </div>
       <div class="hof-grid" id="hof-container"></div>
@@ -1476,13 +1530,12 @@
 
   <footer class="mast-footer">
     <p>Basquete BR — Atlas Tático • Projeto independente desenvolvido por Lucas Regis.</p>
-    <p style="margin-top:4px;">Dados públicos abertos consolidados de CBB (CBI / Brasileirão) e LNB/NBB.</p>
+    <p style="margin-top:4px;">Piloto observado: relatórios oficiais da LNB. Demais módulos analíticos: demonstração.</p>
   </footer>
 
   <!-- EMBEDDED ATLAS DATA -->
-  <script id="atlas-data" type="application/json">
-__ATLAS_DATA_JSON__
-  </script>
+  <script id="nbb-observed-data" type="application/json">__NBB_OBSERVED_JSON__</script>
+  <script id="atlas-data" type="application/json">__ATLAS_DATA_JSON__</script>
 
   <!-- CLIENT-SIDE APPLICATION LOGIC -->
   <script>
@@ -1495,16 +1548,121 @@ __ATLAS_DATA_JSON__
     let sortColumn = 'fiba_pir';
     let sortAsc = false;
 
-    document.addEventListener("DOMContentLoaded", () => {
-      try {
-        const raw = document.getElementById("atlas-data").textContent;
-        ATLAS = JSON.parse(raw);
-        filterTeamsAndPlayers();
-        initApp();
-      } catch (err) {
-        console.error("Failed to parse embedded ATLAS payload:", err);
+    const observed = JSON.parse(document.getElementById("nbb-observed-data").textContent);
+    const observedSeason = document.getElementById("observed-season");
+    const observedTeam = document.getElementById("observed-team");
+    const observedQuarter = document.getElementById("observed-quarter");
+    const observedPoints = document.getElementById("observed-points");
+    const percentObserved = new Intl.NumberFormat("pt-BR", {style: "percent", maximumFractionDigits: 1});
+
+    function setObservedTeams() {
+      const games = observed.games.filter(game => game.season === observedSeason.value);
+      const names = [...new Set(games.flatMap(game => game.teams))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+      observedTeam.replaceChildren(...names.map(name => new Option(name, name)));
+      if (names.includes("Itatiaiuçu Cruzeiro Basquete")) observedTeam.value = "Itatiaiuçu Cruzeiro Basquete";
+      renderObserved();
+    }
+
+    function observedRow(table, values) {
+      const row = table.insertRow();
+      for (const value of values) {
+        const cell = row.insertCell();
+        if (value instanceof Node) cell.append(value);
+        else cell.textContent = value;
       }
-    });
+    }
+
+    function renderObserved() {
+      const games = observed.games.filter(game => game.season === observedSeason.value);
+      const teamGames = games.filter(game => game.teams.includes(observedTeam.value));
+      const quarter = Number(observedQuarter.value);
+      const points = Number(observedPoints.value);
+      const players = new Map();
+      let observedCount = 0;
+      let priorCount = 0;
+      let sampleGames = 0;
+
+      for (const game of teamGames) {
+        const side = game.teams.indexOf(observedTeam.value);
+        let hasSample = false;
+        for (const [team, id, period, value, made] of game.shots) {
+          if (team !== side || (points && value !== points)) continue;
+          const player = players.get(id) || {name: game.players[id], attempts: 0, made: 0, prior: 0};
+          const inPeriod = quarter === 0 || (quarter === 5 ? period >= 5 : period === quarter);
+          if (inPeriod) {
+            player.attempts += 1;
+            player.made += made;
+            observedCount += 1;
+            hasSample = true;
+          } else {
+            player.prior += 1;
+            priorCount += 1;
+          }
+          players.set(id, player);
+        }
+        if (hasSample) sampleGames += 1;
+      }
+
+      const pbpCount = games.filter(game => game.play_by_play_events !== null).length;
+      const shotCount = games.filter(game => game.shots.length).length;
+      document.getElementById("observed-coverage").textContent =
+        `${games.length} ${games.length === 1 ? "relatório consultado" : "relatórios consultados"} · ${pbpCount} com jogada a jogada · ${shotCount} com mapa de arremessos validado.`;
+      const adjusted = quarter > 0 && observedCount >= 20 && sampleGames >= 3 && priorCount > 0;
+      document.getElementById("observed-sample").textContent =
+        `${observedCount} tentativas em ${sampleGames} de ${teamGames.length} jogos da equipe na amostra.` +
+        (adjusted ? ` Referência do ajuste: ${priorCount} tentativas nos outros períodos.` :
+          (quarter ? " Amostra insuficiente para a fatia ajustada." : " Selecione um período para calcular a fatia ajustada."));
+      const distribution = document.getElementById("observed-distribution");
+      distribution.replaceChildren();
+      const ranked = [...players.values()]
+        .filter(player => player.attempts > 0 || (adjusted && player.prior > 0))
+        .map(player => ({
+          ...player,
+          share: player.attempts / observedCount,
+          adjusted: adjusted ? (player.attempts + 20 * player.prior / priorCount) / (observedCount + 20) : null,
+        }))
+        .sort((a, b) => (b.adjusted ?? b.share) - (a.adjusted ?? a.share) || a.name.localeCompare(b.name, "pt-BR"));
+
+      for (const player of ranked) {
+        observedRow(distribution, [player.name, player.attempts, player.made, percentObserved.format(player.share),
+          player.adjusted === null ? "—" : percentObserved.format(player.adjusted)]);
+      }
+      if (!ranked.length) {
+        observedRow(distribution, ["Sem arremessos neste recorte.", "—", "—", "—", "—"]);
+      }
+
+      const reports = document.getElementById("observed-games");
+      reports.replaceChildren();
+      for (const game of [...teamGames].sort((a, b) => b.date.localeCompare(a.date))) {
+        const link = document.createElement("a");
+        link.href = game.url;
+        link.textContent = "Relatório oficial";
+        const located = game.shots.filter(shot => shot[5] !== null).length;
+        const attempts = game.boxscore.every(Boolean)
+          ? game.boxscore.reduce((sum, box) => sum + box[1] + box[3], 0) : null;
+        observedRow(reports, [
+          game.date.split("-").reverse().join("/"),
+          `${game.teams[0]} ${game.score[0]} × ${game.score[1]} ${game.teams[1]}`,
+          game.play_by_play_events === null ? "Indisponível" : `${game.play_by_play_events} registros`,
+          game.shots.length ? `${located}/${game.shots.length}` : (attempts === null ? "Indisponível" : `0/${attempts} · súmula`),
+          link,
+        ]);
+      }
+    }
+
+    const observedSeasons = [...new Set(observed.games.map(game => game.season))].sort().reverse();
+    observedSeason.replaceChildren(...observedSeasons.map(season => new Option(season.replace("-", "–"), season)));
+    observedSeason.addEventListener("change", setObservedTeams);
+    for (const control of [observedTeam, observedQuarter, observedPoints]) {
+      control.addEventListener("change", renderObserved);
+    }
+    setObservedTeams();
+
+    function loadDemo() {
+      ATLAS = JSON.parse(document.getElementById("atlas-data").textContent);
+      filterTeamsAndPlayers();
+      initApp();
+    }
 
     function setSeason(seasonId) {
       selectedSeason = seasonId;
@@ -1566,6 +1724,19 @@ __ATLAS_DATA_JSON__
     }
 
     function switchTab(tabId) {
+      const status = document.getElementById("demo-load-status");
+      status.textContent = "";
+      if (tabId !== "observado" && !ATLAS) {
+        try {
+          loadDemo();
+        } catch (error) {
+          ATLAS = null;
+          status.textContent = "A demonstração não carregou.";
+          console.error(error);
+          return;
+        }
+      }
+      document.body.classList.toggle("observed-mode", tabId === "observado");
       document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(el => el.classList.remove("active"));
       
@@ -2748,9 +2919,6 @@ __ATLAS_DATA_JSON__
         const matchesQuery = p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q);
         const matchesPos = (pos === "ALL") || (p.pos === pos);
         return matchesQuery && matchesPos;
-      });
-      renderPlayersTable();
-    }
       });
       renderPlayersTable();
     }

@@ -11,6 +11,7 @@ Covers:
 - Seleções Brasileiras CBB
 """
 from typing import Dict, List, Any
+import hashlib
 import random
 import math
 from cbb.analysis.four_factors import compute_four_factors
@@ -885,8 +886,8 @@ def generate_spatial_shots(team_name: str, season: str = "2026–2027", count: i
     following modern shot distribution, adjusted by team and season.
     """
     shots = []
-    seed_val = abs(hash(f"{team_name}_{season}")) % 100000
-    random.seed(seed_val)
+    seed = hashlib.sha256(f"{team_name}_{season}".encode()).digest()
+    rng = random.Random(seed)
     
     # Season-specific tendencies: Franca 2024-25 had more rim/paint presence (Márcio Santos);
     # 2025-26 shifted towards perimeter 3-pointers; 2026-27 is modern balanced.
@@ -901,40 +902,40 @@ def generate_spatial_shots(team_name: str, season: str = "2026–2027", count: i
             paint_pct_cutoff = 0.81
     
     for i in range(count):
-        shot_type_roll = random.random()
-        clock_sec = random.randint(2, 24)
+        shot_type_roll = rng.random()
+        clock_sec = rng.randint(2, 24)
         if shot_type_roll < three_pct_cutoff:
             # 3-Point Shot
-            if random.random() < 0.28:
+            if rng.random() < 0.28:
                 # Corner 3
-                x = random.choice([-6.85, 6.85]) + random.uniform(-0.25, 0.25)
-                y = random.uniform(0.8, 2.8)
+                x = rng.choice([-6.85, 6.85]) + rng.uniform(-0.25, 0.25)
+                y = rng.uniform(0.8, 2.8)
                 is_3pt = True
-                made = random.random() < 0.385
+                made = rng.random() < 0.385
             else:
                 # Arc 3
-                angle = random.uniform(math.pi * 0.16, math.pi * 0.84)
-                radius = random.uniform(6.85, 8.4)
+                angle = rng.uniform(math.pi * 0.16, math.pi * 0.84)
+                radius = rng.uniform(6.85, 8.4)
                 x = radius * math.cos(angle)
                 y = 1.575 + radius * math.sin(angle)
                 is_3pt = True
-                made = random.random() < 0.358
+                made = rng.random() < 0.358
         elif shot_type_roll < paint_pct_cutoff:
             # Rim / Restricted Area (<1.25m from rim center)
-            r = random.uniform(0.2, 1.22)
-            angle = random.uniform(0, 2 * math.pi)
+            r = rng.uniform(0.2, 1.22)
+            angle = rng.uniform(0, 2 * math.pi)
             x = r * math.cos(angle)
             y = 1.575 + r * math.sin(angle)
             is_3pt = False
-            made = random.random() < 0.635
+            made = rng.random() < 0.635
         else:
             # Mid-Range (short and long floaters / pull-ups)
-            r = random.uniform(2.2, 5.7)
-            angle = random.uniform(math.pi * 0.12, math.pi * 0.88)
+            r = rng.uniform(2.2, 5.7)
+            angle = rng.uniform(math.pi * 0.12, math.pi * 0.88)
             x = r * math.cos(angle)
             y = 1.575 + r * math.sin(angle)
             is_3pt = False
-            made = random.random() < 0.410
+            made = rng.random() < 0.410
             
         zone = classify_shot_zone(x, y)
         shots.append({
