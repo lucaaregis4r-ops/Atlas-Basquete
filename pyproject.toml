@@ -34,3 +34,7 @@ dev = [
 
 [project.scripts]
 cbb = "cbb.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cbb", "cbb.*"]
+exclude = ["data", "data.*"]
