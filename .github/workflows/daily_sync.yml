@@ -5,6 +5,11 @@ on:
     # 03:00 BRT (06:00 UTC) every day
     - cron: '0 6 * * *'
   workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/daily_sync.yml
+      - pyproject.toml
+      - requirements.txt
 
 permissions:
   contents: write
@@ -35,8 +40,12 @@ jobs:
 
       - name: Commit and Push Updated Data
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add index.html docs/
-          git commit -m "Auto sync: CBB & NBB stats update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
-          git push origin main || echo "No changes to push"
+          if git diff --staged --quiet; then
+            echo "No new CBB/NBB data to commit"
+          else
+            git commit -m "Auto sync: CBB & NBB stats update $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push origin HEAD:main
+          fi
