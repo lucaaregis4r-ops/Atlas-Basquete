@@ -346,50 +346,17 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
     },
 
     # ---------------- 4. CBI SUPER 15 (SUB-15 2026) ----------------
+    # Verified participants are stored in cbb/data/cbi_sub15_2026.json.
+    # No derived metrics until an official game report is integrated.
     {
         "id": "cbi-sub15",
         "base_id": "cbi-sub15",
         "season": "2026–2027",
         "season_id": "2026-2027",
         "name": "CBI Super 15 (Sub-15) 2026 CBB/CBC",
-        "category": "Campeonato Brasileiro Interclubes de Base (CBB / CBC)",
+        "category": "Campeonato Brasileiro Interclubes de Base",
         "organizer": "CBB & CBC",
-        "teams": [
-            {
-                "name": "Pinheiros Sub-15 (Campeão)",
-                "short_name": "ECP-15",
-                "city": "São Paulo, SP",
-                "coach": "Vinicius Ribeiro",
-                "ortg_base": 113.0, "drtg_base": 87.0, "pace_base": 84.0,
-                "color": "#00205b", "accent": "#0080ff",
-                "clutch": {"win_pct": 0.889, "pts": 9.2, "efg_pct": 0.565, "ft_pct": 0.790, "tov_rate": 0.115},
-                "shot_clock": {"early_0_6s": {"freq": 0.35, "efg": 0.650}, "middle_7_18s": {"freq": 0.52, "efg": 0.530}, "late_19_24s": {"freq": 0.13, "efg": 0.400}},
-                "splits": {"catch_shoot_3p": 0.385, "pullup_3p": 0.325, "open_fg": 0.570, "contested_fg": 0.430, "rim_fg": 0.650, "short_mid_fg": 0.420, "long_mid_fg": 0.370, "corner3_fg": 0.395, "above3_fg": 0.350},
-                "playmaking": {"ast_tov_ratio": 1.70, "potential_ast": 35.0, "secondary_ast": 8.0},
-                "defense": {"rim_def_fg": 0.440, "stl_pct": 12.5, "blk_pct": 6.8, "pf_per_40": 18.0, "fd_per_40": 23.0},
-                "roster": [
-                    {"name": "Arthur Mendes", "num": "10", "pos": "Armador", "pts": 20.5, "reb": 5.2, "ast": 8.8, "fg3_pct": 0.395, "fg2_pct": 0.535, "ft_pct": 0.835, "mp": 31.0},
-                    {"name": "Felipe Nogueira", "num": "15", "pos": "Pivô", "pts": 16.2, "reb": 12.4, "ast": 2.0, "fg3_pct": 0.000, "fg2_pct": 0.640, "ft_pct": 0.720, "mp": 29.0},
-                ]
-            },
-            {
-                "name": "Sociedade Thalia Sub-15",
-                "short_name": "THA-15",
-                "city": "Curitiba, PR",
-                "coach": "Rafael Rossi",
-                "ortg_base": 109.5, "drtg_base": 93.5, "pace_base": 82.5,
-                "color": "#15803d", "accent": "#ffffff",
-                "clutch": {"win_pct": 0.750, "pts": 8.1, "efg_pct": 0.525, "ft_pct": 0.770, "tov_rate": 0.125},
-                "shot_clock": {"early_0_6s": {"freq": 0.32, "efg": 0.610}, "middle_7_18s": {"freq": 0.54, "efg": 0.515}, "late_19_24s": {"freq": 0.14, "efg": 0.385}},
-                "splits": {"catch_shoot_3p": 0.370, "pullup_3p": 0.315, "open_fg": 0.540, "contested_fg": 0.410, "rim_fg": 0.625, "short_mid_fg": 0.400, "long_mid_fg": 0.360, "corner3_fg": 0.380, "above3_fg": 0.340},
-                "playmaking": {"ast_tov_ratio": 1.50, "potential_ast": 31.5, "secondary_ast": 6.8},
-                "defense": {"rim_def_fg": 0.485, "stl_pct": 11.0, "blk_pct": 5.2, "pf_per_40": 19.0, "fd_per_40": 21.5},
-                "roster": [
-                    {"name": "Leonardo Thalia", "num": "7", "pos": "Ala", "pts": 18.0, "reb": 7.5, "ast": 4.0, "fg3_pct": 0.375, "fg2_pct": 0.520, "ft_pct": 0.800, "mp": 30.0},
-                    {"name": "Bernardo Silva", "num": "4", "pos": "Armador", "pts": 14.5, "reb": 3.8, "ast": 7.2, "fg3_pct": 0.360, "fg2_pct": 0.485, "ft_pct": 0.810, "mp": 28.5},
-                ]
-            }
-        ]
+        "teams": []
     },
 
     # ---------------- 5. LDB SUB-22 (LIGA DE DESENVOLVIMENTO 2026) ----------------

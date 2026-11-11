@@ -1,0 +1,35 @@
+name: Validate CBI Atlas changes
+
+on:
+  pull_request:
+    paths:
+      - cbb/**
+      - tests/**
+      - .github/workflows/validate_atlas.yml
+  workflow_dispatch:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install project dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install -e .
+      - name: Check source registry and export
+        run: |
+          python -m pytest -q tests/test_cbi_sub15.py tests/test_export.py
+      - name: Check generated static HTML
+        run: |
+          python -m cbb export
+          python - <<'PY'
+          from pathlib import Path
+          text = Path("docs/index.html").read_text(encoding="utf-8")
+          assert "__CBI_SUB15_JSON__" not in text
+          assert 'id="tab-cbi-sub15"' in text
+          assert '"Olympico Club"' in text
+          PY

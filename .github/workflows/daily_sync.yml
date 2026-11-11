@@ -6,10 +6,19 @@ on:
     - cron: '0 6 * * *'
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - .github/workflows/daily_sync.yml
       - pyproject.toml
       - requirements.txt
+      - cbb/data/**
+      - cbb/export/**
+      - cbb/extractors/fallback_data.py
+      - tests/test_cbi_sub15.py
+
+concurrency:
+  group: atlas-basquete-pages-main
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -47,5 +56,6 @@ jobs:
             echo "No new CBB/NBB data to commit"
           else
             git commit -m "Auto sync: CBB & NBB stats update $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
