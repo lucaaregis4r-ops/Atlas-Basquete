@@ -8,6 +8,26 @@
 
 Scouting tático do basquetebol brasileiro, com um piloto de dados observados do NBB e módulos de demonstração de Four Factors, Markov e eficiência espacial.
 
+## CBI Super 15 (Sub-15) 2026 — clubes verificados
+
+O Atlas inclui uma tela **CBI Super 15 · Clubes oficiais** com duas competições
+separadas: **masculino** (16 classificados para a fase final de 6 a 14 de dezembro)
+e **feminino** (26 participantes da etapa única, com posições finais oficiais).
+O cadastro fica em `cbb/data/cbi_sub15_2026.json`, com a fonte de cada recorte,
+e é incorporado ao HTML autossuficiente durante `python -m cbb export`.
+
+- Masculino: [Grêmio Náutico União, lista das 16 equipes classificadas em setembro/2026](https://www.gnu.com.br/site/noticias/gnu-vai-disputar-a-etapa-final-do-cbi-super-15-de-basquete).
+- Feminino: [CBC, classificação oficial de agosto/2026](https://www.cbclubes.org.br/evento/cbi/cbir-de-basquetebol-sub-15-etapa-unica-feminino-2026).
+
+**Importante:** os nomes de clubes não significam que box scores, estatísticas
+individuais, partidas ou play-by-play tenham sido importados. O antigo bloco com
+dois perfis fictícios (Pinheiros/Thalia) foi removido da demonstração do CBI;
+o Atlas **não atribui números simulados a clubes reais** nessa competição.
+O comando `python -m cbb sync` consulta o CBB Archive, mas não constitui um
+importador de súmulas verificadas por partida do CBI. Para publicar novas métricas
+é necessário acrescentar um extrator de relatórios com verificação de origem,
+amostras e integridade.
+
 ## NBB observado
 
 O piloto separa temporadas e informa a cobertura de cada partida. Em 2026–2027, acompanha uma amostra de jogos de Minas e Cruzeiro, com seus adversários. A final de 2025–2026 oferece um recorte histórico separado. Cada partida aponta para o relatório original da LNB.
