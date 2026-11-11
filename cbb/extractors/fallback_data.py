@@ -356,7 +356,7 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
         "organizer": "CBB & CBC",
         "teams": [
             {
-                "name": "Pinheiros Sub-15 (Campeão)",
+                "name": "Pinheiros Sub-15 (Simulação)",
                 "short_name": "ECP-15",
                 "city": "São Paulo, SP",
                 "coach": "Vinicius Ribeiro",
@@ -373,7 +373,7 @@ COMPETITIONS_DATA: List[Dict[str, Any]] = [
                 ]
             },
             {
-                "name": "Sociedade Thalia Sub-15",
+                "name": "Sociedade Thalia Sub-15 (Simulação)",
                 "short_name": "THA-15",
                 "city": "Curitiba, PR",
                 "coach": "Rafael Rossi",
