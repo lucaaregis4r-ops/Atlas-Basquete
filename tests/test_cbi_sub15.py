@@ -19,16 +19,16 @@ def test_cbi_2026_directory_has_source_and_separate_genders():
                for g in groups.values() for t in g["teams"])
 
 
-def test_cbi_demo_does_not_claim_a_champion_before_december():
+def test_cbi_does_not_generate_unverified_scouting_metrics():
     demo = next(c for c in COMPETITIONS_DATA if c["id"] == "cbi-sub15")
-    assert all("Campeão" not in t["name"] for t in demo["teams"])
+    assert demo["teams"] == []
 
 
 def test_dashboard_template_has_unique_ids_and_cbi_data_placeholder():
     html = (Path(__file__).resolve().parents[1] /
             "cbb" / "export" / "templates" / "dashboard.html").read_text(encoding="utf-8")
     import re
-    ids = re.findall(r'\\bid="([^"]+)"', html)
+    ids = re.findall(r'id="([^"]+)"', html)
     assert len(ids) == len(set(ids))
     assert "__CBI_SUB15_JSON__" in html
     assert 'id="tab-cbi-sub15"' in html
