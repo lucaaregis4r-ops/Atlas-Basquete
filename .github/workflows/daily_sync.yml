@@ -10,6 +10,10 @@ on:
       - .github/workflows/daily_sync.yml
       - pyproject.toml
       - requirements.txt
+      - cbb/data/**
+      - cbb/export/**
+      - cbb/extractors/fallback_data.py
+      - tests/test_cbi_sub15.py
 
 permissions:
   contents: write
