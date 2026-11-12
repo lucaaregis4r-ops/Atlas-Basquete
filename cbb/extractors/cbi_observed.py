@@ -123,7 +123,76 @@ def parse_tournament(url: str, html: str, base_url: str | None = None) -> dict:
     }
 
 
+def parse_boxscore(html: str, game: dict) -> dict:
+    """Read published player box scores only when team points match the final score."""
+    data = _next_data(html)
+    sides = {}
+    for side in ("home", "away"):
+        match = re.search(r'"' + side + r'"\s*:\s*\{\s*"teamName"\s*:', data)
+        if not match:
+            raise ValueError(f"No {side} box score")
+        obj, _ = json.JSONDecoder().raw_decode(data[data.find("{", match.start()):])
+        expected = game.get(f"{side}_score")
+        if expected is None or float(obj.get("totals", {}).get("points", -1)) != float(expected):
+            raise ValueError(f"{side} box score does not match the final score")
+        rows = obj.get("rows", [])
+        if not rows or sum(float((row.get("stats") or {}).get("points") or 0) for row in rows) != float(expected):
+            raise ValueError(f"{side} player points do not match the final score")
+        keys = ("points", "game_played", "field_goals_made", "field_goals_attempted",
+                "three_point_field_goals_made", "three_point_field_goals_attempted",
+                "free_throws_made", "free_throws_attempted", "rebounds", "assists", "turnovers")
+        sides[side] = {
+            "team": obj["teamName"].strip(),
+            "players": [{"id": row.get("playerId"), "name": row.get("name"),
+                         "stats": {key: row.get("stats", {}).get(key) for key in keys}}
+                        for row in rows if row.get("playerId") and row.get("name")],
+        }
+    return sides
+
+
+def collect_boxscores(competitions: list[dict], previous: dict | None = None, limit: int = 40) -> dict:
+    """Reuse verified box scores and progressively fetch completed games, with bounded requests."""
+    cached = {g["id"]: g for c in (previous or {}).get("competitions", []) for g in c.get("games", [])}
+    queues = []
+    for comp in competitions:
+        pending = []
+        for game in comp["games"]:
+            old = cached.get(game["id"], {})
+            if old.get("boxscore") and (old.get("home_score"), old.get("away_score")) == (game.get("home_score"), game.get("away_score")):
+                game["boxscore"] = old["boxscore"]
+            elif game.get("is_finished") and game.get("home_score") is not None and game.get("away_score") is not None:
+                if old.get("boxscore_attempted_at"):
+                    game["boxscore_attempted_at"] = old["boxscore_attempted_at"]
+                pending.append(game)
+        pending.sort(key=lambda game: game.get("date") or "", reverse=True)
+        pending.sort(key=lambda game: game.get("boxscore_attempted_at") or "")
+        if pending:
+            queues.append(pending)
+    candidates = []
+    while queues:
+        remaining = []
+        for queue in queues:
+            candidates.append(queue.pop(0))
+            if queue:
+                remaining.append(queue)
+        queues = remaining
+    def load(game):
+        try:
+            return game, parse_boxscore(_fetch(game["url"]), game)
+        except Exception:
+            return game, None
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        for game, score in pool.map(load, candidates[:max(0, limit)]):
+            game["boxscore_attempted_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+            if score:
+                game["boxscore"] = score
+    complete = [g for c in competitions for g in c["games"] if g.get("is_finished")]
+    return {"completed_games": len(complete), "boxscores": sum(bool(g.get("boxscore")) for g in complete),
+            "attempted_this_run": min(len(candidates), max(0, limit))}
+
+
 def refresh_snapshot(cache_dir: Path | None = None) -> dict:
+    previous = json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8")) if SNAPSHOT_PATH.exists() else {}
     hub = (cache_dir / "hub.html").read_text(encoding="utf-8") if cache_dir else _fetch(HUB_URL)
     parser = _LinkParser()
     parser.feed(hub)
@@ -168,18 +237,19 @@ def refresh_snapshot(cache_dir: Path | None = None) -> dict:
 
     # Keep the last known schedule if one tournament page has a transient error.
     if failures and SNAPSHOT_PATH.exists():
-        previous = json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8"))
         known = {item["id"] for item in competitions}
         for item in previous.get("competitions", []):
             if item["id"] not in known and any(item["url"] == failure["url"] for failure in failures):
                 competitions.append(item)
 
+    coverage = collect_boxscores(competitions, previous, limit=40 if cache_dir is None else 0)
     payload = {
         "source": "Go Champs — plataforma oficial de competições da CBB",
         "source_url": HUB_URL,
         "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "competitions": competitions,
         "failures": failures,
+        "boxscore_coverage": coverage,
     }
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
     with NamedTemporaryFile(mode="w", encoding="utf-8", dir=SNAPSHOT_PATH.parent, delete=False) as output:

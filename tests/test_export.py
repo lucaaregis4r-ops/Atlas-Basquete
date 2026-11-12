@@ -43,9 +43,9 @@ def test_export_dashboard():
     assert (DOCS_DIR / ".nojekyll").exists()
     
     html = (BASE_DIR / "index.html").read_text(encoding="utf-8")
-    assert "Basquete BR" in html
-    assert "Four Factors" in html
-    assert "Cadeias de Markov" in html
-    assert "Evolução por Temporada" in html
-    assert "season-bar" in html
-    assert "Sesi Franca" in html
+    assert "Atlas do Basquete" in html
+    assert 'id="competition"' in html
+    assert 'id="team"' in html
+    assert 'id="view-players"' in html
+    assert 'id="view-games"' in html
+    assert "Tricampeonato" not in html
