@@ -933,6 +933,49 @@
       font-size: 12px;
       text-align: center;
     }
+
+    /* Shared information hierarchy across all sections */
+    nav.subnav { position:relative; top:auto; padding:16px; background:#101722; margin-bottom:24px; }
+    .nav-heading { display:flex; align-items:baseline; gap:12px; margin-bottom:12px; }
+    .nav-heading strong { font-size:15px; }
+    .nav-heading span { color:#aebbd0; font-size:12px; }
+    .nav-section { display:grid; grid-template-columns:165px minmax(0,1fr); gap:12px; align-items:start; padding:8px 0; border-top:1px solid #273347; }
+    .nav-section > span { color:#c2cbda; font-size:11px; font-weight:700; padding-top:9px; }
+    .subnav-inner { display:flex; flex-wrap:wrap; gap:5px; }
+    .nav-btn { border:1px solid #29374a; background:#151f2d; color:#c9d5e5; }
+    .nav-btn.active { border-color:#f38e70; background:#713c32; color:white; box-shadow:none; }
+    .nav-btn:hover { border-color:#f38e70; }
+    .section-header { margin-top:8px; padding:20px; background:linear-gradient(120deg,#172433,#101722); border:1px solid #2c3a4d; border-radius:12px; }
+    .section-title { letter-spacing:-.025em; line-height:1.25; }
+    .section-desc { line-height:1.6; max-width:85ch; }
+    .panel, .radar-card, .scatter-panel { border-color:#2b394c; border-radius:12px; }
+    .reading-guide { margin:0 0 18px; padding:15px 18px; border:1px solid #34465b; border-left:4px solid #69c6d5; background:#14222e; border-radius:8px; }
+    .reading-guide strong { color:#b6edf2; font-size:13px; }
+    .reading-guide p { color:#d0dbe7; font-size:12px; line-height:1.6; margin-top:4px; }
+    .readable-chart { margin:16px 0; padding:18px; border:1px solid #314052; border-radius:10px; background:#111b27; }
+    .readable-chart h3 { font-size:14px; margin-bottom:5px; }
+    .readable-chart p { color:#b7c6d8; font-size:11px; line-height:1.5; }
+    .bar-list { display:grid; gap:10px; margin:16px 0 8px; }
+    .bar-row { display:grid; grid-template-columns:minmax(100px,180px) minmax(60px,1fr) 70px; gap:10px; align-items:center; font-size:11px; }
+    .bar-label { color:#e5edf6; overflow-wrap:anywhere; }
+    .bar-track { height:12px; background:#293647; border-radius:8px; overflow:hidden; }
+    .bar-fill { display:block; height:100%; background:#f18c70; border-radius:8px; }
+    .bar-fill-alt { background:#64c6d4; }
+    .bar-row strong { text-align:right; font-variant-numeric:tabular-nums; }
+    .chart-empty { padding:14px 0 2px; }
+    .bar-scale { text-align:right; }
+    @media(max-width:700px) {
+      nav.subnav { position:relative; top:auto; padding:12px; }
+      .nav-heading { display:block; }
+      .nav-heading span { display:block; }
+      .nav-section { grid-template-columns:1fr; gap:5px; }
+      .nav-section > span { padding-top:0; }
+      .subnav-inner { flex-wrap:nowrap; overflow-x:auto; padding-bottom:5px; }
+      .nav-btn { flex:0 0 auto; font-size:12px; }
+      .section-header { padding:14px; }
+      .bar-row { grid-template-columns:minmax(75px,115px) minmax(50px,1fr) 54px; }
+    }
+
   </style>
 </head>
 <body class="observed-mode">
@@ -985,25 +1028,23 @@
 
   <div class="workspace-shell">
     <nav class="subnav" aria-label="Navegação principal do Atlas">
-      <div class="subnav-inner">
+      <div class="nav-heading"><strong>Explorar o Atlas</strong><span>Escolha o que deseja estudar</span></div>
+      <div class="nav-section"><span>Dados observados</span><div class="subnav-inner">
         <button class="nav-btn active" aria-current="page" onclick="switchTab('cbi')">CBI · equipes</button>
-        <button class="nav-btn" onclick="switchTab('observado')">NBB observado</button>
-        <details class="nav-more">
-          <summary>Outras análises</summary>
-          <div class="nav-more-menu" aria-label="Análises de demonstração">
-            <button class="nav-btn" onclick="switchTab('visao-geral')">Visão geral</button>
-            <button class="nav-btn" onclick="switchTab('equipes')">Dossiê de equipe</button>
-            <button class="nav-btn" onclick="switchTab('atletas')">Atletas</button>
-            <button class="nav-btn" onclick="switchTab('partidas')">Partidas</button>
-            <button class="nav-btn" onclick="switchTab('quadra')">Arremessos na quadra</button>
-            <button class="nav-btn" onclick="switchTab('season-history')">Evolução por temporada</button>
-            <button class="nav-btn" onclick="switchTab('confrontos')">Confrontos diretos</button>
-            <button class="nav-btn" onclick="switchTab('markov')">Modelo de posses</button>
-            <button class="nav-btn" onclick="switchTab('lendas')">Referências históricas</button>
-            <button class="nav-btn" onclick="switchTab('metodologia')">Metodologia</button>
-          </div>
-        </details>
-      </div>
+        <button class="nav-btn" onclick="switchTab('observado')">NBB · arremessos</button>
+      </div></div>
+      <div class="nav-section"><span>Laboratório · demonstração</span><div class="subnav-inner">
+        <button class="nav-btn" onclick="switchTab('visao-geral')">Visão geral</button>
+        <button class="nav-btn" onclick="switchTab('equipes')">Equipes</button>
+        <button class="nav-btn" onclick="switchTab('atletas')">Atletas</button>
+        <button class="nav-btn" onclick="switchTab('partidas')">Partidas</button>
+        <button class="nav-btn" onclick="switchTab('quadra')">Quadra</button>
+        <button class="nav-btn" onclick="switchTab('season-history')">Temporadas</button>
+        <button class="nav-btn" onclick="switchTab('confrontos')">Confrontos</button>
+        <button class="nav-btn" onclick="switchTab('markov')">Posses</button>
+        <button class="nav-btn" onclick="switchTab('lendas')">História</button>
+        <button class="nav-btn" onclick="switchTab('metodologia')">Metodologia</button>
+      </div></div>
     </nav>
 
   <main class="container">
@@ -1034,6 +1075,7 @@
           </select></label>
         </div>
         <p id="observed-sample" class="section-desc" role="status"></p>
+        <div id="observed-chart" class="readable-chart" aria-label="Distribuição de tentativas por atleta"></div>
         <div class="table-responsive">
           <table class="data-table">
             <thead><tr><th>Atleta</th><th>Tentativas</th><th>Convertidas</th><th>Fatia observada</th><th>Fatia ajustada</th></tr></thead>
@@ -1083,6 +1125,7 @@
           <section id="cbi-view-team" class="cbi-view-panel" role="tabpanel" aria-labelledby="cbi-tab-team">
             <div class="cbi-summary" id="cbi-summary"></div>
             <p class="cbi-help" id="cbi-team-status"></p>
+            <div id="cbi-score-chart" class="readable-chart" aria-label="Comparação de pontos marcados e sofridos por jogo"></div>
             <h3 class="cbi-section-title"><span>Últimos resultados</span><small id="cbi-recent-caption"></small></h3>
             <div id="cbi-recent-games" class="cbi-game-list"></div>
             <h3 class="cbi-section-title"><span>Próximos jogos</span><small>Agenda publicada</small></h3>
@@ -1110,6 +1153,7 @@
       </div>
 
       <div class="grid-4" id="kpi-summary"></div>
+      <div id="demo-teams-chart" class="readable-chart"></div>
 
       <!-- NOVO GRÁFICO: Matriz de Quadrantes Táticos (Pace vs Net Rating) -->
       <div class="scatter-panel">
@@ -1595,6 +1639,7 @@
         </div>
       </div>
 
+      <div id="demo-players-chart" class="readable-chart"></div>
       <div class="panel">
         <div class="table-responsive">
           <table class="data-table" id="all-players-table">
@@ -1686,6 +1731,52 @@
     let sortColumn = 'fiba_pir';
     let sortAsc = false;
 
+
+    function renderBars(id, title, description, values, unit) {
+      const root = document.getElementById(id);
+      root.replaceChildren();
+      const heading=document.createElement("h3"); heading.textContent=title;
+      const note=document.createElement("p"); note.textContent=description;
+      root.append(heading,note);
+      if (!values.length) { const empty=document.createElement("p"); empty.className="chart-empty"; empty.textContent="Ainda não há dados suficientes neste recorte."; root.append(empty); return; }
+      const max=Math.max(...values.map(item=>item.value),1);
+      const list=document.createElement("div"); list.className="bar-list";
+      values.forEach((item,index)=>{
+        const row=document.createElement("div"); row.className="bar-row";
+        const label=document.createElement("span"); label.className="bar-label"; label.textContent=item.label;
+        const track=document.createElement("span"); track.className="bar-track";
+        const fill=document.createElement("span"); fill.className="bar-fill"; fill.style.width=`${Math.max(0,item.value/max*100)}%`;
+        if(index%2) fill.classList.add("bar-fill-alt"); track.append(fill);
+        const value=document.createElement("strong"); value.textContent=item.text; row.append(label,track,value); list.append(row);
+      });
+      root.append(list);
+      const scale=document.createElement("p"); scale.className="bar-scale"; scale.textContent=`Escala relativa ao maior valor exibido · ${unit}`; root.append(scale);
+    }
+    const readingGuides = {
+      "visao-geral":["Como ler esta visão", "Cada ponto representa uma equipe. A posição horizontal indica o ritmo; a vertical mostra o saldo por 100 posses. A tabela detalha os quatro fatores. Os valores desta tela são ilustrativos."],
+      "equipes":["Como estudar a equipe", "Selecione uma equipe. No radar, a linha colorida representa o perfil selecionado e a linha cinza, a média da amostra. A distribuição de arremessos mostra a participação de cada zona. Os dados são demonstrativos."],
+      "atletas":["Como comparar atletas", "Busque por nome ou equipe. PTS são pontos, REB rebotes e AST assistências. TS% resume a eficiência de pontuação; USG% representa uso de posses e PIR é um índice de eficiência. Amostras pequenas exigem cautela. Dados ilustrativos."],
+      "partidas":["Como ler a curva", "A linha representa a probabilidade estimada de vitória ao longo do tempo: 50% indica equilíbrio e valores maiores favorecem a equipe destacada. Esta reconstrução é simulada e não descreve um jogo observado."],
+      "quadra":["Como ler o mapa", "Escolha uma equipe e o tipo de visualização. Posição indica a região da quadra; cores e tamanhos seguem a legenda junto ao gráfico. As coordenadas desta tela são ilustrativas."],
+      "season-history":["Como comparar temporadas", "Escolha uma equipe e compare os cartões por ano. O perfil de arremessos mostra a proporção de tentativas em cada zona; a tabela traz ritmo e eficiência. Os números são demonstrativos."],
+      "confrontos":["Como interpretar o confronto", "Selecione duas equipes para comparar os indicadores do modelo. Os valores são uma simulação demonstrativa, não um histórico real nem uma previsão validada."],
+      "markov":["Como interpretar o modelo", "Cada estado representa uma situação possível da posse. EPV é o valor esperado de pontos; a tabela apresenta as probabilidades de cada desfecho. O controle altera um parâmetro de exemplo e não reconstrói jogadas reais."],
+      "lendas":["Sobre este acervo", "Explore os perfis históricos disponíveis. Confira as fontes e o contexto de cada registro antes de comparar atletas de épocas diferentes."],
+      "metodologia":["Como usar este guia", "Consulte as definições, fórmulas e referências das métricas. As análises de demonstração usam valores ilustrativos; o CBI usa placares publicados e o piloto NBB usa relatórios observados."]
+    };
+    function installReadingGuides() {
+      for (const [id,[title,description]] of Object.entries(readingGuides)) {
+        const section=document.getElementById(`tab-${id}`);
+        const header=section?.querySelector(":scope > .section-header");
+        if(!header || section.querySelector(".reading-guide")) continue;
+        const guide=document.createElement("aside"); guide.className="reading-guide";
+        const label=document.createElement("strong"); label.textContent=title;
+        const text=document.createElement("p"); text.textContent=description;
+        guide.append(label,text); header.after(guide);
+      }
+    }
+    installReadingGuides();
+
     const observed = JSON.parse(document.getElementById("nbb-observed-data").textContent);
     const cbiObserved = JSON.parse(document.getElementById("cbi-observed-data").textContent);
     const observedSeason = document.getElementById("observed-season");
@@ -1762,6 +1853,7 @@
         }))
         .sort((a, b) => (b.adjusted ?? b.share) - (a.adjusted ?? a.share) || a.name.localeCompare(b.name, "pt-BR"));
 
+      renderBars("observed-chart", "Quem concentra as tentativas?", "Percentual das tentativas de quadra no recorte selecionado. A soma dos atletas corresponde a 100%.", ranked.map(player => ({label:player.name, value:player.share * 100, text:percentObserved.format(player.share)})), "%");
       for (const player of ranked) {
         observedRow(distribution, [player.name, player.attempts, player.made, percentObserved.format(player.share),
           player.adjusted === null ? "—" : percentObserved.format(player.adjusted)]);
@@ -1944,6 +2036,10 @@
 
       const stats = cbiTeamStats(competition, selectedCbiTeam);
       setCbiStatCards(stats);
+      renderBars("cbi-score-chart", "Pontos por jogo", "Médias calculadas somente com placares finais publicados. A escala mostra pontos por partida.", stats.completed.length ? [
+        {label:"Pontos marcados",value:stats.averageFor,text:cbiNumber(stats.averageFor)},
+        {label:"Pontos sofridos",value:stats.averageAgainst,text:cbiNumber(stats.averageAgainst)}
+      ] : [], "pontos");
       const finishedRecent = [...stats.completed].sort(cbiGameOrder).slice(-5);
       renderCbiGameList(document.getElementById("cbi-recent-games"), finishedRecent);
       const upcoming = stats.scheduled.filter(game => game.status !== "in_progress").sort(cbiGameOrder).slice(0, 3);
@@ -2063,7 +2159,8 @@
       const label = document.createElement("span"); label.textContent = "Confrontos diretos";
       const note = document.createElement("small"); note.textContent = "na competição selecionada";
       heading.append(label, note); target.append(heading);
-      renderCbiGameList(target, h2h);
+      const gamesList = document.createElement("div"); gamesList.className = "cbi-game-list"; target.append(gamesList);
+      renderCbiGameList(gamesList, h2h);
       const caveat = document.createElement("p"); caveat.className = "cbi-game-meta";
       caveat.textContent = "Comparação baseada em placares finais e agenda. Não representa eficiência por posse, estatísticas individuais ou avaliação de qualidade dos adversários.";
       target.append(caveat);
@@ -2166,18 +2263,10 @@
       if (target) target.classList.add("active");
       
       const btn = Array.from(document.querySelectorAll(".nav-btn")).find(b => b.getAttribute("onclick").includes(tabId));
-      document.querySelectorAll(".nav-more").forEach(menu => {
-        menu.classList.remove("has-active");
-        menu.open = false;
-      });
       if (btn) {
         btn.classList.add("active");
         btn.setAttribute("aria-current", "page");
-        const menu = btn.closest(".nav-more");
-        if (menu) {
-          menu.classList.add("has-active");
-          menu.open = false;
-        }
+        btn.scrollIntoView({block:"nearest", inline:"nearest"});
       }
 
       if (tabId === 'quadra') {
@@ -2697,6 +2786,8 @@
     }
 
     function renderOverviewTab() {
+      const rankedTeams = [...currentTeams].filter(team => Number.isFinite(team.four_factors?.efg_pct)).sort((a,b)=>b.four_factors.efg_pct-a.four_factors.efg_pct).slice(0,8);
+      renderBars("demo-teams-chart", "Eficiência de arremesso das equipes", "eFG% atribui peso maior às cestas de 3 pontos. Exibe até oito equipes do filtro atual; dados demonstrativos.", rankedTeams.map(team=>({label:team.name,value:team.four_factors.efg_pct*100,text:(team.four_factors.efg_pct*100).toFixed(1)+"%"})), "%");
       if (!currentTeams.length) return;
       const avgPace = (currentTeams.reduce((acc, t) => acc + t.four_factors.pace, 0) / currentTeams.length).toFixed(1);
       const avgORtg = (currentTeams.reduce((acc, t) => acc + t.four_factors.ortg, 0) / currentTeams.length).toFixed(1);
@@ -3312,6 +3403,8 @@
 
     // PLAYERS TABLE
     function renderPlayersTable() {
+      const leading = [...currentPlayers].filter(player=>Number.isFinite(player.pts)).sort((a,b)=>b.pts-a.pts).slice(0,8);
+      renderBars("demo-players-chart", "Pontuação dos atletas", "Até oito atletas com maior pontuação no filtro atual. Pontos por jogo; dados demonstrativos.", leading.map(player=>({label:player.name,value:player.pts,text:player.pts.toFixed(1)})), "pontos por jogo");
       const tbody = document.querySelector("#all-players-table tbody");
       tbody.innerHTML = currentPlayers.map(p => {
         return `
