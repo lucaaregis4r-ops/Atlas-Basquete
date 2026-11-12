@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 from cbb.export.html_dashboard import export_dashboard
 from cbb.extractors.cbb_archive import CBBArchiveExtractor
+from cbb.extractors.cbi_observed import refresh_snapshot as refresh_cbi_snapshot
 from cbb.database.repository import default_repo
 
 def main():
@@ -35,6 +36,12 @@ def main():
         hall = ext.fetch_hall_athletes()
         print(f"Coletados: {len(teams)} clubes e {len(hall)} atletas do Hall da Fama.")
         default_repo.log_audit("cbb_archive_sync", len(teams) + len(hall), {"teams": len(teams), "hall": len(hall)})
+        try:
+            cbi = refresh_cbi_snapshot()
+            game_count = sum(len(competition["games"]) for competition in cbi["competitions"])
+            print(f"CBI/Go Champs: {len(cbi['competitions'])} competições e {game_count} jogos coletados.")
+        except Exception as error:
+            print(f"Aviso: atualização de CBI indisponível; snapshot existente preservado ({error}).")
         print("Atualizando exportações estáticas...")
         export_dashboard()
     elif args.command == "server":

@@ -14,7 +14,7 @@ O piloto separa temporadas e informa a cobertura de cada partida. Em 2026–2027
 
 A distribuição experimental calcula a participação de cada atleta nas tentativas de quadra observadas da equipe, com filtros de período e tipo de arremesso. A fatia ajustada aplica 20 tentativas equivalentes a partir dos outros períodos para recortes com ao menos 20 tentativas em três jogos. As coordenadas estão em porcentagem do gráfico da LNB. A cobertura do jogada a jogada exige os quatro quartos e placar final compatível com a tabela oficial. Os arremessos são conferidos por equipe e tipo contra a súmula.
 
-O conjunto observado está em `docs/exports/nbb_observed.json`. Para atualizar os relatórios da amostra declarada em `data/nbb_pilot_sources.json`, execute `python -m cbb.extractors.lnb_observed` e depois `python -m cbb export`. O comando de sincronização do acervo CBB não amplia a amostra da LNB.
+O piloto observado do NBB está em `docs/exports/nbb_observed.json`. Os CBIs publicados no portal da CBB/Go Champs são coletados em `docs/exports/cbi_observed.json`, incluindo fases, equipes, agenda, placares e links para jogos e estatísticas. Para atualizar os CBIs, execute `python -m cbb.extractors.cbi_observed` e depois `python -m cbb export`; `python -m cbb sync` também atualiza esse acervo. O comando não amplia a amostra observada da LNB.
 
 ---
 
@@ -122,7 +122,9 @@ pytest -v
 
 **NBB observado** é a tela inicial. As abas abaixo usam números ilustrativos, incluindo as partidas e os mapas de arremessos.
 
-- **Visão Geral**: Matriz dos Quatro Fatores da Liga, ranking de Net Rating, Pace vs Eficiência.
+- **NBB observado**: amostra de relatórios LNB, cobertura por partida e distribuição experimental de arremessos.
+- **CBI 2026**: calendário e placares de todas as competições listadas na plataforma CBB/Go Champs, com filtro por torneio e equipe e links para jogos/estatísticas oficiais.
+- **Visão Geral**: Matriz dos Quatro Fatores da Liga, ranking de Net Rating, Pace vs Eficiência (demonstração).
 - **Equipes**: Dossiê individual de cada clube, gráficos comparativos e elenco com métricas avançadas.
 - **Quadra & Shot Charts**: Quadra oficial FIBA vetorial com cálculo de SES (Goldsberry), filtro por tipo de arremesso e tooltips dinâmicos.
 - **Cadeias de Markov**: Laboratório interativo de posse de bola. Visualização de estados, matriz fundamental e controle dinâmico para simular o ganho de pontos ao aumentar infiltrações no garrafão.

@@ -28,6 +28,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    :focus-visible { outline:3px solid #ffad98; outline-offset:3px; }
     body {
       background-color: var(--bg-canvas);
       color: var(--text-main);
@@ -194,43 +195,166 @@
       font-weight: 600;
     }
 
-    /* Navigation Bar */
-    nav.subnav {
-      background-color: var(--bg-canvas);
-      border-bottom: 1px solid var(--border);
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    .subnav-inner {
+    /* Navigation organized around the user's task */
+    .workspace-shell {
       max-width: 1440px;
       margin: 0 auto;
-      display: flex;
-      padding: 0 24px;
-      gap: 4px;
+      padding: 20px 24px 32px;
+      display: block;
     }
+    nav.subnav {
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      margin: 0 auto 20px;
+      background: rgba(14, 18, 26, .96);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 7px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.24);
+      backdrop-filter: blur(16px);
+    }
+    .subnav-inner { display: flex; align-items: center; gap: 5px; }
     .nav-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 12px 16px;
-      font-size: 13px;
-      font-weight: 500;
+      text-align: center;
+      width: auto;
+      padding: 9px 13px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
-    .nav-btn:hover { color: var(--text-main); }
+    .nav-btn:hover { color: var(--text-main); background: #18202d; }
     .nav-btn.active {
       color: var(--text-main);
-      border-bottom-color: var(--terracotta);
+      background: var(--terracotta-soft);
+      box-shadow: inset 0 -2px var(--terracotta);
+    }
+    .nav-more { margin-left: auto; position: relative; }
+    .nav-more summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 9px 13px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
       font-weight: 600;
+      white-space: nowrap;
+    }
+    .nav-more summary::-webkit-details-marker { display:none; }
+    .nav-more summary::after { content:"⌄"; margin-left:8px; }
+    .nav-more[open] summary, .nav-more summary:hover { color:var(--text-main); background:#18202d; }
+    .nav-more.has-active summary { color:var(--text-main); background:var(--terracotta-soft); }
+    .nav-more-menu {
+      position:absolute;
+      right:0;
+      top:calc(100% + 7px);
+      width:min(300px, calc(100vw - 32px));
+      display:grid;
+      gap:3px;
+      padding:8px;
+      background:var(--bg-surface-elevated);
+      border:1px solid var(--border);
+      border-radius:10px;
+      box-shadow:0 16px 38px rgba(0,0,0,.42);
     }
 
     /* Main Container */
-    main.container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 24px;
+    main.container { min-width: 0; padding: 0; }
+
+    .cbi-intro { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; margin-bottom:18px; }
+    .cbi-title { font-size:30px; line-height:1.15; letter-spacing:-.035em; }
+    .cbi-kicker { color:#ff9c80; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:7px; }
+    .cbi-source { color:var(--text-muted); font-size:11px; }
+    .cbi-source a, .cbi-game a { color:#fca58f; text-decoration:underline; text-underline-offset:3px; }
+    .cbi-controls { display:grid; grid-template-columns:minmax(220px, .9fr) minmax(240px, 1.1fr); gap:12px; margin-bottom:16px; }
+    .cbi-control { display:grid; gap:5px; color:var(--text-muted); font-size:11px; font-weight:600; }
+    .cbi-control select, .cbi-control input { width:100%; min-width:0; }
+    .cbi-scout-layout { display:grid; grid-template-columns:minmax(220px, 280px) minmax(0,1fr); gap:16px; align-items:start; }
+    .cbi-team-browser, .cbi-report { min-width:0; background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; }
+    .cbi-team-browser { overflow:hidden; position:sticky; top:124px; }
+    .cbi-browser-header { display:flex; justify-content:space-between; align-items:center; padding:14px 15px; border-bottom:1px solid var(--border); }
+    .cbi-browser-header strong { font-size:13px; }
+    .cbi-browser-count { color:var(--text-dim); font:11px var(--font-mono); }
+    .cbi-team-list { display:grid; max-height:min(66vh, 680px); overflow:auto; padding:6px; }
+    .cbi-team-option { width:100%; display:flex; align-items:center; gap:10px; border:1px solid transparent; background:transparent; color:var(--text-muted); text-align:left; padding:10px; border-radius:8px; cursor:pointer; font:inherit; }
+    .cbi-team-option:hover { background:#171e2b; color:var(--text-main); }
+    .cbi-team-option[aria-pressed="true"] { color:var(--text-main); background:var(--terracotta-soft); border-color:rgba(224,83,56,.42); }
+    .cbi-team-mark { width:30px; height:30px; flex:0 0 30px; display:grid; place-items:center; border-radius:50%; background:#202a39; color:#d5dfed; font:700 9px var(--font-mono); }
+    .cbi-team-info { min-width:0; display:grid; gap:3px; }
+    .cbi-team-name { min-width:0; font-size:12px; font-weight:600; line-height:1.3; }
+    .cbi-team-record { color:var(--text-dim); font-size:10px; }
+    .cbi-report { padding:18px; }
+    .cbi-team-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:15px; }
+    .cbi-team-heading h3 { font-size:23px; line-height:1.2; letter-spacing:-.025em; }
+    .cbi-team-heading p { color:var(--text-muted); font-size:11px; margin-top:5px; }
+    .cbi-view-tabs { display:flex; gap:4px; overflow-x:auto; padding:4px; margin:0 0 16px; border:1px solid var(--border); border-radius:9px; background:#0a0e15; }
+    .cbi-view-tab { color:var(--text-muted); background:transparent; border:0; border-radius:6px; padding:8px 12px; font:600 11px var(--font-sans); cursor:pointer; white-space:nowrap; }
+    .cbi-view-tab[aria-selected="true"] { background:#222a38; color:var(--text-main); box-shadow:inset 0 0 0 1px #303b4d; }
+    .cbi-view-panel[hidden] { display:none; }
+    .cbi-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
+    .cbi-stat { background:linear-gradient(145deg,#171d29,#10141d); border:1px solid var(--border); border-radius:10px; padding:15px; }
+    .cbi-stat strong { display:block; font:700 22px var(--font-mono); margin:4px 0; }
+    .cbi-stat span { color:var(--text-muted); font-size:10px; }
+    .cbi-stat .cbi-stat-label { display:block; color:var(--text-main); font-size:11px; font-weight:700; }
+    .cbi-help { border-left:3px solid #f59e0b; padding:10px 12px; background:#17140d; color:#e5d5a8; font-size:11px; margin-bottom:14px; border-radius:0 7px 7px 0; }
+    .cbi-section-title { display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-size:13px; margin:16px 0 8px; }
+    .cbi-section-title small { color:var(--text-dim); font-size:10px; font-weight:400; }
+    .cbi-game-list { display:grid; gap:9px; }
+    .cbi-day-title { color:var(--text-muted); font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin:19px 0 7px; }
+    .cbi-game { display:grid; grid-template-columns:104px minmax(0,1fr) 78px; align-items:center; gap:14px; background:var(--bg-surface); border:1px solid var(--border); border-radius:9px; padding:13px 15px; }
+    .cbi-game-time { color:var(--text-muted); font:500 11px var(--font-mono); }
+    .cbi-game-teams { display:grid; gap:7px; font-size:13px; }
+    .cbi-game-team { display:flex; justify-content:space-between; gap:10px; }
+    .cbi-game-score { font:700 14px var(--font-mono); }
+    .cbi-game-meta { color:var(--text-dim); font-size:10px; margin-top:2px; }
+    .cbi-game-status { justify-self:end; color:var(--text-muted); font-size:10px; text-align:right; }
+    .cbi-game-status.final { color:#72d7aa; }
+    .cbi-compare-select { max-width:420px; margin-bottom:14px; }
+    .cbi-compare-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .cbi-compare-card { background:#101620; border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .cbi-compare-card h4 { font-size:13px; margin-bottom:10px; }
+    .cbi-compare-row { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-top:1px solid var(--border-subtle); color:var(--text-muted); font-size:11px; }
+    .cbi-compare-row strong { color:var(--text-main); font:600 11px var(--font-mono); text-align:right; }
+    .cbi-empty { padding:30px; text-align:center; color:var(--text-muted); }
+    .metric-key { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
+    .metric-key-item { padding:10px 12px; background:#101620; border:1px solid var(--border-subtle); border-radius:7px; color:var(--text-muted); font-size:11px; }
+    .metric-key-item strong { color:var(--text-main); margin-right:5px; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    @media (max-width: 900px) {
+      .workspace-shell { padding:14px 16px 24px; }
+      nav.subnav { top:58px; overflow:visible; }
+      .subnav-inner { gap:3px; }
+      .nav-btn { padding:8px 10px; }
+      main.container { padding:0; }
+      .cbi-team-browser { top:116px; }
+    }
+    @media (max-width: 580px) {
+      .workspace-shell { padding:10px 12px 22px; }
+      nav.subnav { top:56px; padding:5px; margin-bottom:14px; }
+      .subnav-inner { overflow:visible; }
+      .nav-btn { font-size:10px; padding:8px 8px; }
+      .nav-more summary { font-size:10px; padding:8px 8px; }
+      .nav-more { margin-left:auto; }
+      .cbi-intro { display:block; }
+      .cbi-source { margin-top:8px; }
+      .cbi-title { font-size:24px; }
+      .cbi-controls,.cbi-summary,.cbi-compare-grid { grid-template-columns:1fr; }
+      .cbi-scout-layout { grid-template-columns:1fr; gap:10px; }
+      .cbi-team-browser { position:static; }
+      .cbi-team-list { display:flex; max-height:none; overflow-x:auto; overflow-y:hidden; gap:5px; padding:7px; }
+      .cbi-team-option { width:auto; flex:0 0 auto; max-width:190px; padding:7px; }
+      .cbi-team-mark { width:27px; height:27px; flex-basis:27px; }
+      .cbi-team-heading h3 { font-size:19px; }
+      .cbi-report { padding:12px; }
+      .metric-key { grid-template-columns:1fr; }
+      .cbi-game { grid-template-columns:70px minmax(0,1fr); gap:9px; }
+      .cbi-game-status { grid-column:2; justify-self:start; text-align:left; }
     }
 
     .tab-content { display: none; }
@@ -818,10 +942,10 @@
     <div class="masthead-inner">
       <div class="brand-block">
         <h1>Basquete BR <span class="badge-cbb">Atlas Tático</span></h1>
-        <div class="brand-sub">Scouting Tático Independente • Modelagem Estocástica de Markov, Four Factors e Eficiência Espacial</div>
+        <div class="brand-sub">Basquete brasileiro • resultados observados e análises táticas</div>
       </div>
       <div class="header-meta">
-        <div>Dados observados da LNB · Piloto NBB</div>
+        <div>Dados observados · NBB e CBI</div>
         <div class="tabular">FIBA Official Rules (40m) • CBB / LNB / CBC</div>
       </div>
     </div>
@@ -859,29 +983,34 @@
     </div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="subnav">
-    <div class="subnav-inner">
-      <button class="nav-btn active" onclick="switchTab('observado')">NBB observado</button>
-      <button class="nav-btn" onclick="switchTab('visao-geral')">Demonstração · Four Factors</button>
-      <button class="nav-btn" onclick="switchTab('quadra')">Quadra & Shot Charts (mplbasketball)</button>
-      <button class="nav-btn" onclick="switchTab('equipes')">Equipes & Estatísticas Aprofundadas</button>
-      <button class="nav-btn" onclick="switchTab('season-history')">📈 Evolução por Temporada</button>
-      <button class="nav-btn" onclick="switchTab('markov')">Cadeias de Markov (EPV)</button>
-      <button class="nav-btn" onclick="switchTab('confrontos')">Confrontos H2H</button>
-      <button class="nav-btn" onclick="switchTab('partidas')">Partidas & Win Probability</button>
-      <button class="nav-btn" onclick="switchTab('atletas')">Atletas & Rankings</button>
-      <button class="nav-btn" onclick="switchTab('lendas')">Lendas CBB</button>
-      <button class="nav-btn" onclick="switchTab('metodologia')">Metodologia & Literatura</button>
-    </div>
-  </nav>
+  <div class="workspace-shell">
+    <nav class="subnav" aria-label="Navegação principal do Atlas">
+      <div class="subnav-inner">
+        <button class="nav-btn active" aria-current="page" onclick="switchTab('cbi')">CBI · equipes</button>
+        <button class="nav-btn" onclick="switchTab('observado')">NBB observado</button>
+        <details class="nav-more">
+          <summary>Outras análises</summary>
+          <div class="nav-more-menu" aria-label="Análises de demonstração">
+            <button class="nav-btn" onclick="switchTab('visao-geral')">Visão geral</button>
+            <button class="nav-btn" onclick="switchTab('equipes')">Dossiê de equipe</button>
+            <button class="nav-btn" onclick="switchTab('atletas')">Atletas</button>
+            <button class="nav-btn" onclick="switchTab('partidas')">Partidas</button>
+            <button class="nav-btn" onclick="switchTab('quadra')">Arremessos na quadra</button>
+            <button class="nav-btn" onclick="switchTab('season-history')">Evolução por temporada</button>
+            <button class="nav-btn" onclick="switchTab('confrontos')">Confrontos diretos</button>
+            <button class="nav-btn" onclick="switchTab('markov')">Modelo de posses</button>
+            <button class="nav-btn" onclick="switchTab('lendas')">Referências históricas</button>
+            <button class="nav-btn" onclick="switchTab('metodologia')">Metodologia</button>
+          </div>
+        </details>
+      </div>
+    </nav>
 
-  <!-- Main Container -->
   <main class="container">
 
     <p class="panel demo-filter observed-status" role="status">Modo demonstração. Estatísticas, partidas, rankings e coordenadas ilustrativas. Use NBB observado para consultar dados oficiais do piloto.</p>
     <p id="demo-load-status" role="status"></p>
-    <div id="tab-observado" class="tab-content active">
+    <div id="tab-observado" class="tab-content">
       <div class="section-header">
         <div>
           <h2 class="section-title">NBB observado</h2>
@@ -926,6 +1055,51 @@
       </div>
     </div>
 
+    <section id="tab-cbi" class="tab-content active" aria-labelledby="cbi-heading">
+      <div class="cbi-intro">
+        <div>
+          <div class="cbi-kicker">Caderno de observação · competições CBB</div>
+          <h2 class="cbi-title" id="cbi-heading">Estude uma equipe</h2>
+          <p class="section-desc">Escolha o torneio, abra um adversário e veja o que os placares publicados permitem afirmar.</p>
+        </div>
+        <p class="cbi-source" id="cbi-updated"></p>
+      </div>
+      <div class="cbi-controls">
+        <label class="cbi-control">Competição<select id="cbi-competition" class="filter-select" aria-label="Escolha a competição CBI"></select></label>
+        <label class="cbi-control">Encontrar equipe<input id="cbi-team-filter" class="filter-input" type="search" placeholder="Buscar por nome" autocomplete="off"></label>
+      </div>
+      <div class="cbi-scout-layout">
+        <aside class="cbi-team-browser" aria-label="Equipes da competição">
+          <div class="cbi-browser-header"><strong>Equipes</strong><span id="cbi-team-count" class="cbi-browser-count"></span></div>
+          <div id="cbi-team-list" class="cbi-team-list" aria-label="Equipes disponíveis nesta competição"></div>
+        </aside>
+        <div class="cbi-report" role="region" aria-label="Relatório da equipe selecionada">
+          <div id="cbi-team-header" class="cbi-team-heading" aria-live="polite"></div>
+          <div class="cbi-view-tabs" role="tablist" aria-label="Seções do relatório da equipe">
+            <button class="cbi-view-tab" id="cbi-tab-team" role="tab" aria-controls="cbi-view-team" aria-selected="true" onclick="setCbiView('team')">Resumo da equipe</button>
+            <button class="cbi-view-tab" id="cbi-tab-games" role="tab" aria-controls="cbi-view-games" aria-selected="false" onclick="setCbiView('games')">Agenda e resultados</button>
+            <button class="cbi-view-tab" id="cbi-tab-compare" role="tab" aria-controls="cbi-view-compare" aria-selected="false" onclick="setCbiView('compare')">Comparar adversários</button>
+          </div>
+          <section id="cbi-view-team" class="cbi-view-panel" role="tabpanel" aria-labelledby="cbi-tab-team">
+            <div class="cbi-summary" id="cbi-summary"></div>
+            <p class="cbi-help" id="cbi-team-status"></p>
+            <h3 class="cbi-section-title"><span>Últimos resultados</span><small id="cbi-recent-caption"></small></h3>
+            <div id="cbi-recent-games" class="cbi-game-list"></div>
+            <h3 class="cbi-section-title"><span>Próximos jogos</span><small>Agenda publicada</small></h3>
+            <div id="cbi-upcoming-games" class="cbi-game-list"></div>
+          </section>
+          <section id="cbi-view-games" class="cbi-view-panel" role="tabpanel" aria-labelledby="cbi-tab-games" hidden>
+            <h3 class="cbi-section-title"><span>Todos os jogos da competição</span><small id="cbi-games-caption"></small></h3>
+            <div id="cbi-games" class="cbi-game-list"></div>
+          </section>
+          <section id="cbi-view-compare" class="cbi-view-panel" role="tabpanel" aria-labelledby="cbi-tab-compare" hidden>
+            <label class="cbi-control cbi-compare-select">Comparar com outra equipe<select id="cbi-compare-team" class="filter-select"></select></label>
+            <div id="cbi-comparison"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
     <!-- TAB 1: VISÃO GERAL -->
     <div id="tab-visao-geral" class="tab-content">
       <div class="section-header">
@@ -946,6 +1120,13 @@
         <svg id="scatter-quadrant-svg" class="scatter-svg" viewBox="0 0 760 380"></svg>
       </div>
 
+      <div class="metric-key" aria-label="Glossário dos indicadores da tabela">
+        <div class="metric-key-item"><strong>Pace</strong> posses estimadas por 40 minutos; indica o ritmo do jogo.</div>
+        <div class="metric-key-item"><strong>ORtg / DRtg</strong> pontos marcados e sofridos a cada 100 posses; menor DRtg indica defesa mais eficiente.</div>
+        <div class="metric-key-item"><strong>Net Rtg</strong> ORtg menos DRtg; valor positivo indica saldo favorável por 100 posses.</div>
+        <div class="metric-key-item"><strong>eFG% · TOV% · ORB% · FTR</strong> eficiência de arremesso, perdas de bola, rebotes ofensivos e lances livres em relação aos arremessos.</div>
+      </div>
+
       <div class="panel">
         <div class="panel-header">
           <span>Classificação Tática Avançada • Quatro Fatores & Expectativa Pitagórica</span>
@@ -957,15 +1138,15 @@
               <tr>
                 <th>Equipe</th>
                 <th>Competição</th>
-                <th class="tabular">Pace 40m</th>
-                <th class="tabular">ORtg</th>
-                <th class="tabular">DRtg</th>
-                <th class="tabular">Net Rtg</th>
-                <th class="tabular">eFG% (40%)</th>
-                <th class="tabular">TOV% (25%)</th>
-                <th class="tabular">ORB% (20%)</th>
-                <th class="tabular">FTR (15%)</th>
-                <th class="tabular">Pyth Win%</th>
+                <th class="tabular" title="Posse estimada por 40 minutos">Pace 40m</th>
+                <th class="tabular" title="Pontos marcados por 100 posses">ORtg</th>
+                <th class="tabular" title="Pontos sofridos por 100 posses; menor é melhor">DRtg</th>
+                <th class="tabular" title="ORtg menos DRtg; saldo por 100 posses">Net Rtg</th>
+                <th class="tabular" title="Aproveitamento efetivo, que dá peso extra às cestas de 3 pontos">eFG%</th>
+                <th class="tabular" title="Percentual de posses encerradas em perda de bola; menor é melhor">TOV%</th>
+                <th class="tabular" title="Percentual de rebotes disponíveis no ataque recuperados">ORB%</th>
+                <th class="tabular" title="Lances livres tentados em relação aos arremessos de quadra">FTR</th>
+                <th class="tabular" title="Expectativa teórica de vitórias a partir da eficiência">Pyth Win%</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -985,21 +1166,21 @@
           <span class="didactic-badge">Dean Oliver (2004)</span>
           <h4>Os Quatro Fatores da Vitória</h4>
           <p>
-            Pesos matemáticos empíricos comprovam o impacto real: <strong>Arremessar bem (eFG% - 40%)</strong> vale o dobro de <strong>Cuidar da Posse (TOV% - 25%)</strong>, que supera <strong>Rebote de Ataque (ORB% - 20%)</strong> e <strong>Faltas Cavadas (FTR - 15%)</strong>.
+            Os quatro indicadores ajudam a localizar vantagens: <strong>eFG%</strong> mede a eficiência dos arremessos, <strong>TOV%</strong> a frequência de perdas, <strong>ORB%</strong> os rebotes ofensivos recuperados e <strong>FTR</strong> a frequência de idas à linha. Os pesos são aproximações do estudo original, não notas fixas de cada partida.
           </p>
         </div>
         <div class="didactic-card">
           <span class="didactic-badge">Markov & EPV (2016, 2020)</span>
           <h4>Expected Possession Value (EPV)</h4>
           <p>
-            Cada segundo com a bola na mão possui um valor em pontos ($EPV$). Infiltrações no garrafão geram $EPV = 1.28$, enquanto arremessos forçados no estouro do cronômetro caem para $EPV = 0.62$.
+            O valor esperado da posse estima quantos pontos uma equipe tende a produzir a partir de um estado do jogo. O resultado depende dos dados usados para calibrar o modelo; por isso, compare cenários dentro da mesma amostra.
           </p>
         </div>
         <div class="didactic-card">
           <span class="didactic-badge">Kirk Goldsberry (2019)</span>
           <h4>Eficiência Espacial (SES)</h4>
           <p>
-            O <strong>Surplus de Eficiência Espacial</strong> compara os pontos por arremesso (PPS) com a média da liga na mesma coordenada. Hexágonos verdes indicam zonas quentes letais; azuis são abaixo da média.
+            O <strong>Surplus de Eficiência Espacial</strong> compara os pontos por arremesso de uma zona com a referência da amostra. Cores mostram acima, perto ou abaixo dessa referência; não indicam garantia de desempenho futuro.
           </p>
         </div>
         <div class="didactic-card">
@@ -1203,96 +1384,49 @@
       </div>
     </div>
 
-    <!-- TAB 3: EQUIPES & ESTATÍSTICAS APROFUNDADAS -->
+    <!-- Análises legadas mantidas como demonstração -->
     <div id="tab-equipes" class="tab-content">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Dossiê Técnico da Equipe & Estatísticas Completas</h2>
-          <p class="section-desc">Estatísticas de clutch, cronômetro de 24s, distâncias de arremesso, criação, radar tático de 6 eixos e defesa.</p>
+          <h2 class="section-title">Dossiê analítico por equipe</h2>
+          <p class="section-desc">Quatro fatores, perfil de arremessos, criação e defesa em um painel único.</p>
         </div>
-        <div>
-          <select id="team-selector" class="filter-select" onchange="renderTeamDossier(this.value)"></select>
-        </div>
+        <label class="cbi-control">Equipe<select id="team-selector" class="filter-select" onchange="renderTeamDossier(this.value)"></select></label>
       </div>
-
-      <div class="grid-3" id="team-advanced-kpis">
-        <!-- Clutch Stats, Shot Clock, Splits -->
-      </div>
-
-      <!-- NOVO: Radar Tático de 6 Eixos e Distribuição de Arremessos -->
+      <p class="panel observed-status">Demonstração analítica: estes indicadores não são a coleta observada do CBI. Consulte “CBI · equipes” para calendários e resultados publicados.</p>
+      <div class="grid-3" id="team-advanced-kpis"></div>
       <div class="grid-2">
         <div class="radar-card">
           <div class="panel-header" style="width:100%;">
-            <span>Perfil Tático de 6 Dimensões (Radar Chart)</span>
-            <span style="font-size:11px; color:var(--text-muted);">Vs. Média da Competição</span>
+            <span>Perfil tático · seis dimensões</span>
+            <span style="font-size:11px; color:var(--text-muted);">Vs. média da competição</span>
           </div>
           <svg id="team-radar-svg" class="radar-svg" viewBox="0 0 400 320"></svg>
           <div style="display:flex; justify-content:center; gap:18px; margin-top:8px; font-size:11.5px;">
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="width:12px; height:3px; background:var(--terracotta); display:inline-block;"></span>
-              <span id="radar-team-label" class="strong">Equipe Selecionada</span>
+              <span id="radar-team-label" class="strong">Equipe selecionada</span>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="width:12px; height:3px; background:#64748b; display:inline-block; border-top:1px dashed #64748b;"></span>
-              <span style="color:var(--text-muted);">Média Geral</span>
+              <span style="color:var(--text-muted);">Média geral</span>
             </div>
           </div>
         </div>
-
         <div class="panel">
-          <div class="panel-header"><span>Dieta & Distribuição de Arremessos da Equipe</span></div>
+          <div class="panel-header"><span>Dieta de arremessos</span></div>
           <div id="team-shot-diet-panel"></div>
         </div>
       </div>
-
       <div class="grid-2">
         <div class="panel" id="team-factors-panel"></div>
         <div class="panel" id="team-zones-panel"></div>
       </div>
-
       <div class="panel">
-        <div class="panel-header">
-        <div>
-          <h2 class="section-title">Dossiê Técnico da Equipe & Estatísticas Completas</h2>
-          <p class="section-desc">Estatísticas de clutch, cronômetro de 24s, distâncias de arremesso, criação e defesa.</p>
-        </div>
-        <div>
-          <select id="team-selector" class="filter-select" onchange="renderTeamDossier(this.value)"></select>
-        </div>
-      </div>
-
-      <div class="grid-3" id="team-advanced-kpis">
-        <!-- Clutch Stats, Shot Clock, Splits -->
-      </div>
-
-      <div class="grid-2">
-        <div class="panel" id="team-factors-panel"></div>
-        <div class="panel" id="team-zones-panel"></div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <span>Elenco & Métricas Individuais Avançadas (TS%, USG%, PIR FIBA, GmSc)</span>
-        </div>
+        <div class="panel-header"><span>Elenco e métricas individuais · demonstração</span></div>
         <div class="table-responsive">
           <table class="data-table" id="team-roster-table">
-            <thead>
-              <tr>
-                <th>Nr</th>
-                <th>Jogador</th>
-                <th>Pos</th>
-                <th class="tabular">Min</th>
-                <th class="tabular">PTS</th>
-                <th class="tabular">REB</th>
-                <th class="tabular">AST</th>
-                <th class="tabular">3P%</th>
-                <th class="tabular">2P%</th>
-                <th class="tabular">TS%</th>
-                <th class="tabular">USG%</th>
-                <th class="tabular">PIR (FIBA)</th>
-                <th class="tabular">GmSc</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Nr</th><th>Jogador</th><th>Pos</th><th class="tabular">Min</th><th class="tabular">PTS</th><th class="tabular">REB</th><th class="tabular">AST</th><th class="tabular">3P%</th><th class="tabular">2P%</th><th class="tabular">TS%</th><th class="tabular">USG%</th><th class="tabular">PIR (FIBA)</th><th class="tabular">GmSc</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -1527,14 +1661,16 @@
     </div>
 
   </main>
+  </div>
 
   <footer class="mast-footer">
     <p>Basquete BR — Atlas Tático • Projeto independente desenvolvido por Lucas Regis.</p>
-    <p style="margin-top:4px;">Piloto observado: relatórios oficiais da LNB. Demais módulos analíticos: demonstração.</p>
+    <p style="margin-top:4px;">NBB: relatórios observados da LNB. CBI: calendário, resultados e estatísticas publicados pela Go Champs. Outras análises: demonstração.</p>
   </footer>
 
   <!-- EMBEDDED ATLAS DATA -->
   <script id="nbb-observed-data" type="application/json">__NBB_OBSERVED_JSON__</script>
+  <script id="cbi-observed-data" type="application/json">__CBI_OBSERVED_JSON__</script>
   <script id="atlas-data" type="application/json">__ATLAS_DATA_JSON__</script>
 
   <!-- CLIENT-SIDE APPLICATION LOGIC -->
@@ -1549,6 +1685,7 @@
     let sortAsc = false;
 
     const observed = JSON.parse(document.getElementById("nbb-observed-data").textContent);
+    const cbiObserved = JSON.parse(document.getElementById("cbi-observed-data").textContent);
     const observedSeason = document.getElementById("observed-season");
     const observedTeam = document.getElementById("observed-team");
     const observedQuarter = document.getElementById("observed-quarter");
@@ -1658,6 +1795,282 @@
     }
     setObservedTeams();
 
+    const cbiCompetition = document.getElementById("cbi-competition");
+    const cbiTeamFilter = document.getElementById("cbi-team-filter");
+    const cbiTeamList = document.getElementById("cbi-team-list");
+    const cbiCompareTeam = document.getElementById("cbi-compare-team");
+    const cbiCompetitions = cbiObserved.competitions || [];
+    let selectedCbiTeam = "";
+    let cbiView = "team";
+    const orderedCbi = [...cbiCompetitions].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    const preferredIndex = orderedCbi.findIndex(item => item.id === "sub15final");
+    if (preferredIndex > 0) orderedCbi.unshift(orderedCbi.splice(preferredIndex, 1)[0]);
+    cbiCompetition.replaceChildren(...orderedCbi.map(item => new Option(item.name, item.id)));
+    if (orderedCbi.length) {
+      cbiCompetition.value = orderedCbi.some(item => item.id === "sub15final") ? "sub15final" : orderedCbi[0].id;
+      renderCbiGames();
+    } else {
+      document.getElementById("cbi-team-header").innerHTML = '<p class="cbi-empty">Os calendários CBI ainda não foram carregados. Tente novamente após a próxima sincronização.</p>';
+    }
+    cbiCompetition.addEventListener("change", () => { selectedCbiTeam = ""; renderCbiGames(); });
+    cbiTeamFilter.addEventListener("input", renderCbiGames);
+    cbiCompareTeam.addEventListener("change", renderCbiComparison);
+    document.querySelector(".cbi-view-tabs").addEventListener("keydown", event => {
+      const names = ["team", "games", "compare"];
+      const current = names.indexOf(document.activeElement.id.replace("cbi-tab-", ""));
+      let next = current;
+      if (event.key === "ArrowRight") next = (current + 1) % names.length;
+      else if (event.key === "ArrowLeft") next = (current - 1 + names.length) % names.length;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = names.length - 1;
+      else return;
+      event.preventDefault();
+      setCbiView(names[next]);
+      document.getElementById(`cbi-tab-${names[next]}`).focus();
+    });
+    setCbiView("team");
+
+    function cbiTeamMatches(competition, name) {
+      return (competition.games || []).filter(game => game.home_team === name || game.away_team === name);
+    }
+
+    function cbiTeamStats(competition, name) {
+      const games = cbiTeamMatches(competition, name);
+      const completed = games.filter(game => game.is_finished && game.home_score !== null && game.home_score !== undefined && game.away_score !== null && game.away_score !== undefined && Number.isFinite(Number(game.home_score)) && Number.isFinite(Number(game.away_score)));
+      let wins = 0, losses = 0, pointsFor = 0, pointsAgainst = 0;
+      for (const game of completed) {
+        const home = game.home_team === name;
+        const own = Number(home ? game.home_score : game.away_score);
+        const opp = Number(home ? game.away_score : game.home_score);
+        pointsFor += own;
+        pointsAgainst += opp;
+        if (own > opp) wins += 1;
+        else if (own < opp) losses += 1;
+      }
+      return {
+        games, completed, scheduled: games.filter(game => !game.is_finished), wins, losses,
+        pointsFor, pointsAgainst,
+        averageFor: completed.length ? pointsFor / completed.length : null,
+        averageAgainst: completed.length ? pointsAgainst / completed.length : null,
+        averageMargin: completed.length ? (pointsFor - pointsAgainst) / completed.length : null,
+      };
+    }
+
+    function cbiNumber(value) {
+      if (value === null || value === undefined || !Number.isFinite(value)) return "—";
+      return new Intl.NumberFormat("pt-BR", {minimumFractionDigits:1, maximumFractionDigits:1}).format(value);
+    }
+
+    function setCbiStatCards(stats) {
+      const cards = [
+        ["Campanha", stats.completed.length ? `${stats.wins}–${stats.losses}` : "—", `${stats.completed.length} jogo(s) finalizado(s)`],
+        ["Pontos pró / jogo", cbiNumber(stats.averageFor), "Média nos jogos finalizados"],
+        ["Pontos contra / jogo", cbiNumber(stats.averageAgainst), "Média cedida nos jogos finalizados"],
+        ["Saldo / jogo", stats.averageMargin === null ? "—" : `${stats.averageMargin > 0 ? "+" : ""}${cbiNumber(stats.averageMargin)}`, "Pontos pró menos pontos contra"],
+      ];
+      document.getElementById("cbi-summary").replaceChildren(...cards.map(([label, value, detail]) => {
+        const card = document.createElement("div");
+        card.className = "cbi-stat";
+        const title = document.createElement("span"); title.className = "cbi-stat-label"; title.textContent = label;
+        const number = document.createElement("strong"); number.textContent = value;
+        const note = document.createElement("span"); note.textContent = detail;
+        card.append(title, number, note);
+        return card;
+      }));
+      const status = document.getElementById("cbi-team-status");
+      if (!stats.completed.length) {
+        status.textContent = `Ainda não há placares finais publicados para esta equipe. ${stats.games.length} jogo(s) constam na agenda; ${stats.scheduled.length} aguardam resultado.`;
+      } else {
+        status.textContent = `Resumo de ${stats.completed.length} resultado(s) final(is). Pontos por jogo e saldo usam placares finais; esta base não contém scout jogada a jogada nem estatísticas individuais.`;
+      }
+      document.getElementById("cbi-recent-caption").textContent = stats.completed.length ? `${Math.min(5, stats.completed.length)} mais recentes · de ${stats.completed.length} finalizados` : "Aguardando resultados";
+    }
+
+    function renderCbiGames() {
+      const competition = cbiCompetitions.find(item => item.id === cbiCompetition.value);
+      if (!competition) return;
+      const updateTime = cbiObserved.updated_at
+        ? `Atualizado ${new Intl.DateTimeFormat("pt-BR", {dateStyle:"short",timeStyle:"short",timeZone:"America/Sao_Paulo"}).format(new Date(cbiObserved.updated_at))}`
+        : "Aguardando atualização";
+      const source = document.getElementById("cbi-updated");
+      source.replaceChildren(document.createTextNode(`${updateTime} · `), cbiLink(competition.url, "Calendário oficial ↗"));
+      if (competition.stats_url) source.append(document.createTextNode(" · "), cbiLink(competition.stats_url, "Estatísticas publicadas ↗"));
+
+      const query = cbiTeamFilter.value.trim().toLocaleLowerCase("pt-BR");
+      const teams = [...(competition.teams || [])].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+      const visibleTeams = teams.filter(team => team.name.toLocaleLowerCase("pt-BR").includes(query));
+      if (!visibleTeams.some(team => team.name === selectedCbiTeam)) selectedCbiTeam = visibleTeams[0]?.name || "";
+      document.getElementById("cbi-team-count").textContent = query ? `${visibleTeams.length}/${teams.length}` : `${teams.length}`;
+      cbiTeamList.replaceChildren();
+      if (!visibleTeams.length) {
+        const empty = document.createElement("p"); empty.className = "cbi-empty"; empty.textContent = "Nenhuma equipe encontrada.";
+        cbiTeamList.append(empty);
+      }
+      for (const team of visibleTeams) {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "cbi-team-option";
+        button.setAttribute("aria-pressed", String(team.name === selectedCbiTeam));
+        const mark = document.createElement("span"); mark.className = "cbi-team-mark";
+        mark.setAttribute("aria-hidden", "true"); mark.textContent = (team.short_name || team.name.split(/\s+/).map(word => word[0]).join("")).slice(0, 3).toUpperCase();
+        const info = document.createElement("span"); info.className = "cbi-team-info";
+        const label = document.createElement("span"); label.className = "cbi-team-name"; label.textContent = team.name;
+        const teamStats = cbiTeamStats(competition, team.name);
+        const record = document.createElement("span"); record.className = "cbi-team-record";
+        record.textContent = teamStats.completed.length
+          ? `Campanha ${teamStats.wins}–${teamStats.losses} · ${teamStats.completed.length} jogos`
+          : `${teamStats.games.length} jogo(s) na agenda · sem resultados finais`;
+        info.append(label, record);
+        button.append(mark, info);
+        button.addEventListener("click", () => { selectedCbiTeam = team.name; renderCbiGames(); });
+        cbiTeamList.append(button);
+      }
+
+      const teamHeader = document.getElementById("cbi-team-header");
+      teamHeader.replaceChildren();
+      if (!selectedCbiTeam) {
+        const title = document.createElement("h3"); title.textContent = "Nenhuma equipe para exibir";
+        const note = document.createElement("p"); note.textContent = "Ajuste a busca ou selecione outra competição.";
+        teamHeader.append(title, note);
+        for (const id of ["cbi-summary", "cbi-recent-games", "cbi-upcoming-games", "cbi-games", "cbi-comparison"]) document.getElementById(id).replaceChildren();
+        return;
+      }
+      const identity = document.createElement("div");
+      const title = document.createElement("h3"); title.textContent = selectedCbiTeam;
+      const context = document.createElement("p"); context.textContent = `${competition.name} · ${cbiTeamMatches(competition, selectedCbiTeam).length} jogo(s) no calendário`;
+      identity.append(title, context);
+      teamHeader.append(identity);
+
+      const stats = cbiTeamStats(competition, selectedCbiTeam);
+      setCbiStatCards(stats);
+      const finishedRecent = [...stats.completed].sort(cbiGameOrder).slice(-5);
+      renderCbiGameList(document.getElementById("cbi-recent-games"), finishedRecent);
+      const upcoming = stats.scheduled.filter(game => game.status !== "in_progress").sort(cbiGameOrder).slice(0, 3);
+      renderCbiGameList(document.getElementById("cbi-upcoming-games"), upcoming);
+      if (!upcoming.length) {
+        const live = stats.scheduled.filter(game => game.status === "in_progress");
+        if (live.length) renderCbiGameList(document.getElementById("cbi-upcoming-games"), live);
+        else document.getElementById("cbi-upcoming-games").innerHTML = '<p class="cbi-empty">Não há próximos jogos publicados para esta equipe.</p>';
+      }
+      const allGames = [...(competition.games || [])].sort(cbiGameOrder);
+      document.getElementById("cbi-games-caption").textContent = `${allGames.length} jogo(s) · ${competition.teams?.length || 0} equipes`;
+      renderCbiGameList(document.getElementById("cbi-games"), allGames);
+
+      const compareOptions = teams.filter(team => team.name !== selectedCbiTeam);
+      const previousOpponent = cbiCompareTeam.value;
+      cbiCompareTeam.replaceChildren(...compareOptions.map(team => new Option(team.name, team.name)));
+      if (compareOptions.some(team => team.name === previousOpponent)) cbiCompareTeam.value = previousOpponent;
+      renderCbiComparison();
+    }
+
+    function cbiGameOrder(a, b) {
+      return `${a.date || ""} ${a.time_utc || ""}`.localeCompare(`${b.date || ""} ${b.time_utc || ""}`);
+    }
+
+    function cbiLink(url, label) {
+      const link = document.createElement("a");
+      link.href = url; link.textContent = label; link.target = "_blank"; link.rel = "noopener noreferrer";
+      return link;
+    }
+
+    function renderCbiGameList(container, games) {
+      container.replaceChildren();
+      if (!games.length) {
+        const empty = document.createElement("p"); empty.className = "cbi-empty"; empty.textContent = "Nenhum jogo publicado neste recorte.";
+        container.append(empty);
+        return;
+      }
+      let lastDate = "";
+      for (const game of games) {
+        if (game.date !== lastDate) {
+          lastDate = game.date;
+          const heading = document.createElement("h4"); heading.className = "cbi-day-title";
+          heading.textContent = game.date ? new Intl.DateTimeFormat("pt-BR", {dateStyle:"full",timeZone:"UTC"}).format(new Date(`${game.date}T12:00:00Z`)) : "Data a definir";
+          container.append(heading);
+        }
+        const article = document.createElement("article"); article.className = "cbi-game";
+        const start = game.time_utc ? new Date(game.time_utc) : null;
+        const clock = start && !Number.isNaN(start.valueOf()) ? new Intl.DateTimeFormat("pt-BR", {hour:"2-digit",minute:"2-digit",timeZone:"America/Sao_Paulo"}).format(start) : "Horário a definir";
+        const time = document.createElement("div"); time.className = "cbi-game-time"; time.textContent = clock;
+        const center = document.createElement("div");
+        const teams = document.createElement("div"); teams.className = "cbi-game-teams";
+        const showScore = game.is_finished || game.status === "in_progress";
+        for (const side of ["home", "away"]) {
+          const row = document.createElement("div"); row.className = "cbi-game-team";
+          const name = document.createElement("span"); name.textContent = game[`${side}_team`] || "Equipe a definir";
+          const score = document.createElement("span"); score.className = "cbi-game-score";
+          const value = game[`${side}_score`]; score.textContent = showScore && value !== null && value !== undefined ? value : "—";
+          row.append(name, score); teams.append(row);
+        }
+        const meta = document.createElement("div"); meta.className = "cbi-game-meta";
+        meta.textContent = game.venue || "Local a definir";
+        center.append(teams, meta);
+        const status = document.createElement("div"); status.className = `cbi-game-status${game.is_finished ? " final" : ""}`;
+        const statusText = document.createElement("span"); statusText.textContent = game.is_finished ? "Final" : game.status === "in_progress" ? "Em andamento" : "Agendado";
+        status.append(statusText, document.createElement("br"), cbiLink(game.url, "Ver jogo ↗"));
+        article.append(time, center, status); container.append(article);
+      }
+    }
+
+    function setCbiView(view) {
+      cbiView = view;
+      for (const name of ["team", "games", "compare"]) {
+        const selected = name === view;
+        document.getElementById(`cbi-tab-${name}`).setAttribute("aria-selected", String(selected));
+        document.getElementById(`cbi-tab-${name}`).tabIndex = selected ? 0 : -1;
+        document.getElementById(`cbi-view-${name}`).hidden = !selected;
+      }
+    }
+
+    function renderCbiComparison() {
+      const target = document.getElementById("cbi-comparison");
+      target.replaceChildren();
+      const competition = cbiCompetitions.find(item => item.id === cbiCompetition.value);
+      const otherName = cbiCompareTeam.value;
+      if (!competition || !selectedCbiTeam) return;
+      if (!otherName) {
+        const empty = document.createElement("p"); empty.className = "cbi-empty"; empty.textContent = "Esta competição ainda não tem outra equipe para comparar.";
+        target.append(empty); return;
+      }
+      const names = [selectedCbiTeam, otherName];
+      const grid = document.createElement("div"); grid.className = "cbi-compare-grid";
+      for (const name of names) {
+        const stats = cbiTeamStats(competition, name);
+        const card = document.createElement("section"); card.className = "cbi-compare-card";
+        const title = document.createElement("h4"); title.textContent = name; card.append(title);
+        const rows = [
+          ["Campanha", stats.completed.length ? `${stats.wins}–${stats.losses}` : "Sem resultados"],
+          ["Jogos finalizados", stats.completed.length],
+          ["Pontos pró / jogo", cbiNumber(stats.averageFor)],
+          ["Pontos contra / jogo", cbiNumber(stats.averageAgainst)],
+          ["Saldo / jogo", stats.averageMargin === null ? "—" : `${stats.averageMargin > 0 ? "+" : ""}${cbiNumber(stats.averageMargin)}`],
+          ["Jogos na agenda", stats.scheduled.length],
+        ];
+        for (const [label, value] of rows) {
+          const row = document.createElement("div"); row.className = "cbi-compare-row";
+          const key = document.createElement("span"); key.textContent = label;
+          const val = document.createElement("strong"); val.textContent = value;
+          row.append(key, val); card.append(row);
+        }
+        grid.append(card);
+      }
+      target.append(grid);
+      const h2h = (competition.games || []).filter(game =>
+        (game.home_team === names[0] && game.away_team === names[1]) || (game.home_team === names[1] && game.away_team === names[0])
+      ).sort(cbiGameOrder);
+      const heading = document.createElement("h3"); heading.className = "cbi-section-title";
+      const label = document.createElement("span"); label.textContent = "Confrontos diretos";
+      const note = document.createElement("small"); note.textContent = "na competição selecionada";
+      heading.append(label, note); target.append(heading);
+      renderCbiGameList(target, h2h);
+      const caveat = document.createElement("p"); caveat.className = "cbi-game-meta";
+      caveat.textContent = "Comparação baseada em placares finais e agenda. Não representa eficiência por posse, estatísticas individuais ou avaliação de qualidade dos adversários.";
+      target.append(caveat);
+    }
+
+    function escapeCbi(value) {
+      return String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
+    }
+
     function loadDemo() {
       ATLAS = JSON.parse(document.getElementById("atlas-data").textContent);
       filterTeamsAndPlayers();
@@ -1685,6 +2098,10 @@
     }
 
     function setCompetition(compId) {
+      if (compId === "cbi-sub15") {
+        switchTab("cbi");
+        return;
+      }
       selectedCompetition = compId;
       document.querySelectorAll(".comp-pill").forEach(el => el.classList.remove("active"));
       const activeBtn = Array.from(document.querySelectorAll(".comp-pill")).find(b => b.getAttribute("onclick").includes(compId));
@@ -1726,7 +2143,7 @@
     function switchTab(tabId) {
       const status = document.getElementById("demo-load-status");
       status.textContent = "";
-      if (tabId !== "observado" && !ATLAS) {
+      if (!new Set(["observado", "cbi"]).has(tabId) && !ATLAS) {
         try {
           loadDemo();
         } catch (error) {
@@ -1736,15 +2153,30 @@
           return;
         }
       }
-      document.body.classList.toggle("observed-mode", tabId === "observado");
+      document.body.classList.toggle("observed-mode", tabId === "observado" || tabId === "cbi");
       document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
-      document.querySelectorAll(".nav-btn").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(el => {
+        el.classList.remove("active");
+        el.removeAttribute("aria-current");
+      });
       
       const target = document.getElementById("tab-" + tabId);
       if (target) target.classList.add("active");
       
       const btn = Array.from(document.querySelectorAll(".nav-btn")).find(b => b.getAttribute("onclick").includes(tabId));
-      if (btn) btn.classList.add("active");
+      document.querySelectorAll(".nav-more").forEach(menu => {
+        menu.classList.remove("has-active");
+        menu.open = false;
+      });
+      if (btn) {
+        btn.classList.add("active");
+        btn.setAttribute("aria-current", "page");
+        const menu = btn.closest(".nav-more");
+        if (menu) {
+          menu.classList.add("has-active");
+          menu.open = false;
+        }
+      }
 
       if (tabId === 'quadra') {
         renderCourtView();

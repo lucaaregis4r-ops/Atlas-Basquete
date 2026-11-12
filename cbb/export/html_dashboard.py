@@ -12,6 +12,7 @@ from cbb.extractors.fallback_data import get_complete_fallback_dataset
 from cbb.analysis.markov_possession import BasketballMarkovModel, TRANSIENT_STATES, ABSORBING_STATES
 from cbb.analysis.four_factors import compute_cohort_four_factors
 from cbb.extractors.lnb_observed import SNAPSHOT_PATH
+from cbb.extractors.cbi_observed import SNAPSHOT_PATH as CBI_SNAPSHOT_PATH
 
 def generate_master_payload() -> Dict[str, Any]:
     """
@@ -190,8 +191,10 @@ def export_dashboard(target_html_path: Path = None):
     template_html = template_path.read_text(encoding="utf-8")
     demo_data = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     observed_data = SNAPSHOT_PATH.read_text(encoding="utf-8").replace("<", "\\u003c")
+    cbi_data = CBI_SNAPSHOT_PATH.read_text(encoding="utf-8").replace("<", "\\u003c") if CBI_SNAPSHOT_PATH.exists() else '{"competitions":[]}'
     rendered_html = template_html.replace("__ATLAS_DATA_JSON__", demo_data)
     rendered_html = rendered_html.replace("__NBB_OBSERVED_JSON__", observed_data)
+    rendered_html = rendered_html.replace("__CBI_OBSERVED_JSON__", cbi_data)
     
     # Output to both index.html (root) and docs/index.html (Pages)
     (BASE_DIR / "index.html").write_text(rendered_html, encoding="utf-8")
