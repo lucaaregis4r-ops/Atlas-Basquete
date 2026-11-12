@@ -29,3 +29,9 @@ python -m cbb export
 ```
 
 A exportação gera `index.html` e `docs/index.html` com os dados incorporados. Para executar as verificações de desenvolvimento, instale `pytest` e rode `python -m pytest -q`.
+
+## Análises disponíveis
+
+Na aba **Análises**, os mesmos filtros de competição e equipe alimentam eFG%, frequência de 3 pontos, FTR e TS% quando os dados necessários existem. A distribuição por atleta mostra fatias observadas e, para períodos NBB com pelo menos 20 tentativas em três jogos e referência nos outros períodos, um ajuste com 20 tentativas equivalentes. O mapa NBB utiliza coordenadas relativas do relatório da LNB; a base CBI ainda não tem coordenadas. Comparações mostram o tamanho das amostras e confrontos realmente registrados.
+
+O modelo de Markov anterior está disponível como **exemplo didático com parâmetros hipotéticos**, sem atribuir suas probabilidades à equipe selecionada. Ratings por posse, perdas, rebotes e probabilidades de vitória ao longo do jogo dependem de dados adicionais e não são apresentados como fatos quando a cobertura é insuficiente.

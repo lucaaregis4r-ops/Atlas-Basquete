@@ -192,7 +192,11 @@ def export_dashboard(target_html_path: Path = None):
     demo_data = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     observed_data = SNAPSHOT_PATH.read_text(encoding="utf-8").replace("<", "\\u003c")
     cbi_data = CBI_SNAPSHOT_PATH.read_text(encoding="utf-8").replace("<", "\\u003c") if CBI_SNAPSHOT_PATH.exists() else '{"competitions":[]}'
+    advanced_js = (template_path.parent / "advanced_analytics.js").read_text(encoding="utf-8").replace("</script", "<\\/script")
+    markov_demo = json.dumps(data["markov_models"]["baseline"], ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     rendered_html = template_html.replace("__ATLAS_DATA_JSON__", demo_data)
+    rendered_html = rendered_html.replace("__MARKOV_DEMO_JSON__", markov_demo)
+    rendered_html = rendered_html.replace("__ADVANCED_ANALYTICS_JS__", advanced_js)
     rendered_html = rendered_html.replace("__NBB_OBSERVED_JSON__", observed_data)
     rendered_html = rendered_html.replace("__CBI_OBSERVED_JSON__", cbi_data)
     

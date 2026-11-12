@@ -48,4 +48,7 @@ def test_export_dashboard():
     assert 'id="team"' in html
     assert 'id="view-players"' in html
     assert 'id="view-games"' in html
+    assert 'id="view-analysis"' in html
+    assert 'id="markov-demo-data"' in html
+    assert "__ADVANCED_ANALYTICS_JS__" not in html
     assert "Tricampeonato" not in html
