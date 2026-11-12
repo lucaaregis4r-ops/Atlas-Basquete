@@ -41,6 +41,8 @@ function renderAdvanced(){
   renderAdvancedDistribution(c,t,data);
   renderAdvancedMap(c,t);
   renderAdvancedPeriods(c,t);
+  renderShotMix(data);
+  renderGameEfg(c,t,data.games);
   renderAdvancedTrend(c,t,data.games);
   if(comparisonCompetition!==c.id){
     const teams=[...new Set(c.games.flatMap(g=>names(g,c)))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR'));
@@ -69,17 +71,38 @@ function renderAdvancedDistribution(c,t,data){
   $('advanced-distribution-table').innerHTML=players.length?players.map(p=>'<tr><td>'+esc(p.name)+'</td><td class="num">'+p.attempts+'</td><td class="num">'+formatPercent(p.share)+'</td><td class="num">'+formatPercent(p.adjusted)+'</td></tr>').join(''):'<tr><td colspan="4">Nenhuma tentativa identificada neste recorte.</td></tr>';
 }
 function renderAdvancedMap(c,t){
-  const root=$('advanced-map');if(c.type!=='nbb'){root.innerHTML='<div class="empty">A fonte CBI desta base ainda não fornece coordenadas dos arremessos. Consulte as súmulas individuais na aba Jogos.</div>';return}
-  const shots=quarterShots(c,t).map(x=>x.shot).filter(sh=>sh[5]!==null&&sh[5]!==undefined&&sh[6]!==null&&sh[6]!==undefined&&Number.isFinite(Number(sh[5]))&&Number.isFinite(Number(sh[6]))&&sh[5]>=0&&sh[5]<=100&&sh[6]>=0&&sh[6]<=100);
-  if(!shots.length){root.innerHTML='<div class="empty">Sem coordenadas disponíveis neste recorte.</div>';return}
-  const markers=shots.map(sh=>{const x=Number(sh[5]),y=Number(sh[6]);return sh[4]?`<circle cx="${x}" cy="${y}" r="1.1" fill="#75ced5" opacity=".75"><title>Convertido · ${sh[3]} pontos</title></circle>`:`<path d="M ${x-1} ${y-1} L ${x+1} ${y+1} M ${x+1} ${y-1} L ${x-1} ${y+1}" stroke="#ff875e" stroke-width=".65"><title>Não convertido · ${sh[3]} pontos</title></path>`}).join('');
-  root.innerHTML=`<svg class="court-plot" viewBox="0 0 100 100" role="img" aria-label="Mapa relativo de ${shots.length} arremessos identificados"><title>${shots.length} arremessos com coordenadas disponíveis</title><rect x="0" y="0" width="100" height="100" fill="#14202d"/>${markers}</svg><p class="chart-key">${shots.length} com posição de ${quarterShots(c,t).length} tentativas identificadas: ${shots.filter(sh=>sh[4]).length} convertidos e ${shots.filter(sh=>!sh[4]).length} não convertidos · eixos de 0 a 100% conforme o relatório.</p>`;
+  const root=$('advanced-map');$('map-controls').hidden=c.type!=='nbb';if(c.type!=='nbb'){root.innerHTML='<div class="empty">A fonte CBI desta base ainda não fornece coordenadas dos arremessos. Consulte as súmulas individuais na aba Jogos.</div>';return}
+  const resultFilter=$('map-result').value;
+  const shots=quarterShots(c,t).map(x=>x.shot).filter(sh=>(resultFilter!=='made'||!!sh[4])&&(resultFilter!=='missed'||!sh[4])).filter(sh=>sh[5]!==null&&sh[5]!==undefined&&sh[6]!==null&&sh[6]!==undefined&&Number.isFinite(Number(sh[5]))&&Number.isFinite(Number(sh[6]))&&sh[5]>=0&&sh[5]<=100&&sh[6]>=0&&sh[6]<=100);
+  if(!shots.length){root.innerHTML='<div class="empty">Sem coordenadas disponíveis neste recorte ou filtro de resultado.</div>';return}
+  // The original LNB graphic is horizontal (623 × 345); left/top are percentages of that image.
+  const markers=shots.map(sh=>{const x=Number(sh[5])*6.23,y=Number(sh[6])*3.45;return sh[4]?`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="4" fill="#75ced5" stroke="#12323c" stroke-width="1.2" opacity=".9"><title>Convertido · ${sh[3]} pontos</title></circle>`:`<path d="M ${(x-3.8).toFixed(2)} ${(y-3.8).toFixed(2)} L ${(x+3.8).toFixed(2)} ${(y+3.8).toFixed(2)} M ${(x+3.8).toFixed(2)} ${(y-3.8).toFixed(2)} L ${(x-3.8).toFixed(2)} ${(y+3.8).toFixed(2)}" stroke="#8d291c" stroke-width="2.5" stroke-linecap="round"><title>Não convertido · ${sh[3]} pontos</title></path>`}).join('');
+  const court=`<rect width="623" height="345" fill="#c99060"/><path d="M 0 55 H 623 M 0 110 H 623 M 0 165 H 623 M 0 220 H 623 M 0 275 H 623" stroke="#9d704e" stroke-width="1" opacity=".25"/><rect x="12" y="10" width="599" height="323" fill="none" stroke="#fff3df" stroke-width="3"/><rect x="12" y="123" width="120" height="98" fill="#8e6044" fill-opacity=".5" stroke="#fff3df" stroke-width="3"/><rect x="491" y="123" width="120" height="98" fill="#8e6044" fill-opacity=".5" stroke="#fff3df" stroke-width="3"/><g fill="none" stroke="#fff3df" stroke-width="3"><path d="M 312 10 V 333"/><circle cx="312" cy="172" r="40"/><path d="M 12 32 H 90 C 148 32 197 99 197 172 C 197 245 148 312 90 312 H 12"/><path d="M 611 32 H 533 C 475 32 426 99 426 172 C 426 245 475 312 533 312 H 611"/><path d="M 132 132 A 40 40 0 0 1 132 212"/><path d="M 491 132 A 40 40 0 0 0 491 212"/><path d="M 45 145 A 27 27 0 0 1 45 199"/><path d="M 578 145 A 27 27 0 0 0 578 199"/><path d="M 132 132 A 40 40 0 0 0 132 212 M 491 132 A 40 40 0 0 1 491 212" stroke-dasharray="9 7"/></g>`;
+  root.innerHTML=`<svg class="court-plot court-full" viewBox="0 0 623 345" role="img" aria-label="Quadra horizontal com ${shots.length} arremessos identificados"><title>${shots.length} arremessos com coordenadas disponíveis</title>${court}${markers}</svg><p class="chart-key">${shots.length} com posição de ${quarterShots(c,t).length} tentativas identificadas: ${shots.filter(sh=>sh[4]).length} convertidos e ${shots.filter(sh=>!sh[4]).length} não convertidos. As posições são percentuais do gráfico original da LNB e não foram espelhadas.</p>`;
 }
+function percentBars(id,items,maximum){
+ const root=$(id);root.replaceChildren();root.className='bars';
+ if(!items.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Ainda não há dados disponíveis para este recorte.';root.append(empty);return}
+ items.forEach((item,index)=>{const row=document.createElement('div');row.className='bar-row';const label=document.createElement('span');label.className='bar-name';label.textContent=item.name;const track=document.createElement('div');track.className='track';const fill=document.createElement('div');fill.className='fill';fill.style.width=Math.max(0,Math.min(100,100*item.value/maximum))+'%';if(index%2)fill.style.background='#75ced5';track.append(fill);const value=document.createElement('span');value.className='value';value.textContent=item.text;row.append(label,track,value);root.append(row)});
+}
+function renderShotMix(data){
+ const root=$('advanced-shot-mix');const players=data.sample.players.map(p=>({name:p.name,two:Number(p.two)||0,three:Number(p.three)||0})).filter(p=>p.two+p.three>0).sort((a,b)=>(b.two+b.three)-(a.two+a.three)).slice(0,8);
+ if(!players.length){root.innerHTML='<div class="empty">Nenhuma tentativa individual validada neste recorte.</div>';return}
+ root.innerHTML=players.map(p=>{const total=p.two+p.three;return `<div class="mix-row" aria-label="${esc(p.name)}: ${p.two} tentativas de 2 pontos e ${p.three} tentativas de 3 pontos"><span>${esc(p.name)}</span><span class="mix-track" aria-hidden="true"><span class="mix-two" style="width:${100*p.two/total}%"></span><span class="mix-three" style="width:${100*p.three/total}%"></span></span><span class="mix-values">${p.two} de 2 · ${p.three} de 3</span></div>`}).join('')+'<p class="chart-key">Cada barra representa 100% das tentativas do atleta; considere a diferença de volume entre atletas.</p>';
+}
+function renderGameEfg(c,t,games){
+ const rows=[];for(const g of games){const sample=playerData(c,t,[g]),sum=k=>sample.players.reduce((a,p)=>a+(Number(p[k])||0),0),attempts=sum('two')+sum('three');if(!attempts)continue;const efg=(sum('twoMade')+1.5*sum('threeMade'))/attempts,side=names(g,c).indexOf(t);rows.push({name:names(g,c)[1-side]+' · '+(g.date?g.date.slice(5).split('-').reverse().join('/'):'—')+' · n='+attempts,value:100*efg,text:formatPercent(efg)})}
+ percentBars('advanced-game-efg',rows.slice(0,8),150);
+}
+
 function renderAdvancedPeriods(c,t){
-  if(c.type!=='nbb'){bars('advanced-periods',[]);const note=document.createElement('p');note.className='small muted';note.textContent='As súmulas CBI disponíveis não separam arremessos por quarto.';$('advanced-periods').append(note);return}
-  const counts=new Map();for(const {shot} of quarterShots(c,t,true)){const p=shot[2]>=5?'Prorrogações':`${shot[2]}º quarto`;counts.set(p,(counts.get(p)||0)+1)}
-  bars('advanced-periods',[...counts].sort((a,b)=>a[0].localeCompare(b[0],'pt-BR')).map(([name,value])=>({name,value,text:String(value)})));
+  if(c.type!=='nbb'){bars('advanced-periods',[]);bars('advanced-period-accuracy',[]);const note=document.createElement('p');note.className='small muted';note.textContent='As súmulas CBI disponíveis não separam arremessos por quarto.';$('advanced-periods').append(note);return}
+  const counts=new Map();for(const {shot} of quarterShots(c,t,true)){const p=shot[2]>=5?'Prorrogações':`${shot[2]}º quarto`,v=counts.get(p)||{attempts:0,made:0};v.attempts++;v.made+=Number(shot[4]||0);counts.set(p,v)}
+  const sorted=[...counts].sort((a,b)=>a[0].localeCompare(b[0],'pt-BR'));
+  bars('advanced-periods',sorted.map(([name,v])=>({name,value:v.attempts,text:String(v.attempts)})));
+  percentBars('advanced-period-accuracy',sorted.map(([name,v])=>({name:name+' · n='+v.attempts,value:100*v.made/v.attempts,text:fmt(100*v.made/v.attempts)+'%'})),100);
 }
+
 function renderAdvancedTrend(c,t,games){
  const root=$('advanced-trend'), series=[...games].sort((a,b)=>(a.date||'').localeCompare(b.date||'')).slice(-12);
  if(!series.length){root.innerHTML='<div class="empty">Ainda não há resultados finais neste recorte.</div>';return}
@@ -96,7 +119,9 @@ function renderAdvancedComparison(){
  const c=selectedCompetition(),a=team.value,b=compareControl.value;if(!c||!a||!b)return;
  const one=totalsForAnalysis(c,a),two=totalsForAnalysis(c,b),oneScore=statsFor(c,a),twoScore=statsFor(c,b);
  const row=(name,x,y)=>'<tr><td>'+esc(name)+'</td><td class="num">'+esc(x)+'</td><td class="num">'+esc(y)+'</td></tr>';
- $('advanced-comparison').innerHTML='<div class="table-wrap"><table><thead><tr><th>Indicador</th><th class="num">'+esc(a)+'</th><th class="num">'+esc(b)+'</th></tr></thead><tbody>'+row('Jogos finalizados',one.games.length,two.games.length)+row('Campanha (vitórias–derrotas)',oneScore.w+'–'+oneScore.l,twoScore.w+'–'+twoScore.l)+row('Pontos marcados / jogo',fmt(oneScore.pf/one.games.length),fmt(twoScore.pf/two.games.length))+row('Pontos sofridos / jogo',fmt(oneScore.pa/one.games.length),fmt(twoScore.pa/two.games.length))+row('eFG% · amostra de arremessos',formatPercent(one.efg),formatPercent(two.efg))+row('Tentativas registradas',one.attempts,two.attempts)+row('Jogos com registros',one.sample.covered,two.sample.covered)+'</tbody></table></div>';
+ $('advanced-comparison').innerHTML='<div class="table-wrap"><table><thead><tr><th>Indicador</th><th class="num">'+esc(a)+'</th><th class="num">'+esc(b)+'</th></tr></thead><tbody>'+row('Jogos finalizados',one.games.length,two.games.length)+row('Campanha (vitórias–derrotas)',oneScore.w+'–'+oneScore.l,twoScore.w+'–'+twoScore.l)+row('Pontos marcados / jogo',fmt(oneScore.pf/one.games.length),fmt(twoScore.pf/two.games.length))+row('Pontos sofridos / jogo',fmt(oneScore.pa/one.games.length),fmt(twoScore.pa/two.games.length))+row('eFG% · amostra de arremessos',formatPercent(one.efg),formatPercent(two.efg))+row('Tentativas registradas',one.attempts,two.attempts)+row('Jogos com registros',one.sample.covered,two.sample.covered)+'</tbody></table></div><div class="grid"><div class="chart-pair"><h4>eFG% entre equipes</h4><div id="compare-efg"></div></div><div class="chart-pair"><h4>Frequência de arremessos de 3</h4><div id="compare-three"></div></div></div>';
+ percentBars('compare-efg',[[a,one],[b,two]].filter(([,d])=>d.efg!==null).map(([name,d])=>({name:name+' · n='+d.attempts,value:100*d.efg,text:formatPercent(d.efg)})),150);
+ percentBars('compare-three',[[a,one],[b,two]].filter(([,d])=>d.threeRate!==null).map(([name,d])=>({name:name+' · n='+d.attempts,value:100*d.threeRate,text:formatPercent(d.threeRate)})),100);
  const direct=c.games.filter(g=>{const ns=names(g,c);return ns.includes(a)&&ns.includes(b)}).sort((x,y)=>(y.date||'').localeCompare(x.date||''));
  $('advanced-h2h').innerHTML=direct.length?direct.map(g=>gameCard(g,c,a,false)).join(''):'<div class="empty">Não há confronto direto entre essas equipes na amostra selecionada.</div>';
 }
@@ -110,6 +135,7 @@ function renderMarkovDemo(){
 }
 
 compareControl.addEventListener('change',renderAdvancedComparison);
+$('map-result').addEventListener('change',()=>{const c=selectedCompetition();if(c&&team.value)renderAdvancedMap(c,team.value)});
 for(const control of [comp,team,$('quarter'),$('shot-type')])control.addEventListener('change',renderAdvanced);
 renderMarkovDemo();
 if(competitions.length)renderAdvanced();
