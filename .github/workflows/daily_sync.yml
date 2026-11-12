@@ -2,14 +2,18 @@ name: Daily CBB Sync & Pages Deploy
 
 on:
   schedule:
-    # 03:00 BRT (06:00 UTC) every day
-    - cron: '0 6 * * *'
+    # Four runs a day, with bounded requests in each run.
+    - cron: '0 0,6,12,18 * * *'
   workflow_dispatch:
   push:
     paths:
       - .github/workflows/daily_sync.yml
       - pyproject.toml
       - requirements.txt
+
+concurrency:
+  group: atlas-basketball-sync
+  cancel-in-progress: false
 
 permissions:
   contents: write

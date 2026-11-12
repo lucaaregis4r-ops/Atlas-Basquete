@@ -3,16 +3,29 @@ const markovDemo = JSON.parse($('markov-demo-data').textContent);
 const compareControl = $('compare-team');
 const fmt2=value=>new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
 let comparisonCompetition = '';
-function totalsForAnalysis(c,t) {
-  const games=teamGames(c,t), sample=playerData(c,t,games);
+function totalsForAnalysis(c,t,selectedGames=null) {
+  const games=selectedGames||teamGames(c,t), sample=playerData(c,t,games);
   const sum=key=>sample.players.reduce((a,p)=>a+(Number(p[key])||0),0);
-  const two=sum('two'),three=sum('three'),twoMade=sum('twoMade'),threeMade=sum('threeMade');
+  let two=sum('two'),three=sum('three'),twoMade=sum('twoMade'),threeMade=sum('threeMade'),teamOnlyGames=0;
+  // A full-game LNB box score can supply team shooting when the event map is absent.
+  if(c.type==='nbb'&&Number($('quarter').value)===0){
+    const kind=Number($('shot-type').value);
+    for(const game of games){
+      if(game.shots?.length)continue;
+      const side=names(game,c).indexOf(t), box=game.boxscore?.[side];
+      if(!Array.isArray(box)||box.length!==4||!box.every(x=>x!==null&&x!==undefined&&Number.isFinite(Number(x))&&Number(x)>=0)||Number(box[0])>Number(box[1])||Number(box[2])>Number(box[3])||Number(box[1])+Number(box[3])===0)continue;
+      if(!kind||kind===2){twoMade+=Number(box[0]);two+=Number(box[1])}
+      if(!kind||kind===3){threeMade+=Number(box[2]);three+=Number(box[3])}
+      teamOnlyGames++;
+    }
+  }
   const attempts=two+three, ft=c.type==='cbi'?sum('ft'):null, validPoints=c.type==='cbi'?sum('validPoints'):null;
-  return {games,sample,two,three,twoMade,threeMade,attempts,ft,
+  return {games,sample,two,three,twoMade,threeMade,attempts,ft,teamCovered:sample.covered+teamOnlyGames,teamOnlyGames,
     efg:attempts?(twoMade+1.5*threeMade)/attempts:null,
     threeRate:attempts?three/attempts:null,
     ftr:attempts&&ft!==null?ft/attempts:null, ts:ft!==null&&attempts+0.44*ft>0?validPoints/(2*(attempts+0.44*ft)):null};
 }
+
 function statCard(label,value,detail){return '<div class="card"><span>'+esc(label)+'</span><strong>'+esc(value)+'</strong><small>'+esc(detail)+'</small></div>'}
 function formatPercent(value){return value===null?'—':fmt(value*100)+'%'}
 function quarterShots(c,t,ignoreQuarter=false){
@@ -37,7 +50,7 @@ function renderAdvanced(){
     statCard('FTR',data.ftr===null?'—':fmt2(data.ftr),'lances livres tentados / arremessos de quadra'),
     statCard('TS%',formatPercent(data.ts),'pontuação por tentativas estimadas')
   ].join('');
-  $('advanced-coverage').textContent=`Amostra: ${data.attempts} tentativas de quadra em ${s.covered} de ${data.games.length} jogo(s) da equipe com ${c.type==='nbb'?'arremessos identificados':'súmulas individuais conferidas'}. `+(c.type==='cbi'?'Os arremessos usam apenas linhas que também passam pela validação individual; a cobertura pode variar por atleta.':'A fonte não contém todos os jogos da competição. O FTR não está disponível nos registros de arremesso.');
+  $('advanced-coverage').textContent=`Amostra: ${data.attempts} tentativas de quadra em ${data.teamCovered} de ${data.games.length} jogo(s) da equipe com ${c.type==='nbb'?'registros de equipe':'súmulas individuais conferidas'}. `+(c.type==='cbi'?'Os arremessos usam apenas linhas que também passam pela validação individual; a cobertura pode variar por atleta.':`${s.covered} jogo(s) têm arremessos individuais identificados; ${data.teamOnlyGames} adicional(is) fornecem apenas totais de equipe. Esses totais só entram quando o período selecionado é “Todos”. O FTR não está disponível nesta base.`);
   renderAdvancedDistribution(c,t,data);
   renderAdvancedMap(c,t);
   renderAdvancedPeriods(c,t);
@@ -67,7 +80,7 @@ function renderAdvancedDistribution(c,t,data){
   const total=players.reduce((n,p)=>n+p.attempts,0),adjusted=c.type==='nbb'&&q>0&&total>=20&&sampleGames>=3&&priorTotal>0;
   players=players.filter(p=>p.attempts>0||(adjusted&&p.prior>0)).map(p=>({...p,share:total?p.attempts/total:0,adjusted:adjusted?(p.attempts+20*p.prior/priorTotal)/(total+20):null})).sort((a,b)=>(b.adjusted??b.share)-(a.adjusted??a.share));
   bars('advanced-distribution',players.slice(0,10).map(p=>({name:p.name,value:p.share*100,text:formatPercent(p.share)})));
-  $('advanced-shrinkage').textContent=adjusted?`Fatia ajustada: combina ${total} tentativas em ${sampleGames} jogos com 20 tentativas equivalentes distribuídas conforme os ${priorTotal} arremessos dos outros períodos. É uma descrição histórica, não previsão de acionamento.`:(c.type==='nbb'&&q?'Fatia ajustada indisponível: exige pelo menos 20 tentativas em três jogos no período selecionado e referência em outros períodos.':'Selecione um período no NBB para avaliar a fatia ajustada; o ajuste requer amostra mínima. O CBI ainda não fornece esse recorte na base.');
+  $('advanced-shrinkage').textContent=adjusted?`Fatia ajustada: combina ${total} tentativas em ${sampleGames} jogos com 20 tentativas equivalentes distribuídas conforme os ${priorTotal} arremessos dos outros períodos. É uma descrição histórica, não previsão de acionamento.`:(c.type==='nbb'&&q?'Fatia ajustada indisponível: exige pelo menos 20 tentativas em três jogos no período selecionado e referência em outros períodos.':'Selecione um período no NBB ou na LDB para avaliar a fatia ajustada; o ajuste requer amostra mínima. O CBI ainda não fornece esse recorte na base.');
   $('advanced-distribution-table').innerHTML=players.length?players.map(p=>'<tr><td>'+esc(p.name)+'</td><td class="num">'+p.attempts+'</td><td class="num">'+formatPercent(p.share)+'</td><td class="num">'+formatPercent(p.adjusted)+'</td></tr>').join(''):'<tr><td colspan="4">Nenhuma tentativa identificada neste recorte.</td></tr>';
 }
 function renderAdvancedMap(c,t){
@@ -91,7 +104,7 @@ function renderShotMix(data){
  root.innerHTML=players.map(p=>{const total=p.two+p.three;return `<div class="mix-row" aria-label="${esc(p.name)}: ${p.two} tentativas de 2 pontos e ${p.three} tentativas de 3 pontos"><span>${esc(p.name)}</span><span class="mix-track" aria-hidden="true"><span class="mix-two" style="width:${100*p.two/total}%"></span><span class="mix-three" style="width:${100*p.three/total}%"></span></span><span class="mix-values">${p.two} de 2 · ${p.three} de 3</span></div>`}).join('')+'<p class="chart-key">Cada barra representa 100% das tentativas do atleta; considere a diferença de volume entre atletas.</p>';
 }
 function renderGameEfg(c,t,games){
- const rows=[];for(const g of games){const sample=playerData(c,t,[g]),sum=k=>sample.players.reduce((a,p)=>a+(Number(p[k])||0),0),attempts=sum('two')+sum('three');if(!attempts)continue;const efg=(sum('twoMade')+1.5*sum('threeMade'))/attempts,side=names(g,c).indexOf(t);rows.push({name:names(g,c)[1-side]+' · '+(g.date?g.date.slice(5).split('-').reverse().join('/'):'—')+' · n='+attempts,value:100*efg,text:formatPercent(efg)})}
+ const rows=[];for(const g of games){const totals=totalsForAnalysis(c,t,[g]),attempts=totals.attempts;if(!attempts)continue;const efg=totals.efg,side=names(g,c).indexOf(t);rows.push({name:names(g,c)[1-side]+' · '+(g.date?g.date.slice(5).split('-').reverse().join('/'):'—')+' · n='+attempts,value:100*efg,text:formatPercent(efg)})}
  percentBars('advanced-game-efg',rows.slice(0,8),150);
 }
 
@@ -119,7 +132,7 @@ function renderAdvancedComparison(){
  const c=selectedCompetition(),a=team.value,b=compareControl.value;if(!c||!a||!b)return;
  const one=totalsForAnalysis(c,a),two=totalsForAnalysis(c,b),oneScore=statsFor(c,a),twoScore=statsFor(c,b);
  const row=(name,x,y)=>'<tr><td>'+esc(name)+'</td><td class="num">'+esc(x)+'</td><td class="num">'+esc(y)+'</td></tr>';
- $('advanced-comparison').innerHTML='<div class="table-wrap"><table><thead><tr><th>Indicador</th><th class="num">'+esc(a)+'</th><th class="num">'+esc(b)+'</th></tr></thead><tbody>'+row('Jogos finalizados',one.games.length,two.games.length)+row('Campanha (vitórias–derrotas)',oneScore.w+'–'+oneScore.l,twoScore.w+'–'+twoScore.l)+row('Pontos marcados / jogo',fmt(oneScore.pf/one.games.length),fmt(twoScore.pf/two.games.length))+row('Pontos sofridos / jogo',fmt(oneScore.pa/one.games.length),fmt(twoScore.pa/two.games.length))+row('eFG% · amostra de arremessos',formatPercent(one.efg),formatPercent(two.efg))+row('Tentativas registradas',one.attempts,two.attempts)+row('Jogos com registros',one.sample.covered,two.sample.covered)+'</tbody></table></div><div class="grid"><div class="chart-pair"><h4>eFG% entre equipes</h4><div id="compare-efg"></div></div><div class="chart-pair"><h4>Frequência de arremessos de 3</h4><div id="compare-three"></div></div></div>';
+ $('advanced-comparison').innerHTML='<div class="table-wrap"><table><thead><tr><th>Indicador</th><th class="num">'+esc(a)+'</th><th class="num">'+esc(b)+'</th></tr></thead><tbody>'+row('Jogos finalizados',one.games.length,two.games.length)+row('Campanha (vitórias–derrotas)',oneScore.w+'–'+oneScore.l,twoScore.w+'–'+twoScore.l)+row('Pontos marcados / jogo',fmt(oneScore.pf/one.games.length),fmt(twoScore.pf/two.games.length))+row('Pontos sofridos / jogo',fmt(oneScore.pa/one.games.length),fmt(twoScore.pa/two.games.length))+row('eFG% · amostra de arremessos',formatPercent(one.efg),formatPercent(two.efg))+row('Tentativas registradas',one.attempts,two.attempts)+row('Jogos com dados de equipe',one.teamCovered,two.teamCovered)+'</tbody></table></div><div class="grid"><div class="chart-pair"><h4>eFG% entre equipes</h4><div id="compare-efg"></div></div><div class="chart-pair"><h4>Frequência de arremessos de 3</h4><div id="compare-three"></div></div></div>';
  percentBars('compare-efg',[[a,one],[b,two]].filter(([,d])=>d.efg!==null).map(([name,d])=>({name:name+' · n='+d.attempts,value:100*d.efg,text:formatPercent(d.efg)})),150);
  percentBars('compare-three',[[a,one],[b,two]].filter(([,d])=>d.threeRate!==null).map(([name,d])=>({name:name+' · n='+d.attempts,value:100*d.threeRate,text:formatPercent(d.threeRate)})),100);
  const direct=c.games.filter(g=>{const ns=names(g,c);return ns.includes(a)&&ns.includes(b)}).sort((x,y)=>(y.date||'').localeCompare(x.date||''));

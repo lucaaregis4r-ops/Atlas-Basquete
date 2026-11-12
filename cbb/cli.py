@@ -7,6 +7,7 @@ from pathlib import Path
 from cbb.export.html_dashboard import export_dashboard
 from cbb.extractors.cbb_archive import CBBArchiveExtractor
 from cbb.extractors.cbi_observed import refresh_snapshot as refresh_cbi_snapshot
+from cbb.extractors.lnb_observed import refresh_snapshot as refresh_lnb_snapshot
 from cbb.database.repository import default_repo
 
 def main():
@@ -31,11 +32,19 @@ def main():
         export_dashboard()
     elif args.command == "sync":
         print("Iniciando coleta e sincronização com CBB Archive...")
-        ext = CBBArchiveExtractor()
-        teams = ext.fetch_teams()
-        hall = ext.fetch_hall_athletes()
-        print(f"Coletados: {len(teams)} clubes e {len(hall)} atletas do Hall da Fama.")
-        default_repo.log_audit("cbb_archive_sync", len(teams) + len(hall), {"teams": len(teams), "hall": len(hall)})
+        try:
+            ext = CBBArchiveExtractor()
+            teams = ext.fetch_teams()
+            hall = ext.fetch_hall_athletes()
+            print(f"Coletados: {len(teams)} clubes e {len(hall)} atletas do Hall da Fama.")
+            default_repo.log_audit("cbb_archive_sync", len(teams) + len(hall), {"teams": len(teams), "hall": len(hall)})
+        except Exception as error:
+            print(f"Aviso: arquivo CBB indisponível ({error}).")
+        try:
+            lnb = refresh_lnb_snapshot()
+            print(f"LNB: {lnb['coverage']['games']} jogos; {lnb['coverage']['reports_checked']} relatórios consultados.")
+        except Exception as error:
+            print(f"Aviso: atualização de NBB/LDB indisponível; snapshot existente preservado ({error}).")
         try:
             cbi = refresh_cbi_snapshot()
             game_count = sum(len(competition["games"]) for competition in cbi["competitions"])
