@@ -79,6 +79,11 @@ assert(el('cbi-recent-table').innerHTML.includes('50,0%'));
 assert(el('cbi-recent-explanation').textContent.includes('não probabilidade'));
 
 assert(el('advanced-map').innerHTML.includes('não fornece coordenadas'));assert.strictEqual(el('map-controls').hidden,true);
+assert(el('advanced-map').innerHTML.includes('Origem da pontuação'));
+assert(el('advanced-map').innerHTML.includes('50,0%'));
+assert(el('advanced-map').innerHTML.includes('37,5%'));
+assert(el('advanced-map').innerHTML.includes('12,5%'));
+assert(el('advanced-map').innerHTML.includes('posições'));
 assert(el('markov-demo').innerHTML.includes('Perda de bola'));
 tabs[1].fire('click');assert.strictEqual(views.find(v=>v.id==='view-analysis').hidden,false);
 console.log('OK: indicadores, comparação, mapa, ajuste por período, CBI e modelo demonstrativo');
