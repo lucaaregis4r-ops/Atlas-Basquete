@@ -20,7 +20,7 @@ function totalsForAnalysis(c,t,selectedGames=null) {
     }
   }
   const attempts=two+three, ft=c.type==='cbi'?sum('ft'):null, validPoints=c.type==='cbi'?sum('validPoints'):null;
-  return {games,sample,two,three,twoMade,threeMade,attempts,ft,teamCovered:sample.covered+teamOnlyGames,teamOnlyGames,
+  return {games,sample,two,three,twoMade,threeMade,attempts,ft,teamCovered:(c.type==='cbi'?0:sample.covered+teamOnlyGames),teamOnlyGames,
     efg:attempts?(twoMade+1.5*threeMade)/attempts:null,
     threeRate:attempts?three/attempts:null,
     ftr:attempts&&ft!==null?ft/attempts:null, ts:ft!==null&&attempts+0.44*ft>0?validPoints/(2*(attempts+0.44*ft)):null};
@@ -50,13 +50,14 @@ function renderAdvanced(){
     statCard('FTR',data.ftr===null?'—':fmt2(data.ftr),'lances livres tentados / arremessos de quadra'),
     statCard('TS%',formatPercent(data.ts),'pontuação por tentativas estimadas')
   ].join('');
-  $('advanced-coverage').textContent=`Amostra: ${data.attempts} tentativas de quadra em ${data.teamCovered} de ${data.games.length} jogo(s) da equipe com ${c.type==='nbb'?'registros de equipe':'súmulas individuais conferidas'}. `+(c.type==='cbi'?'Os arremessos usam apenas linhas que também passam pela validação individual; a cobertura pode variar por atleta.':`${s.covered} jogo(s) têm arremessos individuais identificados; ${data.teamOnlyGames} adicional(is) fornecem apenas totais de equipe. Esses totais só entram quando o período selecionado é “Todos”. O FTR não está disponível nesta base.`);
+  $('advanced-coverage').textContent=c.type==='cbi'?`Amostra: ${s.covered} de ${data.games.length} jogos com súmula individual conferida. Pontos e cestas convertidas podem ser analisados; tentativas erradas não estão confirmadas, portanto os indicadores de aproveitamento ficam indisponíveis.`:`Amostra: ${data.attempts} tentativas de quadra em ${data.teamCovered} de ${data.games.length} jogos com registros de equipe. ${s.covered} jogos têm arremessos individuais identificados; ${data.teamOnlyGames} adicionais fornecem apenas totais de equipe. Esses totais só entram quando o período selecionado é “Todos”. O FTR não está disponível nesta base.`;
   renderAdvancedDistribution(c,t,data);
   renderAdvancedMap(c,t);
   renderAdvancedPeriods(c,t);
   renderShotMix(data);
   renderGameEfg(c,t,data.games);
   renderAdvancedTrend(c,t,data.games);
+  renderTactical(c,t,data);
   if(comparisonCompetition!==c.id){
     const teams=[...new Set(c.games.flatMap(g=>names(g,c)))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR'));
     compareControl.replaceChildren(...teams.map(name=>new Option(name,name)));comparisonCompetition=c.id;
@@ -128,6 +129,25 @@ function renderAdvancedTrend(c,t,games){
  const first=points[0].date,last=points[points.length-1].date;
  root.innerHTML=`<svg class="court-plot" viewBox="0 0 ${width} ${height}" role="img" aria-label="Evolução de pontos marcados e sofridos em ${points.length} partidas"><line x1="${left}" x2="${width-right}" y1="${height-bottom}" y2="${height-bottom}" stroke="#8798aa"/><line x1="${left}" x2="${left}" y1="${top}" y2="${height-bottom}" stroke="#8798aa"/><text x="5" y="${top+6}" fill="#b2c0cf" font-size="12">${Math.ceil(max)}</text><text x="23" y="${height-bottom}" fill="#b2c0cf" font-size="12">0</text><polyline points="${line('for')}" fill="none" stroke="#ff875e" stroke-width="3"/><polyline points="${line('against')}" fill="none" stroke="#75ced5" stroke-width="3" stroke-dasharray="7 4"/>${dots('for')}${dots('against')}<text x="${left}" y="${height-7}" fill="#b2c0cf" font-size="12">${esc(first)}</text><text x="${width-right}" y="${height-7}" text-anchor="end" fill="#b2c0cf" font-size="12">${esc(last)}</text></svg><p class="chart-key">Laranja contínuo: marcados · Azul tracejado: sofridos · eixo vertical: pontos.</p><details><summary>Ver valores por jogo</summary><div class="table-wrap"><table><thead><tr><th>Data</th><th>Adversário</th><th class="num">Marcados</th><th class="num">Sofridos</th></tr></thead><tbody>${points.map(v=>`<tr><td>${esc(v.date)}</td><td>${esc(v.opponent)}</td><td class="num">${v.for}</td><td class="num">${v.against}</td></tr>`).join('')}</tbody></table></div></details>`;
 }
+function renderTactical(c,t,data){
+ const recent=data.games.slice(0,8).map(g=>{const i=names(g,c).indexOf(t),s=score(g,c),margin=Number(s[i])-Number(s[1-i]);return{name:names(g,c)[1-i]+' · '+(g.date||'—'),value:Math.abs(margin),text:(margin>0?'+':'')+margin+' pts'}});
+ bars('tactical-margins',recent);
+ const panel=$('cbi-tactical-panel'),source=$('cbi-scoring-panel');panel.hidden=source.hidden=c.type!=='cbi';if(c.type!=='cbi')return;
+ const players=data.sample.players.filter(p=>Number(p.points)>0).sort((a,b)=>b.points-a.points),total=players.reduce((a,p)=>a+p.points,0);
+ bars('cbi-points-distribution',players.slice(0,10).map(p=>({name:p.name,value:p.points,text:fmt(100*p.points/total)+'% · '+p.points+' pts'})));
+ const top=players.slice(0,2).reduce((a,p)=>a+p.points,0);
+ $('cbi-points-summary').textContent=total?`Até dois atletas concentram ${fmt(100*top/total)}% dos ${total} pontos registrados em ${data.sample.covered} de ${data.games.length} súmula(s) da equipe. Cobertura parcial pode alterar a interpretação.`:`Não há pontos individuais disponíveis nas súmulas coletadas para esta equipe (${data.sample.covered} de ${data.games.length} jogos).`;
+ const made=key=>data.sample.players.reduce((a,p)=>a+(Number(p[key])||0),0),twos=made('scoredTwo'),threes=made('scoredThree'),ft=made('scoredFt'),known=2*twos+3*threes+ft;
+ $('cbi-shot-source').innerHTML=known?`<p>Dos ${total} pontos das súmulas, ${known} foram associados a cestas individuais conferidas. A fatia de cada origem usa somente esses ${known} pontos.</p><div class="table-wrap"><table><thead><tr><th>Origem</th><th class="num">Cestas convertidas</th><th class="num">Pontos</th><th class="num">Fatia</th></tr></thead><tbody>`+[["2 pontos",twos,2*twos],["3 pontos",threes,3*threes],["Lances livres",ft,ft]].map(([label,n,pts])=>`<tr><td>${label}</td><td class="num">${n}</td><td class="num">${pts}</td><td class="num">${fmt(100*pts/known)}%</td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">Nenhuma origem da pontuação individual foi validada nas súmulas coletadas.</div>';
+ const covered=data.games.filter(g=>g.boxscore?.[names(g,c).indexOf(t)===0?'home':'away']).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ if(covered.length<6){$('cbi-recent-explanation').textContent=`São necessárias pelo menos 6 súmulas individuais da equipe: 3 recentes e 3 anteriores. Há ${covered.length} disponível(is).`; $('cbi-recent-table').innerHTML='<tr><td colspan="4">Amostra insuficiente para o ajuste.</td></tr>';return}
+ const collect=games=>{const m=new Map();let sum=0;for(const g of games){const box=g.boxscore[names(g,c).indexOf(t)===0?'home':'away'];for(const p of box.players||[]){const points=Number(p.stats?.points);if(!p.id||!Number.isFinite(points)||points<0)continue;const id=String(p.id),v=m.get(id)||{name:p.name,points:0};v.points+=points;m.set(id,v);sum+=points}}return{m,sum}};
+ const latest=collect(covered.slice(0,3)),prior=collect(covered.slice(3));if(!latest.sum||!prior.sum){$('cbi-recent-explanation').textContent='Não há pontos suficientes nas súmulas para calcular o ajuste.';$('cbi-recent-table').innerHTML='<tr><td colspan="4">Sem amostra de pontuação.</td></tr>';return}
+ const priorWeight=3*prior.sum/(covered.length-3),ids=new Set([...latest.m.keys(),...prior.m.keys()]);const rows=[...ids].map(id=>{const a=latest.m.get(id),b=prior.m.get(id),recent=(a?.points||0)/latest.sum,reference=(b?.points||0)/prior.sum;return{name:a?.name||b.name,recent,reference,adjusted:((a?.points||0)+priorWeight*reference)/(latest.sum+priorWeight)}}).sort((a,b)=>b.adjusted-a.adjusted).slice(0,12);
+ $('cbi-recent-explanation').textContent=`As 3 súmulas mais recentes são combinadas com o perfil das ${covered.length-3} anteriores, que recebem peso equivalente a 3 jogos médios. As porcentagens representam participação na pontuação, não probabilidade de arremessar nem previsão de desempenho; escalações e adversários variam e uma ausência conta como zero pontos.`;
+ $('cbi-recent-table').innerHTML=rows.map(r=>`<tr><td>${esc(r.name)}</td><td class="num">${formatPercent(r.recent)}</td><td class="num">${formatPercent(r.reference)}</td><td class="num">${formatPercent(r.adjusted)}</td></tr>`).join('');
+}
+
 function renderAdvancedComparison(){
  const c=selectedCompetition(),a=team.value,b=compareControl.value;if(!c||!a||!b)return;
  const one=totalsForAnalysis(c,a),two=totalsForAnalysis(c,b),oneScore=statsFor(c,a),twoScore=statsFor(c,b);

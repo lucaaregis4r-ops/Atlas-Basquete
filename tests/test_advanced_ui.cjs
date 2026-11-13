@@ -62,10 +62,22 @@ assert.strictEqual(el('season-stats-panel').hidden,false);assert(el('season-stat
 el('competition').value='cbi:completed';el('competition').fire('change');
 assert.strictEqual(el('team').value,'A');
 const metrics=vm.runInContext("totalsForAnalysis(selectedCompetition(), team.value)",ctx);
-assert.strictEqual(metrics.attempts,7);
-assert(Math.abs(metrics.efg-.5)<1e-10);
-assert(Math.abs(metrics.ftr-2/7)<1e-10);
-assert(Math.abs(metrics.ts-8/(2*(7+0.44*2)))<1e-10);
+assert.strictEqual(metrics.attempts,0);
+assert.strictEqual(metrics.efg,null);
+assert.strictEqual(metrics.ftr,null);
+assert.strictEqual(metrics.ts,null);
+assert(el('cbi-points-distribution').children.length > 0);
+assert(el('cbi-shot-source').innerHTML.includes('2 pontos'));
+assert(el('tactical-margins').children.length > 0);
+assert(el('cbi-recent-explanation').textContent.includes('súmula'));
+assert(el('games').innerHTML.includes('convertidas'));
+ctx.tacticalGames=Array.from({length:6},(_,i)=>({id:'t'+i,date:'2026-10-0'+(6-i),home_team:'A',away_team:'B',home_score:10,away_score:6,is_finished:true,boxscore:{home:{players:[player('x','Alice',i<3?8:2,i<3?4:1,i<3?4:1,0,0,0,0),player('z','Zoe',i<3?2:8,i<3?1:4,i<3?1:4,0,0,0,0)]},away:{players:[]}}}));
+vm.runInContext('renderTactical(selectedCompetition(), team.value, {games:tacticalGames,sample:playerData(selectedCompetition(),team.value,tacticalGames)})',ctx);
+assert(el('cbi-recent-table').innerHTML.includes('80,0%'));
+assert(el('cbi-recent-table').innerHTML.includes('20,0%'));
+assert(el('cbi-recent-table').innerHTML.includes('50,0%'));
+assert(el('cbi-recent-explanation').textContent.includes('não probabilidade'));
+
 assert(el('advanced-map').innerHTML.includes('não fornece coordenadas'));assert.strictEqual(el('map-controls').hidden,true);
 assert(el('markov-demo').innerHTML.includes('Perda de bola'));
 tabs[1].fire('click');assert.strictEqual(views.find(v=>v.id==='view-analysis').hidden,false);
