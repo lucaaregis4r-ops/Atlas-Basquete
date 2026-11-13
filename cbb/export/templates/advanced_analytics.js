@@ -3,6 +3,7 @@ const markovDemo = JSON.parse($('markov-demo-data').textContent);
 const compareControl = $('compare-team');
 const fmt2=value=>new Intl.NumberFormat('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
 let comparisonCompetition = '';
+let cbiMapContext = '';
 function totalsForAnalysis(c,t,selectedGames=null) {
   const games=selectedGames||teamGames(c,t), sample=playerData(c,t,games);
   const sum=key=>sample.players.reduce((a,p)=>a+(Number(p[key])||0),0);
@@ -85,10 +86,12 @@ function renderAdvancedDistribution(c,t,data){
   $('advanced-distribution-table').innerHTML=players.length?players.map(p=>'<tr><td>'+esc(p.name)+'</td><td class="num">'+p.attempts+'</td><td class="num">'+formatPercent(p.share)+'</td><td class="num">'+formatPercent(p.adjusted)+'</td></tr>').join(''):'<tr><td colspan="4">Nenhuma tentativa identificada neste recorte.</td></tr>';
 }
 function renderAdvancedMap(c,t){
-  const root=$('advanced-map');$('map-controls').hidden=c.type!=='nbb';$('map-key').hidden=c.type!=='nbb';
+  const root=$('advanced-map');$('map-controls').hidden=c.type!=='nbb';$('cbi-map-controls').hidden=c.type!=='cbi';$('map-key').hidden=c.type!=='nbb';
   if(c.type!=='nbb'){
     $('map-caption').textContent='O CBI não informa a posição dos arremessos na quadra. Veja a distribuição dos pontos por tipo de cesta nas súmulas individuais conferidas.';
-    const games=teamGames(c,t),sample=playerData(c,t,games),sum=key=>sample.players.reduce((n,p)=>n+(Number(p[key])||0),0),two=sum('scoredTwo'),three=sum('scoredThree'),ft=sum('scoredFt'),known=2*two+3*three+ft,total=sample.players.reduce((n,p)=>n+(Number(p.points)||0),0);
+    const allGames=teamGames(c,t),select=$('cbi-map-game'),key=c.id+'|'+t,previous=cbiMapContext===key?select.value:'',eligible=allGames.filter(g=>g.boxscore?.[names(g,c).indexOf(t)===0?'home':'away']);
+    select.replaceChildren(new Option('Todas as súmulas disponíveis',''),...eligible.map(g=>{const side=names(g,c).indexOf(t),scores=score(g,c);return new Option((g.date||'—')+' · '+names(g,c)[1-side]+' · '+scores[side]+' × '+scores[1-side],String(g.id))}));cbiMapContext=key;select.value=eligible.some(g=>String(g.id)===previous)?previous:'';
+    const games=select.value?allGames.filter(g=>String(g.id)===select.value):allGames,sample=playerData(c,t,games),sum=key=>sample.players.reduce((n,p)=>n+(Number(p[key])||0),0),two=sum('scoredTwo'),three=sum('scoredThree'),ft=sum('scoredFt'),known=2*two+3*three+ft,total=sample.players.reduce((n,p)=>n+(Number(p.points)||0),0);
     if(!known){root.innerHTML='<div class="empty">A fonte CBI não fornece coordenadas e ainda não há cestas convertidas conferidas neste recorte.</div>';return}
     const rows=[{name:'2 pontos',count:two,points:2*two,color:'#75ced5'},{name:'3 pontos',count:three,points:3*three,color:'#ff875e'},{name:'Lances livres',count:ft,points:ft,color:'#e6c672'}];
     root.innerHTML='<h4>Origem da pontuação</h4><p class="small">A fonte não fornece coordenadas: as barras mostram tipos de cesta, não posições na quadra. Percentuais sobre pontos identificados, não sobre tentativas.</p><div class="origin-chart">'+rows.map(r=>'<div class="origin-row"><strong>'+r.name+'</strong><div class="origin-track" aria-hidden="true"><div class="origin-fill" style="width:'+(100*r.points/known)+'%;background:'+r.color+'"></div></div><span class="origin-value">'+r.count+' convertidas · '+r.points+' pts · '+fmt(100*r.points/known)+'%</span></div>').join('')+'</div><p class="chart-key">'+known+' dos '+total+' pontos registrados tiveram a origem individual conferida · '+sample.covered+' de '+games.length+' jogos com súmula individual. Erros e aproveitamento não estão confirmados.</p>';return
@@ -176,7 +179,7 @@ function renderMarkovDemo(){
 }
 
 compareControl.addEventListener('change',renderAdvancedComparison);
-$('map-result').addEventListener('change',()=>{const c=selectedCompetition();if(c&&team.value)renderAdvancedMap(c,team.value)});
+for(const id of ['map-result','cbi-map-game'])$(id).addEventListener('change',()=>{const c=selectedCompetition();if(c&&team.value)renderAdvancedMap(c,team.value)});
 for(const control of [comp,team,$('quarter'),$('shot-type')])control.addEventListener('change',renderAdvanced);
 renderMarkovDemo();
 if(competitions.length)renderAdvanced();
