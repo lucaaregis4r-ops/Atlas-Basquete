@@ -10,6 +10,7 @@ on:
       - .github/workflows/daily_sync.yml
       - pyproject.toml
       - requirements.txt
+      - cbb/export/templates/**
 
 concurrency:
   group: atlas-basketball-sync

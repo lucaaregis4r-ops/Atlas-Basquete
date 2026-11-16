@@ -61,6 +61,13 @@ el('competition').value='ldb:2026';el('competition').fire('change');
 assert.strictEqual(el('season-stats-panel').hidden,false);assert(el('season-stats-body').innerHTML.includes('Estrela'));assert(el('season-stats-body').innerHTML.includes('18,5'));assert.strictEqual(el('season-team-bars').children.length,1);
 el('competition').value='cbi:completed';el('competition').fire('change');
 assert.strictEqual(el('team').value,'A');
+assert.strictEqual(el('player-col-4').textContent,'3 pts convertidos');
+assert.strictEqual(el('player-col-5').textContent,'LL convertidos');
+assert.strictEqual(el('player-col-6').textContent,'% 3 pts');
+assert.strictEqual(el('player-col-7').textContent,'% LL');
+assert.strictEqual(el('player-col-8').textContent,'% pontos da equipe');
+assert.deepStrictEqual(el('players-body').children[0].children.slice(4).map(x=>x.textContent),['1','1','—','—','100,0%']);
+assert(el('players-description').textContent.includes('tentativas'));
 const metrics=vm.runInContext("totalsForAnalysis(selectedCompetition(), team.value)",ctx);
 assert.strictEqual(metrics.attempts,0);
 assert.strictEqual(metrics.efg,null);
@@ -83,6 +90,13 @@ assert(el('cbi-recent-table').innerHTML.includes('80,0%'));
 assert(el('cbi-recent-table').innerHTML.includes('20,0%'));
 assert(el('cbi-recent-table').innerHTML.includes('50,0%'));
 assert(el('cbi-recent-explanation').textContent.includes('não probabilidade'));
+ctx.closeGames=[{...cbigame,id:'close',home_score:8,away_score:6},{...cbigame,id:'wide',home_score:20,away_score:6}];
+vm.runInContext('renderCloseGames(selectedCompetition(),team.value,closeGames)',ctx);
+assert(el('cbi-close-summary').textContent.includes('1 de 2'));
+assert(el('cbi-close-players').children[0].children[2].textContent.includes('8 pts'));
+assert(el('cbi-close-summary').textContent.includes('placar final'));
+assert(el('cbi-close-note').textContent.includes('não indicam'));
+
 
 assert(el('advanced-map').innerHTML.includes('não fornece coordenadas'));assert.strictEqual(el('map-controls').hidden,true);
 assert(el('advanced-map').innerHTML.includes('Origem da pontuação'));

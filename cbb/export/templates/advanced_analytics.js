@@ -140,9 +140,21 @@ function renderAdvancedTrend(c,t,games){
  const first=points[0].date,last=points[points.length-1].date;
  root.innerHTML=`<svg class="court-plot" viewBox="0 0 ${width} ${height}" role="img" aria-label="Evolução de pontos marcados e sofridos em ${points.length} partidas"><line x1="${left}" x2="${width-right}" y1="${height-bottom}" y2="${height-bottom}" stroke="#8798aa"/><line x1="${left}" x2="${left}" y1="${top}" y2="${height-bottom}" stroke="#8798aa"/><text x="5" y="${top+6}" fill="#b2c0cf" font-size="12">${Math.ceil(max)}</text><text x="23" y="${height-bottom}" fill="#b2c0cf" font-size="12">0</text><polyline points="${line('for')}" fill="none" stroke="#ff875e" stroke-width="3"/><polyline points="${line('against')}" fill="none" stroke="#75ced5" stroke-width="3" stroke-dasharray="7 4"/>${dots('for')}${dots('against')}<text x="${left}" y="${height-7}" fill="#b2c0cf" font-size="12">${esc(first)}</text><text x="${width-right}" y="${height-7}" text-anchor="end" fill="#b2c0cf" font-size="12">${esc(last)}</text></svg><p class="chart-key">Laranja contínuo: marcados · Azul tracejado: sofridos · eixo vertical: pontos.</p><details><summary>Ver valores por jogo</summary><div class="table-wrap"><table><thead><tr><th>Data</th><th>Adversário</th><th class="num">Marcados</th><th class="num">Sofridos</th></tr></thead><tbody>${points.map(v=>`<tr><td>${esc(v.date)}</td><td>${esc(v.opponent)}</td><td class="num">${v.for}</td><td class="num">${v.against}</td></tr>`).join('')}</tbody></table></div></details>`;
 }
+function renderCloseGames(c,t,games){
+ const panel=$('cbi-close-panel');panel.hidden=c.type!=='cbi';if(c.type!=='cbi')return;
+ const close=games.filter(g=>{const side=names(g,c).indexOf(t),sc=score(g,c);return side>=0&&Math.abs(Number(sc[side])-Number(sc[1-side]))<=5});
+ const covered=close.filter(g=>g.boxscore?.[names(g,c).indexOf(t)===0?'home':'away']);
+ const wins=close.filter(g=>{const i=names(g,c).indexOf(t),sc=score(g,c);return Number(sc[i])>Number(sc[1-i])}).length;
+ $('cbi-close-summary').textContent=`${close.length} de ${games.length} jogos terminaram com diferença de até 5 pontos no placar final: ${wins} vitória(s) e ${close.length-wins} derrota(s). ${covered.length} têm súmula individual disponível.`;
+ $('cbi-close-note').textContent='Pontos de cada atleta durante o jogo inteiro, nas súmulas disponíveis. O placar final não revela quando a diferença ficou pequena. Estes dados não indicam quem foi mais acionado nem quem pontuou no fim do jogo.';
+ const sample=playerData(c,t,covered);const players=sample.players.filter(p=>p.points>0).sort((a,b)=>b.points-a.points);
+ bars('cbi-close-players',players.slice(0,10).map(p=>({name:p.name,value:p.points,text:p.points+' pts · '+p.games+' jogo(s)'})));
+ $('cbi-close-games').innerHTML=close.length?'<details><summary>Ver jogos decididos por até 5 pontos</summary>'+close.map(g=>gameCard(g,c,t,false)).join('')+'</details>':'<div class="empty">Nenhum jogo com diferença final de até 5 pontos neste recorte.</div>';
+}
 function renderTactical(c,t,data){
  const recent=data.games.slice(0,8).map(g=>{const i=names(g,c).indexOf(t),s=score(g,c),margin=Number(s[i])-Number(s[1-i]);return{name:names(g,c)[1-i]+' · '+(g.date||'—'),value:Math.abs(margin),text:(margin>0?'+':'')+margin+' pts'}});
  bars('tactical-margins',recent);
+ renderCloseGames(c,t,data.games);
  const panel=$('cbi-tactical-panel'),source=$('cbi-scoring-panel');panel.hidden=source.hidden=c.type!=='cbi';if(c.type!=='cbi')return;
  const players=data.sample.players.filter(p=>Number(p.points)>0).sort((a,b)=>b.points-a.points),total=players.reduce((a,p)=>a+p.points,0);
  bars('cbi-points-distribution',players.slice(0,10).map(p=>({name:p.name,value:p.points,text:fmt(100*p.points/total)+'% · '+p.points+' pts'})));
