@@ -4,6 +4,12 @@
 
 Scouting de basquete brasileiro organizado por competição, equipe, atletas e jogos. A interface usa dados observados dos relatórios públicos da LNB e das competições CBB/Go Champs. A navegação foi inspirada na organização do Atlas do Voleibol, com linguagem visual própria do basquete.
 
+## Visão do painel
+
+![Painel do Atlas do Basquete com filtros e análises de equipes e atletas](docs/screenshots/atlas-basquete-analise.png)
+
+*Captura da versão publicada em 21 de outubro de 2026. A cobertura dos relatórios varia entre competições e temporadas.*
+
 ## Cobertura e interpretação
 
 - **NBB e LDB:** os resultados são descobertos nas tabelas oficiais da LNB e reunidos em `docs/exports/nbb_observed.json`, organizados por competição e temporada. Relatórios são coletados progressivamente. Os arremessos identificados podem ser filtrados por período e tipo; jogos sem dados de arremesso são contados na campanha, mas não no perfil de finalizações. A cobertura dos relatórios e as falhas de coleta são registradas; partidas e temporadas não reconhecidas pela fonte não são inventadas.
